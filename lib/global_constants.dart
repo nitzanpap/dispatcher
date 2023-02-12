@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const appTitle = 'Dispatcher';
+
 final myColorScheme = ColorScheme(
   primary: const Color.fromRGBO(38, 33, 70, 1.0),
   primaryContainer: const Color.fromRGBO(90, 90, 137, 1),
