@@ -1,7 +1,8 @@
-import 'package:dispatcher/widgets/logo_svg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import './global_constants.dart';
+import './widgets/logo_layered.dart';
 
 void main() {
   runApp(const MyApp());
@@ -64,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            const SizedBox(width: 100, child: LogoSvg()),
+            const SizedBox(width: 100, child: LogoLayered()),
           ],
         ),
       ),
