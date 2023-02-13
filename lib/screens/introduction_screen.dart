@@ -1,8 +1,9 @@
 import 'package:dispatcher/global_constants.dart';
-import 'package:dispatcher/widgets/double_paper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
+
+import '../widgets/paper_widgets/double_paper.dart';
 
 class IntroductionScreen extends StatefulWidget {
   const IntroductionScreen({super.key});
@@ -88,52 +89,55 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                 ],
               ),
             ),
-            Stack(
-              alignment: Alignment.bottomLeft,
-              children: [
-                const DoublePaper(),
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextButton(
-                        onPressed: () => skipIntro(),
-                        child: Row(
-                          children: [
-                            Text(
-                              'Skip',
-                              style: TextStyle(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onBackground),
-                            ),
-                          ],
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () => moveToNextStep(),
-                        child: Row(
-                          children: [
-                            Text(
-                              'Next',
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                                fontSize: 16,
+            Expanded(
+              child: Stack(
+                alignment: Alignment.bottomLeft,
+                children: [
+                  DoublePaper(currentStep: currentStep + 1),
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton(
+                          onPressed: () => skipIntro(),
+                          child: Row(
+                            children: [
+                              Text(
+                                'Skip',
+                                style: TextStyle(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onBackground),
                               ),
-                            ),
-                            Icon(
-                              Icons.arrow_forward_ios_rounded,
-                              color: Theme.of(context).colorScheme.onPrimary,
-                              size: 16,
-                            )
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                        TextButton(
+                          onPressed: () => moveToNextStep(),
+                          child: Row(
+                            children: [
+                              Text(
+                                'Next',
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              Icon(
+                                Icons.arrow_forward_ios_rounded,
+                                color: Theme.of(context).colorScheme.onPrimary,
+                                size: 16,
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
