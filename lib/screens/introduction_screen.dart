@@ -41,6 +41,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
       appBar: AppBar(
+        toolbarHeight: 0,
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
           statusBarBrightness: Brightness.dark, // For iOS (dark icons)
