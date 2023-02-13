@@ -1,4 +1,5 @@
 import 'package:dispatcher/global_constants.dart';
+import 'package:dispatcher/widgets/double_paper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
@@ -48,9 +49,8 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
         ),
       ),
       body: Container(
-        margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-        padding: const EdgeInsets.all(40),
         alignment: Alignment.topCenter,
+        margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -88,37 +88,48 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                 ],
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Stack(
+              alignment: Alignment.bottomLeft,
               children: [
-                TextButton(
-                  onPressed: () => skipIntro(),
+                const DoublePaper(),
+                Padding(
+                  padding: const EdgeInsets.all(20),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Skip',
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.onPrimary),
-                      ),
-                    ],
-                  ),
-                ),
-                TextButton(
-                  onPressed: () => moveToNextStep(),
-                  child: Row(
-                    children: [
-                      Text(
-                        'Next',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                          fontSize: 16,
+                      TextButton(
+                        onPressed: () => skipIntro(),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Skip',
+                              style: TextStyle(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onBackground),
+                            ),
+                          ],
                         ),
                       ),
-                      Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        color: Theme.of(context).colorScheme.onPrimary,
-                        size: 16,
-                      )
+                      TextButton(
+                        onPressed: () => moveToNextStep(),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Next',
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onPrimary,
+                                fontSize: 16,
+                              ),
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              color: Theme.of(context).colorScheme.onPrimary,
+                              size: 16,
+                            )
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
