@@ -25,7 +25,10 @@ class MyApp extends StatelessWidget {
         ),
         scaffoldBackgroundColor: const Color.fromRGBO(229, 229, 229, 1),
       ),
-      home: const IntroductionScreen(),
+      home: const SplashScreen(),
+      routes: {
+        '/introduction_screen': (context) => const IntroductionScreen(),
+      },
     );
   }
 }
