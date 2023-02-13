@@ -1,7 +1,7 @@
 import 'package:dispatcher/global_constants.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/logo_layered.dart';
+import '../widgets/logo_widgets/logo_layered.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
