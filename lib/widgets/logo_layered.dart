@@ -9,7 +9,7 @@ class LogoLayered extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SvgPicture.asset(
-      'assets/images/logo_layered.svg',
+      'assets/images/svgs/logo_layered.svg',
       semanticsLabel: 'Dispatcher Logo',
       placeholderBuilder: (context) => const Text('Logo Svg'),
     );

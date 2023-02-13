@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:dispatcher/screens/introduction_screen.dart';
 import 'package:dispatcher/screens/splash_screen.dart';
-import 'package:flutter/material.dart';
 
 import './global_constants.dart';
 
