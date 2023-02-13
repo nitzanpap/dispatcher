@@ -45,6 +45,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
       appBar: AppBar(
         toolbarHeight: 0,
         systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Colors.white,
           statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
           statusBarBrightness: Brightness.dark, // For iOS (dark icons)
         ),
