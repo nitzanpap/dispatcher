@@ -1,6 +1,6 @@
 # dispatcher
 
-A new Flutter project.
+A news app developed in flutter during the 'Skills' period in Moveo.
 
 ## Getting Started
 
