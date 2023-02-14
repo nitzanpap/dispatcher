@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:dispatcher/screens/introduction_screen.dart';
+import 'package:dispatcher/screens/onboarding_screen.dart';
 import 'package:dispatcher/screens/splash_screen.dart';
 
 import './global_constants.dart';
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       ),
       home: const SplashScreen(),
       routes: {
-        '/introduction_screen': (context) => const IntroductionScreen(),
+        '/onboarding_screen': (context) => const OnboardingScreen(),
       },
     );
   }

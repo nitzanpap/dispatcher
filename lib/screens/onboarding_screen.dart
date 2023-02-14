@@ -1,19 +1,20 @@
 import 'package:dispatcher/global_constants.dart';
+import 'package:dispatcher/widgets/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 
 import '../widgets/paper_widgets/double_paper.dart';
 
-class IntroductionScreen extends StatefulWidget {
-  const IntroductionScreen({super.key});
+class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({super.key});
 
   @override
-  State<IntroductionScreen> createState() => _IntroductionScreenState();
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class _IntroductionScreenState extends State<IntroductionScreen> {
-  final List introDescriptions = [
+class _OnboardingScreenState extends State<OnboardingScreen> {
+  final List onboardingDescriptions = [
     'Welcome to Dispatcher, the right way to read your news. Just open the app.',
     'Search your fields of interest and the best part..',
     'Save all your articles for later, filter, learn and explore the latest news.',
@@ -22,24 +23,38 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
 
   void moveToNextStep() {
     setState(() {
-      if (currentStep + 1 <= introDescriptions.length - 1) {
+      if (currentStep + 1 <= onboardingDescriptions.length - 1) {
         currentStep++;
       } else {
         // Implement this later.
-        print('Finished Introduction!');
+        print('Finished Onboarding!');
       }
     });
   }
 
-  void skipIntro() {
+  void skipOnboarding() {
     setState(() {
-      currentStep = introDescriptions.length - 1;
+      currentStep = onboardingDescriptions.length - 1;
     });
     moveToNextStep();
   }
 
   @override
   Widget build(BuildContext context) {
+    const GAP_SEPARATOR_HEIGHT = 40.0;
+
+    Text TitleText(BuildContext context) {
+      return Text(
+        appTitle,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.onPrimary,
+          fontWeight: FontWeight.bold,
+          fontSize: 32,
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
       appBar: AppBar(
@@ -57,30 +72,18 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
-              width: 260,
+              width: 240,
               child: Column(
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
-                    child: LinearProgressIndicator(
-                      color: Theme.of(context).colorScheme.error,
-                      value: (currentStep + 1) / introDescriptions.length,
-                      backgroundColor: Colors.grey[800],
-                      minHeight: 10,
-                    ),
+                  ProgressBar(
+                    currentStep: currentStep,
+                    totalSteps: onboardingDescriptions.length,
                   ),
-                  const Gap(40),
+                  const Gap(GAP_SEPARATOR_HEIGHT),
+                  TitleText(context),
+                  const Gap(GAP_SEPARATOR_HEIGHT),
                   Text(
-                    appTitle,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 32,
-                    ),
-                  ),
-                  const Gap(40),
-                  Text(
-                    introDescriptions[currentStep],
+                    onboardingDescriptions[currentStep],
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.onPrimary,
@@ -101,7 +104,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         TextButton(
-                          onPressed: () => skipIntro(),
+                          onPressed: () => skipOnboarding(),
                           child: Row(
                             children: [
                               Text(
