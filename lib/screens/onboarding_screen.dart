@@ -1,4 +1,5 @@
 import 'package:dispatcher/global_constants.dart';
+import 'package:dispatcher/widgets/my_text_button.dart';
 import 'package:dispatcher/widgets/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -67,7 +68,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       ),
       body: Container(
         alignment: Alignment.topCenter,
-        margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+        margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -103,38 +104,24 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        TextButton(
-                          onPressed: () => skipOnboarding(),
-                          child: Row(
-                            children: [
-                              Text(
-                                'Skip',
-                                style: TextStyle(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onBackground),
-                              ),
-                            ],
-                          ),
+                        MyTextButton(
+                          onPressedFunction: () => skipOnboarding(),
+                          text: 'Skip',
+                          textStyle: TextStyle(
+                              color:
+                                  Theme.of(context).colorScheme.onBackground),
                         ),
-                        TextButton(
-                          onPressed: () => moveToNextStep(),
-                          child: Row(
-                            children: [
-                              Text(
-                                'Next',
-                                style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              Icon(
-                                Icons.arrow_forward_ios_rounded,
-                                color: Theme.of(context).colorScheme.onPrimary,
-                                size: 16,
-                              )
-                            ],
+                        MyTextButton(
+                          onPressedFunction: () => moveToNextStep(),
+                          text: 'Next',
+                          textStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.onPrimary,
+                            fontSize: 16,
+                          ),
+                          icon: Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            color: Theme.of(context).colorScheme.onPrimary,
+                            size: 16,
                           ),
                         ),
                       ],
