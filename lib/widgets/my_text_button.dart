@@ -6,12 +6,13 @@ class MyTextButton extends StatelessWidget {
   final TextStyle? textStyle;
   final Icon? icon;
 
-  const MyTextButton(
-      {super.key,
-      required this.onPressedFunction,
-      required this.text,
-      this.textStyle,
-      this.icon});
+  const MyTextButton({
+    super.key,
+    required this.onPressedFunction,
+    required this.text,
+    this.textStyle,
+    this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {
