@@ -1,3 +1,4 @@
+import 'package:dispatcher/screens/sign_up_login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:dispatcher/screens/onboarding_screen.dart';
 import 'package:dispatcher/screens/splash_screen.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
       home: const SplashScreen(),
       routes: {
         '/onboarding_screen': (context) => const OnboardingScreen(),
+        '/sign_up_login_screen': (context) => const SignUpLoginScreen(),
       },
     );
   }
