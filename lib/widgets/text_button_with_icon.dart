@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class MyTextButton extends StatelessWidget {
+class TextButtonWithRightIcon extends StatelessWidget {
   final VoidCallback onPressedFunction;
   final String text;
   final TextStyle? textStyle;
   final Icon? icon;
 
-  const MyTextButton({
+  const TextButtonWithRightIcon({
     super.key,
     required this.onPressedFunction,
     required this.text,

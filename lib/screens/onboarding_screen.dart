@@ -1,7 +1,6 @@
 import 'package:dispatcher/global_constants.dart';
-import 'package:dispatcher/models/onboarding_step_model.dart';
 import 'package:dispatcher/providers/onboarding_step_provider.dart';
-import 'package:dispatcher/widgets/my_text_button.dart';
+import 'package:dispatcher/widgets/text_button_with_icon.dart';
 import 'package:dispatcher/widgets/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -90,7 +89,7 @@ class OnboardingScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        MyTextButton(
+                        TextButtonWithRightIcon(
                           onPressedFunction: () =>
                               currentStepData.skipToEndOfOnboarding(),
                           text: 'Skip',
@@ -98,7 +97,7 @@ class OnboardingScreen extends StatelessWidget {
                               color:
                                   Theme.of(context).colorScheme.onBackground),
                         ),
-                        MyTextButton(
+                        TextButtonWithRightIcon(
                           onPressedFunction: () => moveToNextStep(),
                           text: 'Next',
                           textStyle: TextStyle(
