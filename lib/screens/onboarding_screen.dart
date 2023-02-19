@@ -17,19 +17,19 @@ class OnboardingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentStepData = Provider.of<OnboardingStepProvider>(context);
-    final int currentStep = currentStepData.stepNumber;
+    final onboardingStepProvider = Provider.of<OnboardingStepProvider>(context);
+    final int currentStep = onboardingStepProvider.stepNumber;
 
     void moveToNextStep() {
-      if (currentStep + 1 <= currentStepData.descriptions.length - 1) {
-        currentStepData.moveoToNextStep();
+      if (currentStep + 1 <= onboardingStepProvider.descriptions.length - 1) {
+        onboardingStepProvider.moveoToNextStep();
       } else {
         // Implement this later.
         print('Finished Onboarding!');
       }
     }
 
-    Text TitleText(BuildContext context) {
+    Text getTitleTextView(Color color) {
       return Text(
         appTitle,
         textAlign: TextAlign.center,
@@ -43,14 +43,6 @@ class OnboardingScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
-      appBar: AppBar(
-        toolbarHeight: 0,
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: Colors.white,
-          statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
-          statusBarBrightness: Brightness.dark, // For iOS (dark icons)
-        ),
-      ),
       body: Container(
         alignment: Alignment.topCenter,
         margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 20),
@@ -63,13 +55,13 @@ class OnboardingScreen extends StatelessWidget {
                 children: [
                   ProgressBar(
                     currentStep: currentStep,
-                    totalSteps: currentStepData.descriptions.length,
+                    totalSteps: onboardingStepProvider.descriptions.length,
                   ),
                   GAP,
-                  TitleText(context),
+                  getTitleTextView(Theme.of(context).colorScheme.onPrimary),
                   GAP,
                   Text(
-                    currentStepData.descriptions[currentStep],
+                    onboardingStepProvider.descriptions[currentStep],
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.onPrimary,
@@ -91,7 +83,7 @@ class OnboardingScreen extends StatelessWidget {
                       children: [
                         TextButtonWithRightIcon(
                           onPressedFunction: () =>
-                              currentStepData.skipToEndOfOnboarding(),
+                              onboardingStepProvider.skipToEndOfOnboarding(),
                           text: 'Skip',
                           textStyle: TextStyle(
                               color:
