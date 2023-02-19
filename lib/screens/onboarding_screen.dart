@@ -1,48 +1,34 @@
 import 'package:dispatcher/global_constants.dart';
+import 'package:dispatcher/models/onboarding_step_model.dart';
+import 'package:dispatcher/providers/onboarding_step_provider.dart';
 import 'package:dispatcher/widgets/my_text_button.dart';
 import 'package:dispatcher/widgets/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/paper_widgets/double_paper.dart';
 
-class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({super.key});
+const GAP_SEPARATOR_HEIGHT = 40.0;
+const GAP = const Gap(GAP_SEPARATOR_HEIGHT);
+
+class OnboardingScreen extends StatelessWidget {
+  OnboardingScreen({super.key});
 
   @override
-  State<OnboardingScreen> createState() => _OnboardingScreenState();
-}
+  Widget build(BuildContext context) {
+    final currentStepData = Provider.of<OnboardingStepProvider>(context);
+    final int currentStep = currentStepData.stepNumber;
 
-class _OnboardingScreenState extends State<OnboardingScreen> {
-  final List onboardingDescriptions = [
-    'Welcome to Dispatcher, the right way to read your news. Just open the app.',
-    'Search your fields of interest and the best part..',
-    'Save all your articles for later, filter, learn and explore the latest news.',
-  ];
-  int currentStep = 0;
-
-  void moveToNextStep() {
-    setState(() {
-      if (currentStep + 1 <= onboardingDescriptions.length - 1) {
-        currentStep++;
+    void moveToNextStep() {
+      if (currentStep + 1 <= currentStepData.descriptions.length - 1) {
+        currentStepData.moveoToNextStep();
       } else {
         // Implement this later.
         print('Finished Onboarding!');
       }
-    });
-  }
-
-  void skipOnboarding() {
-    setState(() {
-      currentStep = onboardingDescriptions.length - 1;
-    });
-    moveToNextStep();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    const GAP_SEPARATOR_HEIGHT = 40.0;
+    }
 
     Text TitleText(BuildContext context) {
       return Text(
@@ -78,13 +64,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 children: [
                   ProgressBar(
                     currentStep: currentStep,
-                    totalSteps: onboardingDescriptions.length,
+                    totalSteps: currentStepData.descriptions.length,
                   ),
-                  const Gap(GAP_SEPARATOR_HEIGHT),
+                  GAP,
                   TitleText(context),
-                  const Gap(GAP_SEPARATOR_HEIGHT),
+                  GAP,
                   Text(
-                    onboardingDescriptions[currentStep],
+                    currentStepData.descriptions[currentStep],
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.onPrimary,
@@ -105,7 +91,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         MyTextButton(
-                          onPressedFunction: () => skipOnboarding(),
+                          onPressedFunction: () =>
+                              currentStepData.skipToEndOfOnboarding(),
                           text: 'Skip',
                           textStyle: TextStyle(
                               color:
