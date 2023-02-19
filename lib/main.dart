@@ -28,8 +28,9 @@ class MyApp extends StatelessWidget {
       ),
       home: const SplashScreen(),
       routes: {
-        '/onboarding_screen': (context) => const OnboardingScreen(),
-        '/sign_up_login_screen': (context) => const SignUpLoginScreen(),
+        ValidRoutes.ONBOARDING_SCREEN: (context) => const OnboardingScreen(),
+        ValidRoutes.SIGN_UP_LOGIN_SCREEN: (context) =>
+            const SignUpLoginScreen(),
       },
     );
   }

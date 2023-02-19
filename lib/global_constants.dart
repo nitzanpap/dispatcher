@@ -27,3 +27,8 @@ class FigmaColors {
   static const LIGHT_GREY = Color.fromRGBO(243, 243, 255, 1);
   static const GREY = Color.fromRGBO(217, 219, 233, 1);
 }
+
+class ValidRoutes {
+  static const ONBOARDING_SCREEN = '/onboarding_screen';
+  static const SIGN_UP_LOGIN_SCREEN = '/sign_up_login_screen';
+}
