@@ -22,9 +22,9 @@ class TextButtonWithRightIcon extends StatelessWidget {
         children: [
           Text(
             text,
-            style: textStyle ?? TextStyle(color: Colors.black),
+            style: textStyle ?? const TextStyle(color: Colors.black),
           ),
-          icon ?? SizedBox.shrink(),
+          icon ?? const SizedBox.shrink(),
         ],
       ),
     );

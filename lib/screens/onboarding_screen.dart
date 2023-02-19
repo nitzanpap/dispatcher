@@ -2,6 +2,7 @@ import 'package:dispatcher/global_constants.dart';
 import 'package:dispatcher/providers/onboarding_step_provider.dart';
 import 'package:dispatcher/widgets/text_button_with_icon.dart';
 import 'package:dispatcher/widgets/progress_bar.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
@@ -9,10 +10,10 @@ import 'package:provider/provider.dart';
 import '../widgets/paper_widgets/double_paper.dart';
 
 const GAP_SEPARATOR_HEIGHT = 40.0;
-const GAP = const Gap(GAP_SEPARATOR_HEIGHT);
+const GAP = Gap(GAP_SEPARATOR_HEIGHT);
 
 class OnboardingScreen extends StatelessWidget {
-  OnboardingScreen({super.key});
+  const OnboardingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,9 @@ class OnboardingScreen extends StatelessWidget {
         onboardingStepProvider.moveoToNextStep();
       } else {
         // Implement this later.
-        print('Finished Onboarding!');
+        if (kDebugMode) {
+          print('Finished Onboarding!');
+        }
       }
     }
 

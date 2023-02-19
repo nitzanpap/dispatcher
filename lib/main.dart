@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         ),
         home: const SplashScreen(),
         routes: {
-          '/onboarding_screen': (context) => OnboardingScreen(),
+          '/onboarding_screen': (context) => const OnboardingScreen(),
         },
       ),
     );
