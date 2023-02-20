@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       ),
       home: const SplashScreen(),
       routes: {
-        '/onboarding_screen': (context) => ChangeNotifierProvider(
+        ValidRoutes.onboardingScreen: (context) => ChangeNotifierProvider(
               create: (context) => OnboardingStepProvider(),
               child: const OnboardingScreen(),
             )
