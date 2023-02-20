@@ -9,110 +9,131 @@ import 'package:provider/provider.dart';
 
 import '../widgets/paper_widgets/double_paper.dart';
 
-const GAP_SEPARATOR_HEIGHT = 40.0;
-const GAP = Gap(GAP_SEPARATOR_HEIGHT);
-
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
+
+  static const gapSeparatorHeight = 40.0;
+  final gap = const Gap(gapSeparatorHeight);
 
   @override
   Widget build(BuildContext context) {
     final onboardingStepProvider = Provider.of<OnboardingStepProvider>(context);
     final int currentStep = onboardingStepProvider.stepNumber;
 
-    void moveToNextStep() {
-      if (currentStep + 1 <= onboardingStepProvider.descriptions.length - 1) {
-        onboardingStepProvider.moveoToNextStep();
-      } else {
-        // Implement this later.
-        if (kDebugMode) {
-          print('Finished Onboarding!');
-        }
-      }
-    }
-
-    Text getTitleTextView(Color color) {
-      return Text(
-        appTitle,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.onPrimary,
-          fontWeight: FontWeight.bold,
-          fontSize: 32,
-        ),
-      );
-    }
-
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: FigmaColors.deepDarkBlue,
       body: Container(
         alignment: Alignment.topCenter,
         margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(
-              width: 240,
-              child: Column(
-                children: [
-                  ProgressBar(
-                    currentStep: currentStep,
-                    totalSteps: onboardingStepProvider.descriptions.length,
-                  ),
-                  GAP,
-                  getTitleTextView(Theme.of(context).colorScheme.onPrimary),
-                  GAP,
-                  Text(
-                    onboardingStepProvider.descriptions[currentStep],
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                      fontSize: 22,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Stack(
-                alignment: Alignment.bottomLeft,
-                children: [
-                  DoublePaper(currentStep: currentStep + 1),
-                  Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TextButtonWithRightIcon(
-                          onPressedFunction: () =>
-                              onboardingStepProvider.skipToEndOfOnboarding(),
-                          text: 'Skip',
-                          textStyle: TextStyle(
-                              color:
-                                  Theme.of(context).colorScheme.onBackground),
-                        ),
-                        TextButtonWithRightIcon(
-                          onPressedFunction: () => moveToNextStep(),
-                          text: 'Next',
-                          textStyle: TextStyle(
-                            color: Theme.of(context).colorScheme.onPrimary,
-                            fontSize: 16,
-                          ),
-                          icon: Icon(
-                            Icons.arrow_forward_ios_rounded,
-                            color: Theme.of(context).colorScheme.onPrimary,
-                            size: 16,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            getProgressAndTitleView(currentStep, onboardingStepProvider),
+            getPageImageAndButtonsView(currentStep, onboardingStepProvider),
           ],
         ),
       ),
     );
+  }
+
+  Widget getProgressAndTitleView(
+      int currentStep, OnboardingStepProvider onboardingStepProvider) {
+    return FractionallySizedBox(
+      widthFactor: 0.75,
+      child: Column(
+        children: [
+          ProgressBar(
+            currentStep: currentStep,
+            totalSteps: onboardingStepProvider.descriptions.length,
+          ),
+          gap,
+          getTitleTextView(FigmaColors.white),
+          gap,
+          Text(
+            onboardingStepProvider.descriptions[currentStep],
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: FigmaColors.white,
+              fontSize: 22,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Expanded getPageImageAndButtonsView(
+    int currentStep,
+    OnboardingStepProvider onboardingStepProvider,
+  ) {
+    return Expanded(
+      child: Stack(
+        alignment: Alignment.bottomLeft,
+        children: [
+          DoublePaper(currentStep: currentStep + 1),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                skipButton(),
+                nextButton(currentStep, onboardingStepProvider),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  TextButtonWithIcon nextButton(
+    int currentStep,
+    OnboardingStepProvider onboardingStepProvider,
+  ) {
+    return TextButtonWithIcon(
+      onPressedFunction: () {
+        if (currentStep + 1 <= onboardingStepProvider.descriptions.length - 1) {
+          onboardingStepProvider.moveoToNextStep();
+        } else {
+          skipOnboarding();
+        }
+      },
+      text: 'Next',
+      color: FigmaColors.white,
+      fontSize: 16,
+      icon: const Icon(
+        Icons.arrow_forward_ios_rounded,
+        color: FigmaColors.white,
+        size: 16,
+      ),
+      iconDirection: IconDirection.end,
+    );
+  }
+
+  TextButtonWithIcon skipButton() {
+    return TextButtonWithIcon(
+      onPressedFunction: () => skipOnboarding(),
+      text: 'Skip',
+      color: FigmaColors.black,
+    );
+  }
+
+  Text getTitleTextView(Color color) {
+    return Text(
+      appTitle,
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        color: color,
+        fontWeight: FontWeight.bold,
+        fontSize: 32,
+      ),
+    );
+  }
+
+  void skipOnboarding() {
+    // TODO: Implement push to a new route.
+    if (kDebugMode) {
+      print('Finished Onboarding!');
+    }
   }
 }

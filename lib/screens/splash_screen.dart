@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: FigmaColors.deepDarkBlue,
       body: Center(
         child: FractionallySizedBox(
           heightFactor: 0.75,
@@ -31,10 +31,10 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               logoLayered,
-              Text(
+              const Text(
                 appTitle,
                 style: TextStyle(
-                  color: Theme.of(context).colorScheme.onPrimary,
+                  color: FigmaColors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 32,
                 ),

@@ -1,19 +1,20 @@
-import 'package:dispatcher/models/onboarding_step_model.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingStepProvider with ChangeNotifier {
-  final OnboardingStepModel _onboardingStep = OnboardingStepModel();
+  int _onboardingStep = 0;
 
-  int get stepNumber => _onboardingStep.stepNumber;
-  List<String> get descriptions => _onboardingStep.descriptions;
+  final List<String> _descriptions = [
+    'Welcome to Dispatcher, the right way to read your news. Just open the app.',
+    'Search your fields of interest and the best part..',
+    'Save all your articles for later, filter, learn and explore the latest news.',
+  ];
+
+  int get stepNumber => _onboardingStep;
+
+  List<String> get descriptions => _descriptions;
 
   void moveoToNextStep() {
-    _onboardingStep.moveoToNextStep();
-    notifyListeners();
-  }
-
-  void skipToEndOfOnboarding() {
-    _onboardingStep.skipToEndOfOnboarding();
+    _onboardingStep++;
     notifyListeners();
   }
 }
