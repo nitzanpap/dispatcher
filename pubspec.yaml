@@ -70,7 +70,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/svgs/
-    - assets/images/svgs/papers/
+    - assets/images/svgs/paper_images/
     - assets/images/app_icons/
   #   - images/a_dot_ham.jpeg
 

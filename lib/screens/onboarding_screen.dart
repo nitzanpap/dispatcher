@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/paper_widgets/double_paper.dart';
+import '../widgets/paper_widgets/onboarding_paper_image.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -70,7 +70,7 @@ class OnboardingScreen extends StatelessWidget {
       child: Stack(
         alignment: Alignment.bottomLeft,
         children: [
-          DoublePaper(currentStep: currentStep + 1),
+          OnboardingPaperImage(currentStep: currentStep + 1),
           Padding(
             padding: const EdgeInsets.all(20),
             child: Row(
