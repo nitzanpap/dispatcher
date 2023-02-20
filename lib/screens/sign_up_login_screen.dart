@@ -13,7 +13,7 @@ class SignUpLoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     const logoLayered = LogoLayered();
     return Scaffold(
-      backgroundColor: FigmaColors.DEEP_DARK_BLUE,
+      backgroundColor: FigmaColors.deepDarkBlue,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -25,7 +25,7 @@ class SignUpLoginScreen extends StatelessWidget {
             Flexible(
               flex: 100 - logoSectionSize,
               child: Container(
-                color: FigmaColors.WHITE,
+                color: FigmaColors.white,
                 width: double.infinity,
                 height: double.infinity,
                 child: const SignUpLoginForm(),

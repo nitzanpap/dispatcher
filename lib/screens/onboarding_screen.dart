@@ -41,7 +41,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const GAP_SEPARATOR_HEIGHT = 40.0;
+    const gapSeparatorHeight = 40.0;
 
     Text TitleText(BuildContext context) {
       return Text(
@@ -79,9 +79,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     currentStep: currentStep,
                     totalSteps: onboardingDescriptions.length,
                   ),
-                  const Gap(GAP_SEPARATOR_HEIGHT),
+                  const Gap(gapSeparatorHeight),
                   TitleText(context),
-                  const Gap(GAP_SEPARATOR_HEIGHT),
+                  const Gap(gapSeparatorHeight),
                   Text(
                     onboardingDescriptions[currentStep],
                     textAlign: TextAlign.center,

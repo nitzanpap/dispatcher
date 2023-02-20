@@ -28,8 +28,8 @@ class MyApp extends StatelessWidget {
       ),
       home: const SplashScreen(),
       routes: {
-        ValidRoutes.ONBOARDING_SCREEN: (context) => const OnboardingScreen(),
-        ValidRoutes.SIGN_UP_LOGIN_SCREEN: (context) =>
+        ValidRoutes.onboardingScreen: (context) => const OnboardingScreen(),
+        ValidRoutes.signupLoginScreen: (context) =>
             const SignUpLoginScreen(),
       },
     );

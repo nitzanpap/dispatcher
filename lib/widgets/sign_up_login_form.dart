@@ -31,7 +31,7 @@ class _SignUpLoginFormState extends State<SignUpLoginForm> {
               const Text(
                 title,
                 style: TextStyle(
-                  color: FigmaColors.MEDIUM_BLUE,
+                  color: FigmaColors.mediumBlue,
                 ),
               ),
               gap,
