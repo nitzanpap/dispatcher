@@ -2,9 +2,6 @@ import 'package:dispatcher/global_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-const GAP_SEPARATOR_HEIGHT = 40.0;
-const GAP = Gap(GAP_SEPARATOR_HEIGHT);
-
 class SignUpLoginForm extends StatefulWidget {
   final bool isSignUp;
 
@@ -17,9 +14,12 @@ class SignUpLoginForm extends StatefulWidget {
 class _SignUpLoginFormState extends State<SignUpLoginForm> {
   final _formKey = GlobalKey<FormState>();
 
+  static const gapSeparatorHeight = 40.0;
+  static const gap = Gap(gapSeparatorHeight);
+
   @override
   Widget build(BuildContext context) {
-    final title = 'Signup';
+    const title = 'Signup';
     return Form(
       key: _formKey,
       child: Padding(
@@ -28,19 +28,19 @@ class _SignUpLoginFormState extends State<SignUpLoginForm> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 title,
                 style: TextStyle(
                   color: FigmaColors.MEDIUM_BLUE,
                 ),
               ),
-              GAP,
+              gap,
               TextFormField(
                 decoration: InputDecoration(
                   hintText: 'johncena@gmail.com',
                   labelText: 'Your email',
-                  border: OutlineInputBorder(),
-                  suffixIcon: Icon(Icons.person),
+                  border: const OutlineInputBorder(),
+                  suffixIcon: const Icon(Icons.person),
                   prefixIconColor: MaterialStateColor.resolveWith(
                       (Set<MaterialState> states) {
                     if (states.contains(MaterialState.focused)) {
@@ -59,18 +59,17 @@ class _SignUpLoginFormState extends State<SignUpLoginForm> {
                 validator: (String? value) {
                   RegExp validEmailRegEx = RegExp(
                       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-                  ;
                   return (value != null && validEmailRegEx.hasMatch(value))
                       ? null
                       : 'Please enter a valid email address.';
                 },
               ),
-              GAP,
+              gap,
               ElevatedButton(
                 onPressed: () {
                   _formKey.currentState!.validate();
                 },
-                child: Text('Signup'),
+                child: const Text('Signup'),
               )
             ],
           ),
