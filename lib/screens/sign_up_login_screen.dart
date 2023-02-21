@@ -1,14 +1,14 @@
-import 'package:dispatcher/global_constants.dart';
-import 'package:dispatcher/widgets/logo_widgets/logo_layered.dart';
-import 'package:dispatcher/widgets/minimal_app_bar.dart';
-import 'package:dispatcher/widgets/sign_up_login_form.dart';
 import 'package:flutter/material.dart';
+import '../global_constants.dart';
+import '../widgets/logo_widgets/logo_layered.dart';
+import '../widgets/minimal_app_bar.dart';
+import '../widgets/sign_up_login_form.dart';
 
 class SignUpLoginScreen extends StatelessWidget {
   final bool isLogin;
 
   const SignUpLoginScreen({super.key, this.isLogin = false});
-  static const int logoSectionSize = 36;
+  static const int logoSectionSize = 40;
 
   @override
   Widget build(BuildContext context) {

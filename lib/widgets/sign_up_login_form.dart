@@ -1,4 +1,6 @@
+import 'package:dispatcher/enums/icon_direction.dart';
 import 'package:dispatcher/global_constants.dart';
+import 'package:dispatcher/widgets/text_with_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -65,11 +67,28 @@ class _SignUpLoginFormState extends State<SignUpLoginForm> {
                 },
               ),
               gap,
-              ElevatedButton(
-                onPressed: () {
-                  _formKey.currentState!.validate();
-                },
-                child: const Text('Signup'),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(36),
+                    backgroundColor: FigmaColors.blue,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                  ),
+                  onPressed: () {
+                    _formKey.currentState!.validate();
+                  },
+                  child: const TextWithIcon(
+                    text: 'SIGNUP',
+                    color: FigmaColors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 0.25,
+                    icon: Icon(Icons.arrow_forward, size: 30),
+                    iconDirection: IconDirection.end,
+                  ),
+                ),
               )
             ],
           ),
