@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constants/enums.dart';
+import '../enums/icon_direction.dart';
 
 class TextButtonWithIcon extends StatelessWidget {
   final VoidCallback onPressedFunction;

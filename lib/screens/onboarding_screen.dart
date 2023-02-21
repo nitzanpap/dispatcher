@@ -5,7 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/constant_vars.dart';
-import '../constants/enums.dart';
+import '../enums/icon_direction.dart';
 import '../constants/colors.dart';
 
 import '../providers/onboarding_step_provider.dart';
