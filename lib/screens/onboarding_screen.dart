@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
-import '../constants/constant_vars.dart';
+import '../constants/strings.dart';
 import '../enums/icon_direction.dart';
 import '../constants/colors.dart';
 

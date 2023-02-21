@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import './constants/constant_vars.dart';
+import 'constants/strings.dart';
 import './constants/routes.dart';
 import './providers/onboarding_step_provider.dart';
 import './screens/onboarding_screen.dart';

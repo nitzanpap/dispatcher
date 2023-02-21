@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
-import '../constants/constant_vars.dart';
+import '../constants/strings.dart';
 import '../constants/routes.dart';
 
 import '../widgets/logo_widgets/logo_layered.dart';
