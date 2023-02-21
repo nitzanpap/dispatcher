@@ -1,5 +1,8 @@
-import 'package:dispatcher/global_constants.dart';
 import 'package:flutter/material.dart';
+
+import '../constants/colors.dart';
+import '../constants/strings.dart';
+import '../constants/routes.dart';
 
 import '../widgets/logo_widgets/logo_layered.dart';
 
@@ -16,14 +19,14 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 1, milliseconds: 500)).then(
-        (value) =>
-            Navigator.pushReplacementNamed(context, '/onboarding_screen'));
+        (value) => Navigator.pushReplacementNamed(
+            context, ValidRoutes.onboardingScreen));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: AppColors.deepDarkBlue,
       body: Center(
         child: FractionallySizedBox(
           heightFactor: 0.75,
@@ -31,10 +34,10 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               logoLayered,
-              Text(
+              const Text(
                 appTitle,
                 style: TextStyle(
-                  color: Theme.of(context).colorScheme.onPrimary,
+                  color: AppColors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 32,
                 ),
