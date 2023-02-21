@@ -13,7 +13,7 @@ class OnboardingStepProvider with ChangeNotifier {
 
   List<String> get descriptions => _descriptions;
 
-  void moveoToNextStep() {
+  void incrementOnboardingStep() {
     _onboardingStep++;
     notifyListeners();
   }

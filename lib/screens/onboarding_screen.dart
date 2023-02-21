@@ -32,7 +32,10 @@ class OnboardingScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            getProgressAndTitleView(currentStep, onboardingStepProvider),
+            getProgressAndTitleView(
+              currentStep,
+              onboardingStepProvider.descriptions,
+            ),
             getPageImageAndButtonsView(currentStep, onboardingStepProvider),
           ],
         ),
@@ -40,21 +43,20 @@ class OnboardingScreen extends StatelessWidget {
     );
   }
 
-  Widget getProgressAndTitleView(
-      int currentStep, OnboardingStepProvider onboardingStepProvider) {
+  Widget getProgressAndTitleView(int currentStep, List<String> descriptions) {
     return FractionallySizedBox(
       widthFactor: 0.75,
       child: Column(
         children: [
           ProgressBar(
             currentStep: currentStep,
-            totalSteps: onboardingStepProvider.descriptions.length,
+            totalSteps: descriptions.length,
           ),
           gap,
           getTitleTextView(AppColors.white),
           gap,
           Text(
-            onboardingStepProvider.descriptions[currentStep],
+            descriptions[currentStep],
             textAlign: TextAlign.center,
             style: const TextStyle(
               color: AppColors.white,
@@ -80,8 +82,8 @@ class OnboardingScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                skipButton(),
-                nextButton(currentStep, onboardingStepProvider),
+                getSkipButtonView(),
+                getNextButtonView(currentStep, onboardingStepProvider),
               ],
             ),
           ),
@@ -90,16 +92,16 @@ class OnboardingScreen extends StatelessWidget {
     );
   }
 
-  TextButtonWithIcon nextButton(
+  TextButtonWithIcon getNextButtonView(
     int currentStep,
     OnboardingStepProvider onboardingStepProvider,
   ) {
     return TextButtonWithIcon(
       onPressedFunction: () {
         if (currentStep + 1 <= onboardingStepProvider.descriptions.length - 1) {
-          onboardingStepProvider.moveoToNextStep();
+          onboardingStepProvider.incrementOnboardingStep();
         } else {
-          skipOnboarding();
+          onSkipOnboardingPressed();
         }
       },
       text: 'Next',
@@ -114,9 +116,9 @@ class OnboardingScreen extends StatelessWidget {
     );
   }
 
-  TextButtonWithIcon skipButton() {
+  TextButtonWithIcon getSkipButtonView() {
     return TextButtonWithIcon(
-      onPressedFunction: () => skipOnboarding(),
+      onPressedFunction: () => onSkipOnboardingPressed(),
       text: 'Skip',
       color: AppColors.black,
     );
@@ -134,7 +136,7 @@ class OnboardingScreen extends StatelessWidget {
     );
   }
 
-  void skipOnboarding() {
+  void onSkipOnboardingPressed() {
     // TODO: Implement push to a new route.
     if (kDebugMode) {
       print('Finished Onboarding!');
