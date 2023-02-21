@@ -36,7 +36,8 @@ class OnboardingScreen extends StatelessWidget {
               currentStep,
               onboardingStepProvider.descriptions,
             ),
-            getPageImageAndButtonsView(currentStep, onboardingStepProvider),
+            getPageImageAndButtonsView(
+                currentStep, onboardingStepProvider, context),
           ],
         ),
       ),
@@ -71,6 +72,7 @@ class OnboardingScreen extends StatelessWidget {
   Expanded getPageImageAndButtonsView(
     int currentStep,
     OnboardingStepProvider onboardingStepProvider,
+    context,
   ) {
     return Expanded(
       child: Stack(
@@ -82,8 +84,8 @@ class OnboardingScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                getSkipButtonView(),
-                getNextButtonView(currentStep, onboardingStepProvider),
+                getSkipButtonView(context),
+                getNextButtonView(currentStep, onboardingStepProvider, context),
               ],
             ),
           ),
@@ -95,13 +97,14 @@ class OnboardingScreen extends StatelessWidget {
   TextButton getNextButtonView(
     int currentStep,
     OnboardingStepProvider onboardingStepProvider,
+    context,
   ) {
     return TextButton(
       onPressed: () {
         if (currentStep + 1 <= onboardingStepProvider.descriptions.length - 1) {
           onboardingStepProvider.incrementOnboardingStep();
         } else {
-          onSkipOnboardingPressed();
+          onSkipOnboardingPressed(context);
         }
       },
       child: const TextWithIcon(
@@ -118,9 +121,9 @@ class OnboardingScreen extends StatelessWidget {
     );
   }
 
-  TextButton getSkipButtonView() {
+  TextButton getSkipButtonView(context) {
     return TextButton(
-      onPressed: () => onSkipOnboardingPressed(),
+      onPressed: () => onSkipOnboardingPressed(context),
       child: const TextWithIcon(
         text: 'Skip',
         color: AppColors.black,
@@ -140,10 +143,11 @@ class OnboardingScreen extends StatelessWidget {
     );
   }
 
-  void onSkipOnboardingPressed() {
-    // TODO: Implement push to a new route.
+  void onSkipOnboardingPressed(context) {
     if (kDebugMode) {
       print('Finished Onboarding!');
+      // TODO: Implement push to home page route.
+      // Navigator.pushReplacementNamed(context, ValidRoutes.signupLoginScreen);
     }
   }
 }
