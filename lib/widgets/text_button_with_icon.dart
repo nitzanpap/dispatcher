@@ -1,5 +1,6 @@
-import 'package:dispatcher/global_constants.dart';
 import 'package:flutter/material.dart';
+
+import '../constants/enums.dart';
 
 class TextButtonWithIcon extends StatelessWidget {
   final VoidCallback onPressedFunction;

@@ -1,12 +1,16 @@
-import 'package:dispatcher/global_constants.dart';
-import 'package:dispatcher/providers/onboarding_step_provider.dart';
-import 'package:dispatcher/widgets/text_button_with_icon.dart';
-import 'package:dispatcher/widgets/progress_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
+import '../constants/constant_vars.dart';
+import '../constants/enums.dart';
+import '../constants/colors.dart';
+
+import '../providers/onboarding_step_provider.dart';
+import '../widgets/text_button_with_icon.dart';
+import '../widgets/progress_bar.dart';
 import '../widgets/paper_widgets/onboarding_paper_image.dart';
 
 class OnboardingScreen extends StatelessWidget {
@@ -21,7 +25,7 @@ class OnboardingScreen extends StatelessWidget {
     final int currentStep = onboardingStepProvider.stepNumber;
 
     return Scaffold(
-      backgroundColor: FigmaColors.deepDarkBlue,
+      backgroundColor: AppColors.deepDarkBlue,
       body: Container(
         alignment: Alignment.topCenter,
         margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 20),
@@ -47,13 +51,13 @@ class OnboardingScreen extends StatelessWidget {
             totalSteps: onboardingStepProvider.descriptions.length,
           ),
           gap,
-          getTitleTextView(FigmaColors.white),
+          getTitleTextView(AppColors.white),
           gap,
           Text(
             onboardingStepProvider.descriptions[currentStep],
             textAlign: TextAlign.center,
             style: const TextStyle(
-              color: FigmaColors.white,
+              color: AppColors.white,
               fontSize: 22,
             ),
           ),
@@ -99,11 +103,11 @@ class OnboardingScreen extends StatelessWidget {
         }
       },
       text: 'Next',
-      color: FigmaColors.white,
+      color: AppColors.white,
       fontSize: 16,
       icon: const Icon(
         Icons.arrow_forward_ios_rounded,
-        color: FigmaColors.white,
+        color: AppColors.white,
         size: 16,
       ),
       iconDirection: IconDirection.end,
@@ -114,7 +118,7 @@ class OnboardingScreen extends StatelessWidget {
     return TextButtonWithIcon(
       onPressedFunction: () => skipOnboarding(),
       text: 'Skip',
-      color: FigmaColors.black,
+      color: AppColors.black,
     );
   }
 

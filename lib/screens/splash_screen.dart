@@ -1,5 +1,8 @@
-import 'package:dispatcher/global_constants.dart';
 import 'package:flutter/material.dart';
+
+import '../constants/colors.dart';
+import '../constants/constant_vars.dart';
+import '../constants/routes.dart';
 
 import '../widgets/logo_widgets/logo_layered.dart';
 
@@ -23,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: FigmaColors.deepDarkBlue,
+      backgroundColor: AppColors.deepDarkBlue,
       body: Center(
         child: FractionallySizedBox(
           heightFactor: 0.75,
@@ -34,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
               const Text(
                 appTitle,
                 style: TextStyle(
-                  color: FigmaColors.white,
+                  color: AppColors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 32,
                 ),

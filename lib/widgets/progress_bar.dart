@@ -1,5 +1,6 @@
-import 'package:dispatcher/global_constants.dart';
 import 'package:flutter/material.dart';
+
+import '../constants/colors.dart';
 
 class ProgressBar extends StatelessWidget {
   const ProgressBar({
@@ -16,7 +17,7 @@ class ProgressBar extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(100),
       child: LinearProgressIndicator(
-        color: FigmaColors.error,
+        color: AppColors.error,
         value: (currentStep + 1) / totalSteps,
         backgroundColor: Colors.grey[800],
         minHeight: 10,
