@@ -1,5 +1,6 @@
 import 'package:dispatcher/global_constants.dart';
 import 'package:dispatcher/widgets/logo_widgets/logo_layered.dart';
+import 'package:dispatcher/widgets/minimal_app_bar.dart';
 import 'package:dispatcher/widgets/sign_up_login_form.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,7 @@ class SignUpLoginScreen extends StatelessWidget {
     const logoLayered = LogoLayered();
     return Scaffold(
       backgroundColor: FigmaColors.deepDarkBlue,
+      appBar: const MinimalAppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

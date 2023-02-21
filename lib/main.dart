@@ -1,11 +1,18 @@
-import 'package:dispatcher/screens/sign_up_login_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:dispatcher/screens/onboarding_screen.dart';
-import 'package:dispatcher/screens/splash_screen.dart';
+import 'package:flutter/services.dart';
 
 import './global_constants.dart';
 
+import './screens/sign_up_login_screen.dart';
+import './screens/onboarding_screen.dart';
+import './screens/splash_screen.dart';
+
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(const MyApp());
 }
 
@@ -19,18 +26,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Roboto',
-        colorScheme: myColorScheme,
         badgeTheme: const BadgeThemeData(
           alignment: AlignmentDirectional.topEnd,
-          backgroundColor: Color.fromRGBO(253, 89, 89, 1),
         ),
-        scaffoldBackgroundColor: const Color.fromRGBO(229, 229, 229, 1),
       ),
       home: const SplashScreen(),
       routes: {
         ValidRoutes.onboardingScreen: (context) => const OnboardingScreen(),
-        ValidRoutes.signupLoginScreen: (context) =>
-            const SignUpLoginScreen(),
+        ValidRoutes.signupLoginScreen: (context) => const SignUpLoginScreen(),
       },
     );
   }

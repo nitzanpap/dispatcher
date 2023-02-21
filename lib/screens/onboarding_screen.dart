@@ -1,7 +1,7 @@
 import 'package:dispatcher/global_constants.dart';
+import 'package:dispatcher/widgets/minimal_app_bar.dart';
 import 'package:dispatcher/widgets/progress_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 
 import '../widgets/paper_widgets/double_paper.dart';
@@ -56,15 +56,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      appBar: AppBar(
-        toolbarHeight: 0,
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: Colors.white,
-          statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
-          statusBarBrightness: Brightness.dark, // For iOS (dark icons)
-        ),
-      ),
+      backgroundColor: FigmaColors.deepDarkBlue,
+      appBar: const MinimalAppBar(),
       body: Container(
         alignment: Alignment.topCenter,
         margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
