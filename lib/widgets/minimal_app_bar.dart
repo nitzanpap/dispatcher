@@ -1,5 +1,7 @@
-import 'package:dispatcher/global_constants.dart';
+import 'package:dispatcher/constants/colors.dart';
 import 'package:flutter/material.dart';
+
+import 'package:dispatcher/enums/theme_color.dart';
 
 class MinimalAppBar extends StatelessWidget with PreferredSizeWidget {
   final ThemeColor theme;
@@ -16,11 +18,11 @@ class MinimalAppBar extends StatelessWidget with PreferredSizeWidget {
     return theme == ThemeColor.dark
         ? AppBar(
             toolbarHeight: 0,
-            backgroundColor: FigmaColors.deepDarkBlue,
+            backgroundColor: AppColors.deepDarkBlue,
           )
         : AppBar(
             toolbarHeight: 0,
-            backgroundColor: FigmaColors.white,
+            backgroundColor: AppColors.white,
           );
   }
 

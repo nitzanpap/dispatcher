@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import '../global_constants.dart';
-import '../widgets/logo_widgets/logo_layered.dart';
+
+import '../constants/colors.dart';
+
 import '../widgets/minimal_app_bar.dart';
+import '../widgets/logo_widgets/logo_layered.dart';
 import '../widgets/sign_up_login_form.dart';
 
 class SignUpLoginScreen extends StatelessWidget {
@@ -14,7 +16,7 @@ class SignUpLoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     const logoLayered = LogoLayered();
     return Scaffold(
-      backgroundColor: FigmaColors.deepDarkBlue,
+      backgroundColor: AppColors.deepDarkBlue,
       appBar: const MinimalAppBar(),
       body: Center(
         child: Column(
@@ -27,7 +29,7 @@ class SignUpLoginScreen extends StatelessWidget {
             Flexible(
               flex: 100 - logoSectionSize,
               child: Container(
-                color: FigmaColors.white,
+                color: AppColors.white,
                 width: double.infinity,
                 height: double.infinity,
                 child: const SignUpLoginForm(),

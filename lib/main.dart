@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
-import './global_constants.dart';
-
-import './screens/sign_up_login_screen.dart';
-import './screens/onboarding_screen.dart';
+import './constants/strings.dart';
+import './constants/routes.dart';
+import './providers/onboarding_step_provider.dart';
 import './screens/splash_screen.dart';
+import './screens/onboarding_screen.dart';
+import './screens/sign_up_login_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +34,10 @@ class MyApp extends StatelessWidget {
       ),
       home: const SplashScreen(),
       routes: {
-        ValidRoutes.onboardingScreen: (context) => const OnboardingScreen(),
+        ValidRoutes.onboardingScreen: (context) => ChangeNotifierProvider(
+              create: (context) => OnboardingStepProvider(),
+              child: const OnboardingScreen(),
+            ),
         ValidRoutes.signupLoginScreen: (context) => const SignUpLoginScreen(),
       },
     );

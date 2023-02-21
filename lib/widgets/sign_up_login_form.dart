@@ -1,8 +1,10 @@
-import 'package:dispatcher/enums/icon_direction.dart';
-import 'package:dispatcher/global_constants.dart';
-import 'package:dispatcher/widgets/text_with_icon.dart';
 import 'package:flutter/material.dart';
+
 import 'package:gap/gap.dart';
+
+import '../constants/colors.dart';
+import '../enums/icon_direction.dart';
+import '../widgets/text_with_icon.dart';
 
 class SignUpLoginForm extends StatefulWidget {
   final bool isSignUp;
@@ -33,7 +35,7 @@ class _SignUpLoginFormState extends State<SignUpLoginForm> {
               const Text(
                 title,
                 style: TextStyle(
-                  color: FigmaColors.mediumBlue,
+                  color: AppColors.mediumBlue,
                 ),
               ),
               gap,
@@ -72,7 +74,7 @@ class _SignUpLoginFormState extends State<SignUpLoginForm> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(36),
-                    backgroundColor: FigmaColors.blue,
+                    backgroundColor: AppColors.blue,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                   ),
@@ -81,7 +83,7 @@ class _SignUpLoginFormState extends State<SignUpLoginForm> {
                   },
                   child: const TextWithIcon(
                     text: 'SIGNUP',
-                    color: FigmaColors.white,
+                    color: AppColors.white,
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                     letterSpacing: 0.25,
