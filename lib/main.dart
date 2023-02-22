@@ -7,7 +7,7 @@ import './constants/routes.dart';
 import './providers/onboarding_step_provider.dart';
 import './screens/splash_screen.dart';
 import './screens/onboarding_screen.dart';
-import './screens/sign_up_login_screen.dart';
+import 'screens/signup_login_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
               create: (context) => OnboardingStepProvider(),
               child: const OnboardingScreen(),
             ),
-        ValidRoutes.signupLoginScreen: (context) => const SignUpLoginScreen(),
+        ValidRoutes.signupLoginScreen: (context) => const SignupLoginScreen(),
       },
     );
   }

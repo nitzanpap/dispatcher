@@ -6,16 +6,16 @@ import '../constants/colors.dart';
 import '../enums/icon_direction.dart';
 import '../widgets/text_with_icon.dart';
 
-class SignUpLoginForm extends StatefulWidget {
+class SignupLoginForm extends StatefulWidget {
   final bool isSignUp;
 
-  const SignUpLoginForm({super.key, this.isSignUp = true});
+  const SignupLoginForm({super.key, this.isSignUp = true});
 
   @override
-  State<SignUpLoginForm> createState() => _SignUpLoginFormState();
+  State<SignupLoginForm> createState() => _SignupLoginFormState();
 }
 
-class _SignUpLoginFormState extends State<SignUpLoginForm> {
+class _SignupLoginFormState extends State<SignupLoginForm> {
   final _formKey = GlobalKey<FormState>();
 
   static const gapSeparatorHeight = 40.0;
