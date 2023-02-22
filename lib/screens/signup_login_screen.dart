@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'package:provider/provider.dart';
+
 import '../constants/colors.dart';
+import '../providers/signup_login_provider.dart';
 
 import '../widgets/minimal_app_bar.dart';
 import '../widgets/logo_widgets/logo_layered.dart';
@@ -32,7 +35,10 @@ class SignupLoginScreen extends StatelessWidget {
                 color: AppColors.white,
                 width: double.infinity,
                 height: double.infinity,
-                child: const SignupLoginForm(),
+                child: ChangeNotifierProvider(
+                  create: (context) => SignupLoginProvider(),
+                  child: const SignupLoginForm(),
+                ),
               ),
             ),
           ],
