@@ -9,13 +9,9 @@ import '../enums/signup_login_title.dart';
 import '../constants/colors.dart';
 import '../providers/signup_login_provider.dart';
 
-import '../helper_functions/input_state_functions.dart';
-import '../helper_functions/validations.dart';
-
 import './button_widgets/primary_button.dart';
 import './button_widgets/secondary_button.dart';
 import '../widgets/line_separator.dart';
-import '../widgets/password_icons.dart';
 
 class SignupLoginForm extends StatefulWidget {
   const SignupLoginForm({super.key});
