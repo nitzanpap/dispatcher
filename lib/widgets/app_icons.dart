@@ -33,11 +33,11 @@ class AppIcons {
       IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData filter =
       IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData hiddeneye =
+  static const IconData hiddenEye =
       IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData home =
       IconData(0xe807, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData homeselected =
+  static const IconData homeSelected =
       IconData(0xe808, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData logout =
       IconData(0xe809, fontFamily: _kFontFam, fontPackage: _kFontPkg);
@@ -45,7 +45,7 @@ class AppIcons {
       IconData(0xe80a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData profile =
       IconData(0xe80b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData profileselected =
+  static const IconData profileSelected =
       IconData(0xe80c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData search =
       IconData(0xe80d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
@@ -53,8 +53,8 @@ class AppIcons {
       IconData(0xe80e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData star =
       IconData(0xe80f, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData starselected =
+  static const IconData starSelected =
       IconData(0xe810, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData visibleeye =
+  static const IconData visibleEye =
       IconData(0xe811, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

@@ -102,6 +102,9 @@ flutter:
     - family: AppIcons
       fonts:
         - asset: assets/fonts/AppIcons.ttf
+    - family: PasswordIcons
+      fonts:
+        - asset: assets/fonts/PasswordIcons.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
