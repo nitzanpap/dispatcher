@@ -1,17 +1,21 @@
-import 'package:dispatcher/enums/signup_login_title.dart';
-import 'package:dispatcher/helper_functions/validations.dart';
-import 'package:dispatcher/widgets/line_separator.dart';
-import 'package:dispatcher/widgets/password_icons.dart';
+import 'package:dispatcher/widgets/email_input_field.dart';
+import 'package:dispatcher/widgets/password_input_field.dart';
 import 'package:flutter/material.dart';
 
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
+import '../enums/signup_login_title.dart';
 import '../constants/colors.dart';
 import '../providers/signup_login_provider.dart';
 
+import '../helper_functions/input_state_functions.dart';
+import '../helper_functions/validations.dart';
+
 import './button_widgets/primary_button.dart';
 import './button_widgets/secondary_button.dart';
+import '../widgets/line_separator.dart';
+import '../widgets/password_icons.dart';
 
 class SignupLoginForm extends StatefulWidget {
   const SignupLoginForm({super.key});
@@ -21,7 +25,7 @@ class SignupLoginForm extends StatefulWidget {
 }
 
 class _SignupLoginFormState extends State<SignupLoginForm> {
-  static const inputsGap = Gap(24);
+  static const gap = Gap(24);
 
   final _formKey = GlobalKey<FormState>();
 
@@ -50,65 +54,7 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            title,
-                            style: const TextStyle(
-                                color: AppColors.mediumBlue,
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                      inputsGap,
-                      TextFormField(
-                        textInputAction: TextInputAction.next,
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          hintText: 'john@gmail.com',
-                          labelText: 'Your email',
-                          labelStyle: getMaterialStateTextStyle(),
-                          floatingLabelStyle: getMaterialStateTextStyle(),
-                          border: const OutlineInputBorder(),
-                          errorBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: AppColors.error)),
-                        ),
-                        onChanged: (value) => setState(() => email = value),
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        // onFieldSubmitted: (newValue) =>
-                        //     signupLoginProvider.updateEmail(newValue),
-                        validator: Validations.emailValidator,
-                      ),
-                      inputsGap,
-                      TextFormField(
-                        obscureText: isObscureText,
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          labelStyle: getMaterialStateTextStyle(),
-                          floatingLabelStyle: getMaterialStateTextStyle(),
-                          border: const OutlineInputBorder(),
-                          errorBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: AppColors.error)),
-                          suffixIcon: IconButton(
-                            onPressed: () =>
-                                setState(() => isObscureText = !isObscureText),
-                            icon: Icon(isObscureText
-                                ? PasswordIcons.hiddenEye
-                                : PasswordIcons.visibleEye),
-                          ),
-                          suffixIconColor: getFormStateColor(),
-                        ),
-                        onChanged: (value) => setState(() => password = value),
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        // onFieldSubmitted: (newValue) =>
-                        //     signupLoginProvider.updatePassword(newValue),
-                        validator: Validations.passwordValidator,
-                      ),
-                    ],
-                  ),
+                  getInputsSection(title),
                   const LineSeparator(),
                   Column(
                     children: [
@@ -145,6 +91,41 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
     );
   }
 
+  Column getInputsSection(String title) {
+    return Column(
+      children: [
+        getTitleView(title),
+        gap,
+        EmailInputField(
+          onChanged: (value) => setState(() => email = value),
+          textInputAction: TextInputAction.next,
+        ),
+        gap,
+        PasswordInputField(
+          onChanged: (String value) => setState(() => password = value),
+          onPressed: () => setState(() => isObscureText = !isObscureText),
+          isObscureText: isObscureText,
+          textInputAction: TextInputAction.next,
+        ),
+        gap,
+      ],
+    );
+  }
+
+  Row getTitleView(String title) {
+    return Row(
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+              color: AppColors.mediumBlue,
+              fontSize: 24,
+              fontWeight: FontWeight.bold),
+        ),
+      ],
+    );
+  }
+
   void submitForm({
     required formKey,
     required SignupLoginProvider provider,
@@ -159,29 +140,5 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
     provider.updateEmail(formEmail);
     provider.updatePassword(formPassword);
     return;
-  }
-
-  getMaterialStateTextStyle() {
-    return MaterialStateTextStyle.resolveWith((Set<MaterialState> states) {
-      if (states.contains(MaterialState.error)) {
-        return const TextStyle(color: AppColors.error);
-      }
-      if (states.contains(MaterialState.focused)) {
-        return const TextStyle(color: AppColors.blue);
-      }
-      return const TextStyle(color: AppColors.deepDarkBlue);
-    });
-  }
-
-  getFormStateColor() {
-    return MaterialStateColor.resolveWith((Set<MaterialState> states) {
-      if (states.contains(MaterialState.error)) {
-        return AppColors.error;
-      }
-      if (states.contains(MaterialState.focused)) {
-        return AppColors.blue;
-      }
-      return AppColors.deepDarkBlue;
-    });
   }
 }
