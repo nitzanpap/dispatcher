@@ -1,3 +1,4 @@
+import 'package:dispatcher/helper_functions/validations.dart';
 import 'package:dispatcher/widgets/password_icons.dart';
 import 'package:flutter/material.dart';
 
@@ -11,18 +12,19 @@ import './button_widgets/primary_button.dart';
 import './button_widgets/secondary_button.dart';
 
 class SignupLoginForm extends StatefulWidget {
-  final bool isSignUp;
-
-  const SignupLoginForm({super.key, this.isSignUp = true});
+  const SignupLoginForm({super.key});
 
   @override
   State<SignupLoginForm> createState() => _SignupLoginFormState();
 }
 
 class _SignupLoginFormState extends State<SignupLoginForm> {
-  final _formKey = GlobalKey<FormState>();
   static const sectionGap = Gap(40.0);
   static const inputsGap = Gap(24);
+
+  final _formKey = GlobalKey<FormState>();
+
+  bool isSignupPage = true;
   bool isObscureText = true;
   String email = '';
   String password = '';
@@ -31,9 +33,7 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
   Widget build(BuildContext context) {
     final signupLoginProvider = Provider.of<SignupLoginProvider>(context);
 
-    const title = 'Signup';
-    // final email = signupLoginProvider.email;
-    // final password = signupLoginProvider.password;
+    final title = isSignupPage ? 'Signup' : 'Login';
 
     return Form(
       key: _formKey,
@@ -47,26 +47,11 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
             children: [
               Column(
                 children: [
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.start,
-                  //   children: [
-                  //     Column(
-                  //       crossAxisAlignment: CrossAxisAlignment.start,
-                  //       children: [
-                  //         Text('Email: $email'),
-                  //         Text('Password: $password'),
-                  //         Text('Provider Email: ${signupLoginProvider.email}'),
-                  //         Text(
-                  //             'Provider Password: ${signupLoginProvider.password}'),
-                  //       ],
-                  //     ),
-                  //   ],
-                  // ),
                   Row(
-                    children: const [
+                    children: [
                       Text(
                         title,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: AppColors.mediumBlue,
                             fontSize: 24,
                             fontWeight: FontWeight.bold),
@@ -78,7 +63,7 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                      hintText: 'johncena@gmail.com',
+                      hintText: 'john@gmail.com',
                       labelText: 'Your email',
                       labelStyle: getMaterialStateTextStyle(),
                       floatingLabelStyle: getMaterialStateTextStyle(),
@@ -90,7 +75,7 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     // onFieldSubmitted: (newValue) =>
                     //     signupLoginProvider.updateEmail(newValue),
-                    validator: emailValidator,
+                    validator: Validations.emailValidator,
                   ),
                   inputsGap,
                   TextFormField(
@@ -115,7 +100,7 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     // onFieldSubmitted: (newValue) =>
                     //     signupLoginProvider.updatePassword(newValue),
-                    validator: passwordValidator,
+                    validator: Validations.passwordValidator,
                   ),
                 ],
               ),
@@ -145,45 +130,6 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
         ),
       ),
     );
-  }
-
-  String? passwordValidator(String? value) {
-    if (value == null) {
-      return 'Invalid input!';
-    }
-    RegExp hasUpperCaseRegEx = RegExp(r'^(?=.*[A-Z])');
-    RegExp hasLowerCaseRegEx = RegExp(r'^(?=.*[a-z])');
-    RegExp hasDigitRegEx = RegExp(r'^(?=.*\d)');
-    RegExp hasSpecialCharRegEx = RegExp(r'^(?=.*[@$!%*?&])');
-    RegExp hasMin8CharsRegEx = RegExp(r'^.{8,}');
-
-    if (!hasUpperCaseRegEx.hasMatch(value)) {
-      return 'Password must contain at least 1 Upper case letter.';
-    }
-    if (!hasLowerCaseRegEx.hasMatch(value)) {
-      return 'Password must contain at least 1 lower case letter.';
-    }
-    if (!hasDigitRegEx.hasMatch(value)) {
-      return 'Password must contain at least 1 digit.';
-    }
-    if (!hasSpecialCharRegEx.hasMatch(value)) {
-      return 'Password must contain at least 1 special character (@\$!%*?&).';
-    }
-    if (!hasMin8CharsRegEx.hasMatch(value)) {
-      return 'Password must be at least 8 characters long.';
-    }
-    // Valid password
-    return null;
-  }
-
-  String? emailValidator(String? value) {
-    return (isValidEmail(value)) ? null : 'Please enter a valid email address.';
-  }
-
-  bool isValidEmail(String? value) {
-    RegExp isValidEmailRegEx = RegExp(
-        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-    return (value != null && isValidEmailRegEx.hasMatch(value));
   }
 
   void submitForm({
