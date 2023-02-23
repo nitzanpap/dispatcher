@@ -1,4 +1,6 @@
+import 'package:dispatcher/enums/signup_login_title.dart';
 import 'package:dispatcher/helper_functions/validations.dart';
+import 'package:dispatcher/widgets/line_separator.dart';
 import 'package:dispatcher/widgets/password_icons.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +21,6 @@ class SignupLoginForm extends StatefulWidget {
 }
 
 class _SignupLoginFormState extends State<SignupLoginForm> {
-  static const sectionGap = Gap(40.0);
   static const inputsGap = Gap(24);
 
   final _formKey = GlobalKey<FormState>();
@@ -33,99 +34,111 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
   Widget build(BuildContext context) {
     final signupLoginProvider = Provider.of<SignupLoginProvider>(context);
 
-    final title = isSignupPage ? 'Signup' : 'Login';
+    final title =
+        isSignupPage ? SignupLoginTitle.signup : SignupLoginTitle.login;
 
     return Form(
       key: _formKey,
-      child: Container(
+      child: Padding(
         padding: const EdgeInsets.all(20.0),
-        height: double.infinity,
-        child: SingleChildScrollView(
-          primary: true,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
+        child: LayoutBuilder(
+          builder: (BuildContext ctx, BoxConstraints constraints) =>
+              SingleChildScrollView(
+            // primary: true,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
+                  Column(
                     children: [
-                      Text(
-                        title,
-                        style: const TextStyle(
-                            color: AppColors.mediumBlue,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold),
+                      Row(
+                        children: [
+                          Text(
+                            title,
+                            style: const TextStyle(
+                                color: AppColors.mediumBlue,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      inputsGap,
+                      TextFormField(
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                          hintText: 'john@gmail.com',
+                          labelText: 'Your email',
+                          labelStyle: getMaterialStateTextStyle(),
+                          floatingLabelStyle: getMaterialStateTextStyle(),
+                          border: const OutlineInputBorder(),
+                          errorBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: AppColors.error)),
+                        ),
+                        onChanged: (value) => setState(() => email = value),
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        // onFieldSubmitted: (newValue) =>
+                        //     signupLoginProvider.updateEmail(newValue),
+                        validator: Validations.emailValidator,
+                      ),
+                      inputsGap,
+                      TextFormField(
+                        obscureText: isObscureText,
+                        decoration: InputDecoration(
+                          labelText: 'Password',
+                          labelStyle: getMaterialStateTextStyle(),
+                          floatingLabelStyle: getMaterialStateTextStyle(),
+                          border: const OutlineInputBorder(),
+                          errorBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: AppColors.error)),
+                          suffixIcon: IconButton(
+                            onPressed: () =>
+                                setState(() => isObscureText = !isObscureText),
+                            icon: Icon(isObscureText
+                                ? PasswordIcons.hiddenEye
+                                : PasswordIcons.visibleEye),
+                          ),
+                          suffixIconColor: getFormStateColor(),
+                        ),
+                        onChanged: (value) => setState(() => password = value),
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        // onFieldSubmitted: (newValue) =>
+                        //     signupLoginProvider.updatePassword(newValue),
+                        validator: Validations.passwordValidator,
                       ),
                     ],
                   ),
-                  inputsGap,
-                  TextFormField(
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      hintText: 'john@gmail.com',
-                      labelText: 'Your email',
-                      labelStyle: getMaterialStateTextStyle(),
-                      floatingLabelStyle: getMaterialStateTextStyle(),
-                      border: const OutlineInputBorder(),
-                      errorBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: AppColors.error)),
-                    ),
-                    onChanged: (value) => setState(() => email = value),
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    // onFieldSubmitted: (newValue) =>
-                    //     signupLoginProvider.updateEmail(newValue),
-                    validator: Validations.emailValidator,
-                  ),
-                  inputsGap,
-                  TextFormField(
-                    obscureText: isObscureText,
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      labelStyle: getMaterialStateTextStyle(),
-                      floatingLabelStyle: getMaterialStateTextStyle(),
-                      border: const OutlineInputBorder(),
-                      errorBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: AppColors.error)),
-                      suffixIcon: IconButton(
-                        onPressed: () =>
-                            setState(() => isObscureText = !isObscureText),
-                        icon: Icon(isObscureText
-                            ? PasswordIcons.hiddenEye
-                            : PasswordIcons.visibleEye),
+                  const LineSeparator(),
+                  Column(
+                    children: [
+                      PrimaryButton(
+                        text: title.toUpperCase(),
+                        onPressedFunction: () => submitForm(
+                          formKey: _formKey,
+                          provider: signupLoginProvider,
+                          formEmail: email,
+                          formPassword: password,
+                        ),
+                        icon: const Icon(
+                          Icons.arrow_forward_rounded,
+                          size: 30,
+                          color: AppColors.white,
+                        ),
                       ),
-                      suffixIconColor: getFormStateColor(),
-                    ),
-                    onChanged: (value) => setState(() => password = value),
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    // onFieldSubmitted: (newValue) =>
-                    //     signupLoginProvider.updatePassword(newValue),
-                    validator: Validations.passwordValidator,
-                  ),
+                      SecondaryButton(
+                          text: isSignupPage
+                              ? SignupLoginTitle.login.toUpperCase()
+                              : SignupLoginTitle.signup.toUpperCase(),
+                          onPressedFunction: () {
+                            _formKey.currentState?.reset();
+                            setState(() => isSignupPage = !isSignupPage);
+                          }),
+                    ],
+                  )
                 ],
               ),
-              sectionGap,
-              FormField(
-                builder: (_) => PrimaryButton(
-                  text: 'SIGNUP',
-                  onPressedFunction: () => submitForm(
-                    formKey: _formKey,
-                    provider: signupLoginProvider,
-                    formEmail: email,
-                    formPassword: password,
-                  ),
-                  icon: const Icon(
-                    Icons.arrow_forward_rounded,
-                    size: 30,
-                    color: AppColors.white,
-                  ),
-                ),
-              ),
-              SecondaryButton(
-                text: 'LOGIN',
-                onPressedFunction: () => print('Change to Login UI'),
-              )
-            ],
+            ),
           ),
         ),
       ),
