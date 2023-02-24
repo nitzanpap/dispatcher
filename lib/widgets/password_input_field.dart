@@ -7,8 +7,8 @@ import '../helper_functions/input_state_functions.dart';
 import '../helper_functions/validations.dart';
 
 class PasswordInputField extends StatelessWidget {
-  final onChanged;
-  final onPressed;
+  final void Function(String)? onChanged;
+  final void Function()? onPressed;
   final String? labelText;
   final TextInputAction? textInputAction;
 

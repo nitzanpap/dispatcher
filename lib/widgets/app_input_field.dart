@@ -3,40 +3,43 @@ import 'package:flutter/material.dart';
 import '../constants/colors.dart';
 
 import '../helper_functions/input_state_functions.dart';
-import '../helper_functions/validations.dart';
 
-class EmailInputField extends StatelessWidget {
-  final void Function(String)? onChanged;
+class AppInputField extends StatefulWidget {
   final String? labelText;
   final TextInputAction? textInputAction;
 
-  const EmailInputField({
+  final String? Function(String?)? validator;
+
+  const AppInputField({
     super.key,
-    required this.onChanged,
     this.labelText,
     this.textInputAction,
+    required this.validator,
   });
+
+  @override
+  State<AppInputField> createState() => _AppInputFieldState();
+}
+
+class _AppInputFieldState extends State<AppInputField> {
+  final inputController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      textInputAction: textInputAction ?? TextInputAction.done,
-      keyboardType: TextInputType.emailAddress,
+      controller: inputController,
+      textInputAction: widget.textInputAction ?? TextInputAction.done,
+      // obscureText: widget.isObscureText,
       decoration: InputDecoration(
-        hintText: 'john@gmail.com',
-        labelText: labelText ?? 'Your email',
+        labelText: widget.labelText,
         labelStyle: getMaterialStateTextStyle(),
         floatingLabelStyle: getMaterialStateTextStyle(),
         border: const OutlineInputBorder(),
         errorBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.error),
-        ),
+            borderSide: BorderSide(color: AppColors.error)),
       ),
-      onChanged: onChanged,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      // onFieldSubmitted: (newValue) =>
-      //     signupLoginProvider.updateEmail(newValue),
-      validator: Validations.emailValidator,
+      validator: widget.validator,
     );
   }
 }

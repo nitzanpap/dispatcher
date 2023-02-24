@@ -1,3 +1,5 @@
+import 'package:dispatcher/helper_functions/validations.dart';
+import 'package:dispatcher/widgets/app_input_field.dart';
 import 'package:dispatcher/widgets/email_input_field.dart';
 import 'package:dispatcher/widgets/password_input_field.dart';
 import 'package:flutter/material.dart';
@@ -104,6 +106,9 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
           textInputAction: TextInputAction.next,
         ),
         gap,
+        const AppInputField(
+          validator: Validations.passwordValidator,
+        ),
       ],
     );
   }

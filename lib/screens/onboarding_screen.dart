@@ -1,3 +1,4 @@
+import 'package:dispatcher/constants/routes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -146,8 +147,7 @@ class OnboardingScreen extends StatelessWidget {
   void onSkipOnboardingPressed(context) {
     if (kDebugMode) {
       print('Finished Onboarding!');
-      // TODO: Implement push to home page route.
-      // Navigator.pushReplacementNamed(context, ValidRoutes.signupLoginScreen);
+      Navigator.pushReplacementNamed(context, ValidRoutes.signupLoginScreen);
     }
   }
 }

@@ -10,12 +10,10 @@ class SignupLoginProvider with ChangeNotifier {
   void updateEmail(String newEmail) {
     _email = newEmail;
     notifyListeners();
-    print('Updated email...');
   }
 
   void updatePassword(String newPassword) {
     _password = newPassword;
     notifyListeners();
-    print('Updated password...');
   }
 }
