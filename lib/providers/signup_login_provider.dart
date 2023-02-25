@@ -16,4 +16,10 @@ class SignupLoginProvider with ChangeNotifier {
     _password = newPassword;
     notifyListeners();
   }
+
+  void resetFormData() {
+    _email = '';
+    _password = '';
+    notifyListeners();
+  }
 }

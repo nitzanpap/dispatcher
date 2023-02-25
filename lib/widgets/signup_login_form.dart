@@ -1,7 +1,3 @@
-import 'package:dispatcher/helper_functions/validations.dart';
-import 'package:dispatcher/widgets/app_input_field.dart';
-import 'package:dispatcher/widgets/email_input_field.dart';
-import 'package:dispatcher/widgets/password_input_field.dart';
 import 'package:flutter/material.dart';
 
 import 'package:gap/gap.dart';
@@ -14,6 +10,8 @@ import '../providers/signup_login_provider.dart';
 import './button_widgets/primary_button.dart';
 import './button_widgets/secondary_button.dart';
 import '../widgets/line_separator.dart';
+import '../widgets/input_field_widgets/email_input_field.dart';
+import '../widgets/input_field_widgets/password_input_field.dart';
 
 class SignupLoginForm extends StatefulWidget {
   const SignupLoginForm({super.key});
@@ -31,6 +29,7 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
   bool isObscureText = true;
   String email = '';
   String password = '';
+  String retypedPassword = '';
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +74,7 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
                               ? SignupLoginTitle.login.toUpperCase()
                               : SignupLoginTitle.signup.toUpperCase(),
                           onPressedFunction: () {
-                            _formKey.currentState?.reset();
+                            resetFormData(signupLoginProvider);
                             setState(() => isSignupPage = !isSignupPage);
                           }),
                     ],
@@ -95,20 +94,20 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
         getTitleView(title),
         gap,
         EmailInputField(
-          onChanged: (value) => setState(() => email = value),
-          textInputAction: TextInputAction.next,
+          onChanged: (String value) => setState(() => email = value),
         ),
         gap,
         PasswordInputField(
           onChanged: (String value) => setState(() => password = value),
-          onPressed: () => setState(() => isObscureText = !isObscureText),
-          isObscureText: isObscureText,
           textInputAction: TextInputAction.next,
         ),
         gap,
-        const AppInputField(
-          validator: Validations.passwordValidator,
-        ),
+        if (isSignupPage)
+          PasswordInputField.reEnteredPassword(
+            onChanged: (String value) =>
+                setState(() => retypedPassword = value),
+            originalPassword: password,
+          ),
       ],
     );
   }
@@ -127,6 +126,11 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
     );
   }
 
+  void resetFormData(SignupLoginProvider provider) {
+    _formKey.currentState?.reset();
+    provider.resetFormData();
+  }
+
   void submitForm({
     required formKey,
     required SignupLoginProvider provider,
@@ -137,9 +141,9 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
       print('Invalid input somewhere in the form!');
       return;
     }
-    print('Valid form!');
     provider.updateEmail(formEmail);
     provider.updatePassword(formPassword);
+    // TODO: Implement here, authenticating with firebase and moving to the next page.
     return;
   }
 }

@@ -1,51 +1,53 @@
-import 'package:dispatcher/widgets/password_icons.dart';
 import 'package:flutter/material.dart';
 
-import '../constants/colors.dart';
+import '../../constants/colors.dart';
 
-import '../helper_functions/input_state_functions.dart';
-import '../helper_functions/validations.dart';
+import '../../helper_functions/input_state_functions.dart';
 
-class PasswordInputField extends StatelessWidget {
+class AppInputField extends StatelessWidget {
   final void Function(String)? onChanged;
-  final void Function()? onPressed;
   final String? labelText;
+  final Widget? icon;
   final TextInputAction? textInputAction;
-
+  final String? Function(String?)? validator;
+  final TextInputType? keyboardType;
+  final String? hintText;
   final bool isObscureText;
+  final Color? suffixIconColor;
 
-  const PasswordInputField({
+  const AppInputField({
     super.key,
     required this.onChanged,
-    required this.onPressed,
-    required this.isObscureText,
     this.labelText,
+    this.icon,
     this.textInputAction,
+    this.validator,
+    this.keyboardType,
+    this.hintText,
+    this.isObscureText = false,
+    this.suffixIconColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: onChanged,
       textInputAction: textInputAction ?? TextInputAction.done,
+      keyboardType: keyboardType,
       obscureText: isObscureText,
       decoration: InputDecoration(
-        labelText: labelText ?? 'Password',
+        labelText: labelText,
+        hintText: hintText,
         labelStyle: getMaterialStateTextStyle(),
         floatingLabelStyle: getMaterialStateTextStyle(),
         border: const OutlineInputBorder(),
         errorBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.error)),
-        suffixIcon: IconButton(
-          onPressed: onPressed,
-          icon: Icon(isObscureText
-              ? PasswordIcons.hiddenEye
-              : PasswordIcons.visibleEye),
-        ),
-        suffixIconColor: getFormStateColor(),
+        suffixIcon: icon,
+        suffixIconColor: suffixIconColor,
       ),
-      onChanged: onChanged,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      validator: Validations.passwordValidator,
+      validator: validator,
     );
   }
 }

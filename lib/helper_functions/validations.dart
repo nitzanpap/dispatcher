@@ -31,10 +31,12 @@ abstract class Validations {
 
   // Returns null if the given string is a valid email, otherwise returns an informative message.
   static String? emailValidator(String? value) {
-    return (isValidEmail(value)) ? null : 'Please enter a valid email address.';
+    return (_isValidEmail(value))
+        ? null
+        : 'Please enter a valid email address.';
   }
 
-  static bool isValidEmail(String? value) {
+  static bool _isValidEmail(String? value) {
     RegExp isValidEmailRegEx = RegExp(
         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
     return (value != null && isValidEmailRegEx.hasMatch(value));
