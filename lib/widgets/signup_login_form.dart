@@ -53,32 +53,7 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
                 children: [
                   getInputsSection(title),
                   const LineSeparator(),
-                  Column(
-                    children: [
-                      PrimaryButton(
-                        text: title.toUpperCase(),
-                        onPressedFunction: () => submitForm(
-                          formKey: _formKey,
-                          provider: signupLoginProvider,
-                          formEmail: email,
-                          formPassword: password,
-                        ),
-                        icon: const Icon(
-                          Icons.arrow_forward_rounded,
-                          size: 30,
-                          color: AppColors.white,
-                        ),
-                      ),
-                      SecondaryButton(
-                          text: isSignupPage
-                              ? SignupLoginTitle.login.toUpperCase()
-                              : SignupLoginTitle.signup.toUpperCase(),
-                          onPressedFunction: () {
-                            resetFormData(signupLoginProvider);
-                            setState(() => isSignupPage = !isSignupPage);
-                          }),
-                    ],
-                  )
+                  getButtonsSection(title, signupLoginProvider)
                 ],
               ),
             ),
@@ -122,6 +97,38 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
               fontSize: 24,
               fontWeight: FontWeight.bold),
         ),
+      ],
+    );
+  }
+
+  Column getButtonsSection(
+    String title,
+    SignupLoginProvider signupLoginProvider,
+  ) {
+    return Column(
+      children: [
+        PrimaryButton(
+          text: title.toUpperCase(),
+          onPressedFunction: () => submitForm(
+            formKey: _formKey,
+            provider: signupLoginProvider,
+            formEmail: email,
+            formPassword: password,
+          ),
+          icon: const Icon(
+            Icons.arrow_forward_rounded,
+            size: 30,
+            color: AppColors.white,
+          ),
+        ),
+        SecondaryButton(
+            text: isSignupPage
+                ? SignupLoginTitle.login.toUpperCase()
+                : SignupLoginTitle.signup.toUpperCase(),
+            onPressedFunction: () {
+              resetFormData(signupLoginProvider);
+              setState(() => isSignupPage = !isSignupPage);
+            }),
       ],
     );
   }
