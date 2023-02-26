@@ -21,12 +21,11 @@ class SignupLoginForm extends StatefulWidget {
 }
 
 class _SignupLoginFormState extends State<SignupLoginForm> {
-  static const gap = Gap(24);
+  static const gapView = Gap(24);
 
   final _formKey = GlobalKey<FormState>();
 
   bool isSignupPage = true;
-  bool isObscureText = true;
   String email = '';
   String password = '';
   String retypedPassword = '';
@@ -51,9 +50,9 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  getInputsSection(title),
+                  getInputsSectionView(title),
                   const LineSeparator(),
-                  getButtonsSection(title, signupLoginProvider)
+                  getButtonsSectionView(title, signupLoginProvider)
                 ],
               ),
             ),
@@ -63,20 +62,20 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
     );
   }
 
-  Column getInputsSection(String title) {
+  Widget getInputsSectionView(String title) {
     return Column(
       children: [
         getTitleView(title),
-        gap,
+        gapView,
         EmailInputField(
           onChanged: (String value) => setState(() => email = value),
         ),
-        gap,
+        gapView,
         PasswordInputField(
           onChanged: (String value) => setState(() => password = value),
           textInputAction: TextInputAction.next,
         ),
-        gap,
+        gapView,
         if (isSignupPage)
           PasswordInputField.reEnteredPassword(
             onChanged: (String value) =>
@@ -87,7 +86,7 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
     );
   }
 
-  Row getTitleView(String title) {
+  Widget getTitleView(String title) {
     return Row(
       children: [
         Text(
@@ -101,7 +100,7 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
     );
   }
 
-  Column getButtonsSection(
+  Widget getButtonsSectionView(
     String title,
     SignupLoginProvider signupLoginProvider,
   ) {
@@ -139,18 +138,30 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
   }
 
   void submitForm({
-    required formKey,
+    required GlobalKey formKey,
     required SignupLoginProvider provider,
     required String formEmail,
     required String formPassword,
   }) {
-    if (!formKey.currentState!.validate()) {
+    if (!isFormValid(formKey)) {
       print('Invalid input somewhere in the form!');
       return;
     }
+    updateProvider(
+        provider: provider, formEmail: formEmail, formPassword: formPassword);
+    // TODO: Implement here, authenticating with firebase and moving to the next page.
+    print('Valid Form!');
+    return;
+  }
+
+  bool isFormValid(formKey) => formKey.currentState!.validate();
+
+  void updateProvider({
+    required SignupLoginProvider provider,
+    required String formEmail,
+    required String formPassword,
+  }) {
     provider.updateEmail(formEmail);
     provider.updatePassword(formPassword);
-    // TODO: Implement here, authenticating with firebase and moving to the next page.
-    return;
   }
 }
