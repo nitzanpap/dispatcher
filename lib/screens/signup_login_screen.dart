@@ -21,27 +21,30 @@ class SignupLoginScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.deepDarkBlue,
       appBar: const MinimalAppBar(),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Flexible(
-              flex: logoSectionSize,
-              child: Center(child: logoLayered),
-            ),
-            Flexible(
-              flex: 100 - logoSectionSize,
-              child: Container(
-                color: AppColors.white,
-                width: double.infinity,
-                height: double.infinity,
-                child: ChangeNotifierProvider(
-                  create: (context) => SignupLoginProvider(),
-                  child: const SignupLoginForm(),
+      body: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Flexible(
+                flex: logoSectionSize,
+                child: Center(child: logoLayered),
+              ),
+              Flexible(
+                flex: 100 - logoSectionSize,
+                child: Container(
+                  color: AppColors.white,
+                  width: double.infinity,
+                  height: double.infinity,
+                  child: ChangeNotifierProvider(
+                    create: (context) => SignupLoginProvider(),
+                    child: const SignupLoginForm(),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
