@@ -144,13 +144,13 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
     required String formPassword,
   }) {
     if (!isFormValid(formKey)) {
-      print('Invalid input somewhere in the form!');
+      debugPrint('Invalid input somewhere in the form!');
       return;
     }
     updateProvider(
         provider: provider, formEmail: formEmail, formPassword: formPassword);
     // TODO: Implement here, authenticating with firebase and moving to the next page.
-    print('Valid Form!');
+    debugPrint('Valid Form!');
     return;
   }
 
