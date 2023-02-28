@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../helper_functions/validations.dart';
+import '../../helpers/helper_functions/validations.dart';
 
 import './app_input_field.dart';
 

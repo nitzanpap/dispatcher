@@ -17,6 +17,16 @@ class SignupLoginProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void updateProvider({
+    required String formEmail,
+    required String formPassword,
+  }) {
+    _email = formEmail;
+    _password = formPassword;
+    debugPrint('Email: $formEmail\n Password: $formPassword');
+    notifyListeners();
+  }
+
   void resetFormData() {
     _email = '';
     _password = '';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constants/colors.dart';
+import '../../constants/colors.dart';
 
 getMaterialStateTextStyle() {
   return MaterialStateTextStyle.resolveWith((Set<MaterialState> states) {

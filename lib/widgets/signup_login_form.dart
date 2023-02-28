@@ -1,3 +1,4 @@
+import 'package:dispatcher/api/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:gap/gap.dart';
@@ -113,6 +114,7 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
             provider: signupLoginProvider,
             formEmail: email,
             formPassword: password,
+            isSignUp: isSignupPage,
           ),
           icon: const Icon(
             Icons.arrow_forward_rounded,
@@ -137,21 +139,24 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
     provider.resetFormData();
   }
 
-  void submitForm({
+  Future<void> submitForm({
     required GlobalKey formKey,
     required SignupLoginProvider provider,
     required String formEmail,
     required String formPassword,
-  }) {
+    required bool isSignUp,
+  }) async {
     if (!isFormValid(formKey)) {
       debugPrint('Invalid input somewhere in the form!');
       return;
     }
-    updateProvider(
-        provider: provider, formEmail: formEmail, formPassword: formPassword);
-    // TODO: Implement here, authenticating with firebase and moving to the next page.
     debugPrint('Valid Form!');
-    return;
+    provider.updateProvider(formEmail: formEmail, formPassword: formPassword);
+    final loginData = await (isSignUp
+        ? signup(email: formEmail, password: formPassword)
+        : login(email: formEmail, password: formPassword));
+    // TODO: Implement here, authenticating with firebase and moving to the next page.
+    debugPrint(loginData.body);
   }
 
   bool isFormValid(formKey) => formKey.currentState!.validate();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../helper_functions/input_state_functions.dart';
-import '../../helper_functions/validations.dart';
+import '../../helpers/helper_functions/input_state_functions.dart';
+import '../../helpers/helper_functions/validations.dart';
 
 import './app_input_field.dart';
 import '../../widgets/password_icons.dart';
