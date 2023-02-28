@@ -23,6 +23,7 @@ class SignupLoginProvider with ChangeNotifier {
   }) {
     _email = formEmail;
     _password = formPassword;
+    debugPrint('Email: $formEmail\n Password: $formPassword');
     notifyListeners();
   }
 
