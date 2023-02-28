@@ -1,17 +1,18 @@
+import 'package:dispatcher/constants/routes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
-import '../constants/strings.dart';
 import '../enums/icon_direction.dart';
+import '../constants/strings.dart';
 import '../constants/colors.dart';
 
 import '../providers/onboarding_step_provider.dart';
-import '../widgets/text_button_with_icon.dart';
 import '../widgets/progress_bar.dart';
 import '../widgets/paper_widgets/onboarding_paper_image.dart';
+import '../widgets/text_with_icon.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -36,7 +37,8 @@ class OnboardingScreen extends StatelessWidget {
               currentStep,
               onboardingStepProvider.descriptions,
             ),
-            getPageImageAndButtonsView(currentStep, onboardingStepProvider),
+            getPageImageAndButtonsView(
+                currentStep, onboardingStepProvider, context),
           ],
         ),
       ),
@@ -71,6 +73,7 @@ class OnboardingScreen extends StatelessWidget {
   Expanded getPageImageAndButtonsView(
     int currentStep,
     OnboardingStepProvider onboardingStepProvider,
+    context,
   ) {
     return Expanded(
       child: Stack(
@@ -82,8 +85,8 @@ class OnboardingScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                getSkipButtonView(),
-                getNextButtonView(currentStep, onboardingStepProvider),
+                getSkipButtonView(context),
+                getNextButtonView(currentStep, onboardingStepProvider, context),
               ],
             ),
           ),
@@ -92,35 +95,40 @@ class OnboardingScreen extends StatelessWidget {
     );
   }
 
-  TextButtonWithIcon getNextButtonView(
+  TextButton getNextButtonView(
     int currentStep,
     OnboardingStepProvider onboardingStepProvider,
+    context,
   ) {
-    return TextButtonWithIcon(
-      onPressedFunction: () {
+    return TextButton(
+      onPressed: () {
         if (currentStep + 1 <= onboardingStepProvider.descriptions.length - 1) {
           onboardingStepProvider.incrementOnboardingStep();
         } else {
-          onSkipOnboardingPressed();
+          onSkipOnboardingPressed(context);
         }
       },
-      text: 'Next',
-      color: AppColors.white,
-      fontSize: 16,
-      icon: const Icon(
-        Icons.arrow_forward_ios_rounded,
+      child: const TextWithIcon(
+        text: 'Next',
         color: AppColors.white,
-        size: 16,
+        fontSize: 16,
+        icon: Icon(
+          Icons.arrow_forward_ios_rounded,
+          color: AppColors.white,
+          size: 16,
+        ),
+        iconDirection: IconDirection.end,
       ),
-      iconDirection: IconDirection.end,
     );
   }
 
-  TextButtonWithIcon getSkipButtonView() {
-    return TextButtonWithIcon(
-      onPressedFunction: () => onSkipOnboardingPressed(),
-      text: 'Skip',
-      color: AppColors.black,
+  TextButton getSkipButtonView(context) {
+    return TextButton(
+      onPressed: () => onSkipOnboardingPressed(context),
+      child: const TextWithIcon(
+        text: 'Skip',
+        color: AppColors.black,
+      ),
     );
   }
 
@@ -136,10 +144,10 @@ class OnboardingScreen extends StatelessWidget {
     );
   }
 
-  void onSkipOnboardingPressed() {
-    // TODO: Implement push to a new route.
+  void onSkipOnboardingPressed(context) {
     if (kDebugMode) {
       print('Finished Onboarding!');
+      Navigator.pushReplacementNamed(context, ValidRoutes.signupLoginScreen);
     }
   }
 }

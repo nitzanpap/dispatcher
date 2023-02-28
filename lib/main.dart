@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import 'constants/strings.dart';
+import './constants/strings.dart';
 import './constants/routes.dart';
 import './providers/onboarding_step_provider.dart';
-import './screens/onboarding_screen.dart';
 import './screens/splash_screen.dart';
+import './screens/onboarding_screen.dart';
+import './screens/signup_login_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(const MyApp());
 }
 
@@ -35,7 +37,8 @@ class MyApp extends StatelessWidget {
         ValidRoutes.onboardingScreen: (context) => ChangeNotifierProvider(
               create: (context) => OnboardingStepProvider(),
               child: const OnboardingScreen(),
-            )
+            ),
+        ValidRoutes.signupLoginScreen: (context) => const SignupLoginScreen(),
       },
     );
   }

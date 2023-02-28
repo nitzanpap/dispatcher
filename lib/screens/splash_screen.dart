@@ -4,6 +4,7 @@ import '../constants/colors.dart';
 import '../constants/strings.dart';
 import '../constants/routes.dart';
 
+import '../widgets/minimal_app_bar.dart';
 import '../widgets/logo_widgets/logo_layered.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -18,15 +19,15 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 1, milliseconds: 500)).then(
-        (value) => Navigator.pushReplacementNamed(
-            context, ValidRoutes.onboardingScreen));
+    Future.delayed(const Duration(milliseconds: 500)).then((value) =>
+        Navigator.pushReplacementNamed(context, ValidRoutes.onboardingScreen));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.deepDarkBlue,
+      appBar: const MinimalAppBar(),
       body: Center(
         child: FractionallySizedBox(
           heightFactor: 0.75,
