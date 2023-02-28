@@ -14,7 +14,7 @@ getMaterialStateTextStyle() {
   });
 }
 
-getFormStateColor() {
+getFormMaterialStateColor() {
   return MaterialStateColor.resolveWith((Set<MaterialState> states) {
     if (states.contains(MaterialState.error)) {
       return AppColors.error;

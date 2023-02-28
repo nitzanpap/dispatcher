@@ -21,8 +21,8 @@ class EmailInputField extends StatelessWidget {
       keyboardType: TextInputType.emailAddress,
       onChanged: onChanged,
       textInputAction: TextInputAction.next,
-      validator: Validations.emailValidator,
-      hintText: 'john@gmail.com',
+      validator: Validations.getEmailErrorMsgOrNull,
+      hintText: 'Email',
     );
   }
 }

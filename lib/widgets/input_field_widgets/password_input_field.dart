@@ -10,7 +10,7 @@ class PasswordInputField extends StatefulWidget {
   final void Function(String)? onChanged;
   final TextInputAction? textInputAction;
   final String? originalPassword;
-  final bool isReEnterPasswordInput;
+  final bool isConfirmationPassword;
   final String labelText;
 
   const PasswordInputField({
@@ -18,7 +18,7 @@ class PasswordInputField extends StatefulWidget {
     required this.onChanged,
     this.textInputAction,
     this.originalPassword,
-    this.isReEnterPasswordInput = false,
+    this.isConfirmationPassword = false,
     this.labelText = 'Password',
   });
 
@@ -27,12 +27,12 @@ class PasswordInputField extends StatefulWidget {
     required this.onChanged,
     this.textInputAction,
     required this.originalPassword,
-    this.isReEnterPasswordInput = true,
+    this.isConfirmationPassword = true,
     this.labelText = 'Re-Enter Password',
   });
 
-  String? reEnteredPasswordValidator(reEnteredPassword) {
-    return (reEnteredPassword == originalPassword)
+  String? getConfirmationPasswordErrorMsgOrNull(confirmationPassword) {
+    return (confirmationPassword == originalPassword)
         ? null
         : 'Passwords do not match.';
   }
@@ -48,9 +48,9 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
   Widget build(BuildContext context) {
     return AppInputField(
       onChanged: widget.onChanged,
-      validator: widget.isReEnterPasswordInput
-          ? widget.reEnteredPasswordValidator
-          : Validations.passwordValidator,
+      validator: widget.isConfirmationPassword
+          ? widget.getConfirmationPasswordErrorMsgOrNull
+          : Validations.getPasswordErrorMsgOrNull,
       keyboardType: TextInputType.visiblePassword,
       labelText: widget.labelText,
       textInputAction: widget.textInputAction,
@@ -61,7 +61,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
         ),
         onPressed: () => setState(() => isObscureText = !isObscureText),
       ),
-      suffixIconColor: getFormStateColor(),
+      suffixIconColor: getFormMaterialStateColor(),
     );
   }
 }
