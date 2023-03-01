@@ -4,6 +4,7 @@ import 'package:dispatcher/api/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:gap/gap.dart';
+import 'package:http/src/response.dart';
 import 'package:provider/provider.dart';
 
 import '../enums/signup_login_title.dart';
@@ -111,13 +112,28 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
       children: [
         PrimaryButton(
           text: title.toUpperCase(),
-          onPressedFunction: () => submitForm(
-            formKey: _formKey,
-            provider: signupLoginProvider,
-            formEmail: email,
-            formPassword: password,
-            isSignUp: isSignupPage,
-          ),
+          onPressedFunction: () async {
+            SnackBar snackBar = SnackBar(
+              content: Text(isSignupPage ? 'Signing up...' : 'Signing in...'),
+              duration: const Duration(seconds: 3),
+            );
+            ScaffoldMessenger.of(context).clearSnackBars();
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            final msgFromFirebase = await submitForm(
+              formKey: _formKey,
+              provider: signupLoginProvider,
+              formEmail: email,
+              formPassword: password,
+              isSignUp: isSignupPage,
+            );
+            snackBar = SnackBar(
+              content: Text(msgFromFirebase),
+              duration: const Duration(seconds: 3),
+            );
+            ScaffoldMessenger.of(context).clearSnackBars();
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            // TODO: Implement here, authenticating with firebase and moving to the next page.
+          },
           icon: const Icon(
             Icons.arrow_forward_rounded,
             size: 30,
@@ -141,7 +157,7 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
     provider.resetFormData();
   }
 
-  Future<void> submitForm({
+  Future<String> submitForm({
     required GlobalKey formKey,
     required SignupLoginProvider provider,
     required String formEmail,
@@ -149,24 +165,35 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
     required bool isSignUp,
   }) async {
     if (!isFormValid(formKey)) {
-      debugPrint('Invalid input somewhere in the form!');
-      return;
+      return 'Invalid input somewhere in the form!';
     }
     debugPrint('Valid Form!');
+    final Response loginData;
+    Map<String, dynamic> loginDataObj;
     try {
-      final loginData = await (isSignUp
+      loginData = await (isSignUp
           ? signup(email: formEmail, password: formPassword)
           : login(email: formEmail, password: formPassword));
-      final loginDataObj = jsonDecode(loginData.body);
-      debugPrint(loginDataObj.toString());
-      provider.updateProvider(
-          formEmail: formEmail,
-          formPassword: formPassword,
-          newIdToken: loginDataObj["idToken"]);
+      loginDataObj = jsonDecode(loginData.body);
     } catch (e) {
+      debugPrint('Error:');
       debugPrint(e.toString());
+      return e.toString();
     }
-    // TODO: Implement here, authenticating with firebase and moving to the next page.
+    switch (loginData.reasonPhrase) {
+      case "Bad Request":
+        return loginDataObj['error']['message'];
+      case "OK":
+        provider.updateProvider(
+            formEmail: formEmail,
+            formPassword: formPassword,
+            newIdToken: loginDataObj["idToken"]);
+        return isSignUp ? 'Signed up successfully' : 'Signed in successfully';
+      default:
+        debugPrint(
+            'Unknown \'reasonPhrase\' from Firebase: ${loginData.reasonPhrase}');
+        return loginData.reasonPhrase!;
+    }
   }
 
   bool isFormValid(formKey) => formKey.currentState!.validate();
