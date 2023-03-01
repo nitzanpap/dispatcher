@@ -42,7 +42,7 @@ class PasswordInputField extends StatefulWidget {
 }
 
 class _PasswordInputFieldState extends State<PasswordInputField> {
-  bool isObscureText = false;
+  bool isObscureText = true;
 
   @override
   Widget build(BuildContext context) {

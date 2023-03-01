@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:dispatcher/api/firebase_auth.dart';
+import 'package:dispatcher/constants/firebase_auth_types.dart';
+import 'package:dispatcher/widgets/text_with_icon.dart';
 import 'package:flutter/material.dart';
 
 import 'package:gap/gap.dart';
-import 'package:http/src/response.dart';
+import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
 import '../enums/signup_login_title.dart';
@@ -114,7 +116,10 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
           text: title.toUpperCase(),
           onPressedFunction: () async {
             SnackBar snackBar = SnackBar(
-              content: Text(isSignupPage ? 'Signing up...' : 'Signing in...'),
+              content: TextWithIcon(
+                  text: isSignupPage ? 'Signing up...' : 'Signing in...',
+                  color: AppColors.white),
+              backgroundColor: AppColors.deepDarkBlue,
               duration: const Duration(seconds: 3),
             );
             ScaffoldMessenger.of(context).clearSnackBars();
@@ -127,12 +132,16 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
               isSignUp: isSignupPage,
             );
             snackBar = SnackBar(
-              content: Text(msgFromFirebase),
+              content:
+                  TextWithIcon(text: msgFromFirebase, color: AppColors.white),
+              backgroundColor: AppColors.deepDarkBlue,
               duration: const Duration(seconds: 3),
             );
-            ScaffoldMessenger.of(context).clearSnackBars();
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            // TODO: Implement here, authenticating with firebase and moving to the next page.
+            if (context.mounted) {
+              ScaffoldMessenger.of(context).clearSnackBars();
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              // TODO: Implement here, authenticating with firebase and moving to the next page.
+            }
           },
           icon: const Icon(
             Icons.arrow_forward_rounded,
@@ -168,32 +177,29 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
       return 'Invalid input somewhere in the form!';
     }
     debugPrint('Valid Form!');
-    final Response loginData;
-    Map<String, dynamic> loginDataObj;
-    try {
-      loginData = await (isSignUp
-          ? signup(email: formEmail, password: formPassword)
-          : login(email: formEmail, password: formPassword));
-      loginDataObj = jsonDecode(loginData.body);
-    } catch (e) {
-      debugPrint('Error:');
-      debugPrint(e.toString());
-      return e.toString();
+
+    final Response firebaseAuthResponse = await (isSignupPage
+        ? FirebaseAuthApi.signup(email: formEmail, password: formPassword)
+        : FirebaseAuthApi.login(email: formEmail, password: formPassword));
+
+    final Map<String, dynamic> firebaseAuthResponseData =
+        jsonDecode(firebaseAuthResponse.body);
+
+    final String firebaseAuthResponseMessage =
+        FirebaseAuthApi.getFirebaseAuthResponseMessage(
+      reasonPhrase: firebaseAuthResponse.reasonPhrase!,
+      responseData: firebaseAuthResponseData,
+    );
+
+    if (firebaseAuthResponseMessage == FirebaseAuthResponseTypes.ok) {
+      provider.updateProvider(
+        formEmail: formEmail,
+        formPassword: formPassword,
+        newIdToken: firebaseAuthResponseData["idToken"],
+      );
+      return isSignUp ? "Signed up" : 'Signed in';
     }
-    switch (loginData.reasonPhrase) {
-      case "Bad Request":
-        return loginDataObj['error']['message'];
-      case "OK":
-        provider.updateProvider(
-            formEmail: formEmail,
-            formPassword: formPassword,
-            newIdToken: loginDataObj["idToken"]);
-        return isSignUp ? 'Signed up successfully' : 'Signed in successfully';
-      default:
-        debugPrint(
-            'Unknown \'reasonPhrase\' from Firebase: ${loginData.reasonPhrase}');
-        return loginData.reasonPhrase!;
-    }
+    return firebaseAuthResponseMessage;
   }
 
   bool isFormValid(formKey) => formKey.currentState!.validate();
