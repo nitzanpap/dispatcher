@@ -1,6 +1,5 @@
 abstract class Validations {
-  // Returns null if the given string is a valid password, otherwise returns an informative message.
-  static String? passwordValidator(String? value) {
+  static String? getPasswordErrorMsgOrNull(String? value) {
     if (value == null) {
       return 'Invalid input!';
     }
@@ -25,12 +24,10 @@ abstract class Validations {
     if (!hasMin8CharsRegEx.hasMatch(value)) {
       return 'Password must be at least 8 characters long.';
     }
-    // Valid password
     return null;
   }
 
-  // Returns null if the given string is a valid email, otherwise returns an informative message.
-  static String? emailValidator(String? value) {
+  static String? getEmailErrorMsgOrNull(String? value) {
     return (_isValidEmail(value))
         ? null
         : 'Please enter a valid email address.';

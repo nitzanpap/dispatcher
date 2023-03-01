@@ -17,7 +17,6 @@ class SignupLoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const logoLayered = LogoLayered();
     return Scaffold(
       backgroundColor: AppColors.deepDarkBlue,
       appBar: const MinimalAppBar(),
@@ -29,7 +28,9 @@ class SignupLoginScreen extends StatelessWidget {
             children: [
               const Flexible(
                 flex: logoSectionSize,
-                child: Center(child: logoLayered),
+                child: Center(
+                  child: LogoLayered(),
+                ),
               ),
               Flexible(
                 flex: 100 - logoSectionSize,

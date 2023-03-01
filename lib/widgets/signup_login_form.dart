@@ -160,13 +160,4 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
   }
 
   bool isFormValid(formKey) => formKey.currentState!.validate();
-
-  void updateProvider({
-    required SignupLoginProvider provider,
-    required String formEmail,
-    required String formPassword,
-  }) {
-    provider.updateEmail(formEmail);
-    provider.updatePassword(formPassword);
-  }
 }
