@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dispatcher/api/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -151,12 +153,20 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
       return;
     }
     debugPrint('Valid Form!');
-    provider.updateProvider(formEmail: formEmail, formPassword: formPassword);
-    final loginData = await (isSignUp
-        ? signup(email: formEmail, password: formPassword)
-        : login(email: formEmail, password: formPassword));
+    try {
+      final loginData = await (isSignUp
+          ? signup(email: formEmail, password: formPassword)
+          : login(email: formEmail, password: formPassword));
+      final loginDataObj = jsonDecode(loginData.body);
+      debugPrint(loginDataObj.toString());
+      provider.updateProvider(
+          formEmail: formEmail,
+          formPassword: formPassword,
+          newIdToken: loginDataObj["idToken"]);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
     // TODO: Implement here, authenticating with firebase and moving to the next page.
-    debugPrint(loginData.body);
   }
 
   bool isFormValid(formKey) => formKey.currentState!.validate();
