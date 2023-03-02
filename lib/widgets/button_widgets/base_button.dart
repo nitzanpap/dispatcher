@@ -1,7 +1,9 @@
-import 'package:dispatcher/constants/colors.dart';
-import 'package:dispatcher/enums/icon_direction.dart';
-import 'package:dispatcher/widgets/text_with_icon.dart';
 import 'package:flutter/material.dart';
+
+import '../../constants/colors.dart';
+import '../../enums/icon_direction.dart';
+
+import '../../widgets/text_with_icon.dart';
 
 abstract class BaseButton extends StatelessWidget {
   final String text;

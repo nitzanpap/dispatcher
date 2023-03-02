@@ -1,6 +1,8 @@
-import 'package:dispatcher/constants/firebase_auth_types.dart';
-import 'package:dispatcher/helpers/helper_classes/firebase_config.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+
+import '../constants/firebase_auth_types.dart';
+import '../helpers/helper_classes/firebase_config.dart';
 
 abstract class FirebaseAuthApi {
   static Future<http.Response> login(
@@ -35,7 +37,9 @@ abstract class FirebaseAuthApi {
       case FirebaseAuthResponseTypes.ok:
         return FirebaseAuthResponseTypes.ok;
       default:
-        print('Unknown \'reasonPhrase\' from Firebase: $reasonPhrase');
+        if (kDebugMode) {
+          print('Unknown \'reasonPhrase\' from Firebase: $reasonPhrase');
+        }
         return reasonPhrase;
     }
   }

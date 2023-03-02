@@ -1,4 +1,4 @@
-import 'package:dispatcher/widgets/button_widgets/base_button.dart';
+import '../../widgets/button_widgets/base_button.dart';
 
 class PrimaryButton extends BaseButton {
   const PrimaryButton({

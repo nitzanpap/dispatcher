@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../helpers/helper_functions/validations.dart';
 
-import './app_input_field.dart';
+import '../../widgets/input_field_widgets/app_input_field.dart';
 
 class EmailInputField extends StatelessWidget {
   final void Function(String)? onChanged;
