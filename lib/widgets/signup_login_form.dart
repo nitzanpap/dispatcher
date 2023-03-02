@@ -8,7 +8,9 @@ import 'package:provider/provider.dart';
 
 import '../enums/signup_login_title.dart';
 import '../constants/colors.dart';
-import '../constants/firebase_auth_types.dart';
+import '../constants/routes.dart';
+import '../helpers/helper_classes/firebase_auth_types.dart';
+import '../helpers/helper_classes/logging_message_type.dart';
 import '../providers/signup_login_provider.dart';
 import '../api/firebase_auth.dart';
 
@@ -132,15 +134,17 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
               isSignUp: isSignupPage,
             );
             snackBar = SnackBar(
-              content:
-                  TextWithIcon(text: msgFromFirebase, color: AppColors.white),
+              content: TextWithIcon(
+                  text: msgFromFirebase.message, color: AppColors.white),
               backgroundColor: AppColors.deepDarkBlue,
               duration: const Duration(seconds: 3),
             );
             if (context.mounted) {
               ScaffoldMessenger.of(context).clearSnackBars();
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              // TODO: Implement here, authenticating with firebase and moving to the next page.
+              if (msgFromFirebase.isValid) {
+                Navigator.pushNamed(context, ValidRoutes.homeScreen);
+              }
             }
           },
           icon: const Icon(
@@ -166,7 +170,7 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
     provider.resetFormData();
   }
 
-  Future<String> submitForm({
+  Future<LoggingMessageType> submitForm({
     required GlobalKey formKey,
     required SignupLoginProvider provider,
     required String formEmail,
@@ -174,7 +178,8 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
     required bool isSignUp,
   }) async {
     if (!isFormValid(formKey)) {
-      return 'Invalid input somewhere in the form!';
+      return LoggingMessageType(
+          message: 'Invalid input somewhere in the form!', isValid: false);
     }
     debugPrint('Valid Form!');
 
@@ -197,9 +202,11 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
         formPassword: formPassword,
         newIdToken: firebaseAuthResponseData["idToken"],
       );
-      return isSignUp ? "Signed up" : 'Signed in';
+      return LoggingMessageType(
+          message: (isSignUp ? "Signed up" : 'Signed in'), isValid: true);
     }
-    return firebaseAuthResponseMessage;
+    return LoggingMessageType(
+        message: firebaseAuthResponseMessage, isValid: false);
   }
 
   bool isFormValid(formKey) => formKey.currentState!.validate();

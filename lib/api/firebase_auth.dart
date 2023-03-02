@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
-import '../constants/firebase_auth_types.dart';
+import '../helpers/helper_classes/firebase_auth_types.dart';
 import '../helpers/helper_classes/firebase_config.dart';
 
 abstract class FirebaseAuthApi {

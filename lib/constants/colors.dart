@@ -10,6 +10,6 @@ abstract class AppColors {
   static const mediumGrey = Color.fromRGBO(241, 241, 249, 1);
   static const grey = Color.fromRGBO(217, 219, 233, 1);
   static const error = Color.fromRGBO(255, 107, 87, 1);
-  static const badgeColor = Color.fromRGBO(217, 219, 233, 1);
+  static const badgeColor = Color.fromRGBO(253, 89, 89, 1);
   static const green = Color.fromRGBO(23, 209, 6, 1);
 }

@@ -5,12 +5,10 @@ import '../enums/theme_color.dart';
 
 class MinimalAppBar extends StatelessWidget with PreferredSizeWidget {
   final ThemeColor theme;
-  final bool defaultToolbarHeight;
 
   const MinimalAppBar({
     super.key,
     this.theme = ThemeColor.dark,
-    this.defaultToolbarHeight = false,
   });
 
   @override

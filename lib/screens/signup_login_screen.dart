@@ -6,7 +6,7 @@ import '../constants/colors.dart';
 import '../providers/signup_login_provider.dart';
 
 import '../widgets/minimal_app_bar.dart';
-import '../widgets/logo_widgets/logo_layered.dart';
+import '../widgets/svg_widgets/logo_layered.dart';
 import '../widgets/signup_login_form.dart';
 
 class SignupLoginScreen extends StatelessWidget {

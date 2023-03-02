@@ -1,3 +1,4 @@
+import 'package:dispatcher/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -33,13 +34,16 @@ class MyApp extends StatelessWidget {
           alignment: AlignmentDirectional.topEnd,
         ),
       ),
-      home: const SplashScreen(),
+      home: const String.fromEnvironment('currentEnv') == 'prod'
+          ? const SplashScreen()
+          : const HomeScreen(),
       routes: {
         ValidRoutes.onboardingScreen: (context) => ChangeNotifierProvider(
               create: (context) => OnboardingStepProvider(),
               child: const OnboardingScreen(),
             ),
         ValidRoutes.signupLoginScreen: (context) => const SignupLoginScreen(),
+        ValidRoutes.homeScreen: (context) => const HomeScreen(),
       },
     );
   }
