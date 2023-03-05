@@ -1,6 +1,5 @@
 import 'package:dispatcher/constants/colors.dart';
 import 'package:dispatcher/widgets/app_bottom_navigation_bar.dart';
-import 'package:dispatcher/widgets/app_icons.dart';
 import 'package:dispatcher/widgets/svg_widgets/logo_layered.dart';
 import 'package:dispatcher/widgets/svg_widgets/notification_svg.dart';
 import '../widgets/svg_widgets/search_svg.dart';
