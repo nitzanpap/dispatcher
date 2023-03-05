@@ -1,62 +1,38 @@
-import 'package:dispatcher/constants/colors.dart';
-import 'package:dispatcher/widgets/app_bottom_navigation_bar.dart';
-import 'package:dispatcher/widgets/svg_widgets/logo_layered.dart';
-import 'package:dispatcher/widgets/svg_widgets/notification_svg.dart';
-import '../widgets/svg_widgets/search_svg.dart';
-import 'package:dispatcher/widgets/text_with_icon.dart';
+import 'package:dispatcher/providers/bottom_navigation_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../constants/colors.dart';
+
+import '../widgets/main_app_bar.dart';
+import '../widgets/app_bottom_navigation_bar.dart';
+import '../widgets/text_with_icon.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final bottomNavigationProvider =
+        Provider.of<BottomNavigationProvider>(context);
+    final currentMainTabRoute = bottomNavigationProvider.currentMainTabRoute;
+
     return Scaffold(
       backgroundColor: AppColors.deepDarkBlue,
-      appBar: AppBar(
-        toolbarHeight: 75,
-        backgroundColor: AppColors.deepDarkBlue,
-        actions: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton(
-              onPressed: () => print('Search icon clicked'),
-              icon: const SearchSvg(),
-            ),
-          ),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Badge(
-                backgroundColor: AppColors.badgeColor,
-                // isLabelVisible: false,
-                child: IconButton(
-                    padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(),
-                    onPressed: () => print('Notifications icon clicked'),
-                    icon: const NotificationSvg()),
-              ),
-            ),
-          ),
-        ],
-        leading: const Padding(
-          padding: EdgeInsets.only(left: 16),
-          child: LogoLayered(),
-        ),
-      ),
+      appBar: const MainAppBar(),
       body: Container(
         alignment: Alignment.center,
         color: AppColors.white,
-        child: const SizedBox(
+        child: SizedBox(
           width: 200,
           height: 200,
           child: TextWithIcon(
-            text: 'Home Screen',
+            text: currentMainTabRoute,
             color: AppColors.deepDarkBlue,
           ),
         ),
       ),
-      bottomNavigationBar: const AppBottomNavigationBar(),
+      bottomNavigationBar: AppBottomNavigationBar(),
     );
   }
 }

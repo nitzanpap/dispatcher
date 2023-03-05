@@ -1,32 +1,28 @@
-import 'package:dispatcher/constants/colors.dart';
-import 'package:dispatcher/widgets/svg_widgets/home_active_svg.dart';
-import 'package:dispatcher/widgets/svg_widgets/home_svg.dart';
-import 'package:dispatcher/widgets/svg_widgets/person_active_svg.dart';
-import 'package:dispatcher/widgets/svg_widgets/person_svg.dart';
-import 'package:dispatcher/widgets/svg_widgets/star_active_svg.dart';
-import 'package:dispatcher/widgets/svg_widgets/star_svg.dart';
+import 'package:dispatcher/enums/valid_main_tabs.dart';
+import 'package:dispatcher/providers/bottom_navigation_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class AppBottomNavigationBar extends StatefulWidget {
-  const AppBottomNavigationBar({
-    super.key,
-  });
+import '../constants/colors.dart';
 
-  @override
-  State<AppBottomNavigationBar> createState() => _AppBottomNavigationBarState();
-}
+import '../widgets/svg_widgets/home_active_svg.dart';
+import '../widgets/svg_widgets/home_svg.dart';
+import '../widgets/svg_widgets/person_active_svg.dart';
+import '../widgets/svg_widgets/person_svg.dart';
+import '../widgets/svg_widgets/star_active_svg.dart';
+import '../widgets/svg_widgets/star_svg.dart';
 
-class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
-  int _selectedIndex = 1;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+class AppBottomNavigationBar extends StatelessWidget {
+  void _onItemTapped(int newIndex, BottomNavigationProvider tabsProvider) {
+    tabsProvider.changeTabIndex(newIndex);
   }
 
   @override
   Widget build(BuildContext context) {
+    final bottomNavigationProvider =
+        Provider.of<BottomNavigationProvider>(context);
+    final currentMainTabIndex = bottomNavigationProvider.currentMainTabIndex;
+
     return BottomNavigationBar(
       backgroundColor: AppColors.deepDarkBlue,
       items: const [
@@ -46,8 +42,8 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
           label: 'Favorites',
         ),
       ],
-      currentIndex: _selectedIndex,
-      onTap: _onItemTapped,
+      currentIndex: currentMainTabIndex,
+      onTap: (newIndex) => _onItemTapped(newIndex, bottomNavigationProvider),
       showUnselectedLabels: false,
       showSelectedLabels: false,
       fixedColor: AppColors.white,

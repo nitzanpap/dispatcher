@@ -1,4 +1,4 @@
-import 'package:dispatcher/screens/main_screen.dart';
+import 'package:dispatcher/providers/bottom_navigation_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +10,7 @@ import './providers/onboarding_step_provider.dart';
 import './screens/splash_screen.dart';
 import './screens/onboarding_screen.dart';
 import './screens/signup_login_screen.dart';
+import '../screens/main_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,14 +37,26 @@ class MyApp extends StatelessWidget {
       ),
       home: const String.fromEnvironment('currentEnv') == 'prod'
           ? const SplashScreen()
-          : const MainScreen(),
+          : MultiProvider(
+              providers: [
+                ChangeNotifierProvider(
+                    create: (context) => BottomNavigationProvider())
+              ],
+              child: const MainScreen(),
+            ),
       routes: {
         ValidRoutes.onboardingScreen: (context) => ChangeNotifierProvider(
               create: (context) => OnboardingStepProvider(),
               child: const OnboardingScreen(),
             ),
         ValidRoutes.signupLoginScreen: (context) => const SignupLoginScreen(),
-        ValidRoutes.mainScreen: (context) => const MainScreen(),
+        ValidRoutes.mainScreen: (context) => MultiProvider(
+              providers: [
+                ChangeNotifierProvider(
+                    create: (context) => BottomNavigationProvider())
+              ],
+              child: const MainScreen(),
+            ),
       },
     );
   }
