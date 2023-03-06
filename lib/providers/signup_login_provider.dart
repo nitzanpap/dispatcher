@@ -48,7 +48,7 @@ class SignupLoginProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void updateProvider({
+  void _updateProvider({
     required String formEmail,
     required String formPassword,
     required String newIdToken,
@@ -56,7 +56,6 @@ class SignupLoginProvider with ChangeNotifier {
     _email = formEmail;
     _password = formPassword;
     _idToken = newIdToken;
-    notifyListeners();
   }
 
   void resetFormData({required GlobalKey<FormState> formKey}) {
@@ -84,7 +83,7 @@ class SignupLoginProvider with ChangeNotifier {
         firebaseAuthResponseFromJson(firebaseAuthResponse.body);
 
     if (firebaseAuthResponseData.error == null) {
-      updateProvider(
+      _updateProvider(
         formEmail: firebaseAuthResponseData.email!,
         formPassword: password,
         newIdToken: firebaseAuthResponseData.idToken!,
