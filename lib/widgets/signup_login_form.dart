@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
-import '../enums/signup_login_title.dart';
 import '../constants/colors.dart';
 import '../providers/signup_login_provider.dart';
 
@@ -30,10 +29,6 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
   Widget build(BuildContext context) {
     final signupLoginProvider = Provider.of<SignupLoginProvider>(context);
 
-    final title = signupLoginProvider.isSignupPage
-        ? SignupLoginTitle.signup
-        : SignupLoginTitle.login;
-
     return Form(
       key: _formKey,
       child: Padding(
@@ -46,9 +41,9 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  getInputsSectionView(title, signupLoginProvider),
+                  getInputsSectionView(signupLoginProvider),
                   const LineSeparator(),
-                  getButtonsSectionView(title, signupLoginProvider)
+                  getButtonsSectionView(signupLoginProvider)
                 ],
               ),
             ),
@@ -58,11 +53,10 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
     );
   }
 
-  Widget getInputsSectionView(
-      String title, SignupLoginProvider signupLoginProvider) {
+  Widget getInputsSectionView(SignupLoginProvider signupLoginProvider) {
     return Column(
       children: [
-        getTitleView(title),
+        getTitleView(signupLoginProvider.title),
         gapView,
         EmailInputField(
           onChanged: (String value) => signupLoginProvider.updateEmail = value,
@@ -99,20 +93,18 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
   }
 
   Widget getButtonsSectionView(
-    String title,
     SignupLoginProvider signupLoginProvider,
   ) {
     return Column(
       children: [
         PrimaryButton(
-          text: title.toUpperCase(),
+          text: signupLoginProvider.title.toUpperCase(),
           onPressedFunction: () async {
             SnackBar snackBar = SnackBar(
               content: TextWithIcon(
-                  text: signupLoginProvider.isSignupPage
-                      ? 'Signing up...'
-                      : 'Signing in...',
-                  color: AppColors.white),
+                text: signupLoginProvider.getSnackBarActionText,
+                color: AppColors.white,
+              ),
               backgroundColor: AppColors.deepDarkBlue,
               duration: const Duration(seconds: 3),
             );
@@ -137,9 +129,7 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
           ),
         ),
         SecondaryButton(
-            text: signupLoginProvider.isSignupPage
-                ? SignupLoginTitle.login.toUpperCase()
-                : SignupLoginTitle.signup.toUpperCase(),
+            text: signupLoginProvider.oppositeTitle.toUpperCase(),
             onPressedFunction: () {
               signupLoginProvider.resetFormData(formKey: _formKey);
               signupLoginProvider.switchSignUpLoginPage();

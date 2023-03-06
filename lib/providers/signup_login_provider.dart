@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
 class SignupLoginProvider with ChangeNotifier {
+  static const String signupTitle = 'Signup';
+  static const String loginTitle = 'Login';
   String _email = '';
   String _password = '';
   String _confirmationPassword = '';
@@ -15,6 +17,11 @@ class SignupLoginProvider with ChangeNotifier {
   String get confirmationPassword => _confirmationPassword;
   String get idToken => _idToken;
   bool get isSignupPage => _isSignupPage;
+
+  String get getSnackBarActionText =>
+      isSignupPage ? 'Signing up...' : 'Signing in...';
+  String get title => isSignupPage ? signupTitle : loginTitle;
+  String get oppositeTitle => isSignupPage ? loginTitle : signupTitle;
 
   set updateEmail(String newEmail) {
     _email = newEmail;
