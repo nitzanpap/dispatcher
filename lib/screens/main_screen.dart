@@ -1,8 +1,8 @@
-import 'package:dispatcher/providers/bottom_navigation_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/colors.dart';
+import '../providers/bottom_navigation_provider.dart';
 
 import '../widgets/main_app_bar.dart';
 import '../widgets/app_bottom_navigation_bar.dart';
@@ -32,7 +32,7 @@ class MainScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: AppBottomNavigationBar(),
+      bottomNavigationBar: const AppBottomNavigationBar(),
     );
   }
 }

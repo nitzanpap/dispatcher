@@ -16,28 +16,9 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       toolbarHeight: 75,
       backgroundColor: AppColors.deepDarkBlue,
-      actions: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: IconButton(
-            onPressed: () => print('Search icon clicked'),
-            icon: const SearchSvg(),
-          ),
-        ),
-        Center(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Badge(
-              backgroundColor: AppColors.badgeColor,
-              // isLabelVisible: false,
-              child: IconButton(
-                  padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(),
-                  onPressed: () => print('Notifications icon clicked'),
-                  icon: const NotificationSvg()),
-            ),
-          ),
-        ),
+      actions: const <Widget>[
+        SearchIconBtn(),
+        NotificationIconBtn(),
       ],
       leading: const Padding(
         padding: EdgeInsets.only(left: 16),
@@ -48,4 +29,46 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Size get preferredSize => const Size.fromHeight(75);
+}
+
+class NotificationIconBtn extends StatelessWidget {
+  const NotificationIconBtn({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Badge(
+          backgroundColor: AppColors.badgeColor,
+          // TODO: Add a provider to get the number of notifications
+          // isLabelVisible: false,
+          child: IconButton(
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(),
+              onPressed: () => print('Notifications icon clicked'),
+              icon: const NotificationSvg()),
+        ),
+      ),
+    );
+  }
+}
+
+class SearchIconBtn extends StatelessWidget {
+  const SearchIconBtn({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: IconButton(
+        onPressed: () => print('Search icon clicked'),
+        icon: const SearchSvg(),
+      ),
+    );
+  }
 }
