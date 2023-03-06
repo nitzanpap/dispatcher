@@ -87,7 +87,7 @@ class SignupLoginProvider with ChangeNotifier {
         formPassword: password,
         newIdToken: firebaseAuthResponseData.idToken!,
       );
-      return isSignupPage ? "Signed up" : 'Signed in';
+      return 'Logged in successfully!';
     }
     return firebaseAuthResponseData.error!.message;
   }
