@@ -120,8 +120,7 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
               backgroundColor: AppColors.deepDarkBlue,
               duration: const Duration(seconds: 3),
             );
-            ScaffoldMessenger.of(context).clearSnackBars();
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            showAndReplaceSnackBar(snackBar);
             final msgFromFirebase = await submitForm(
               formKey: _formKey,
               provider: signupLoginProvider,
@@ -136,8 +135,7 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
               duration: const Duration(seconds: 3),
             );
             if (context.mounted) {
-              ScaffoldMessenger.of(context).clearSnackBars();
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              showAndReplaceSnackBar(snackBar);
               // TODO: Implement here, authenticating with firebase and moving to the next page.
             }
           },
@@ -157,6 +155,11 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
             }),
       ],
     );
+  }
+
+  void showAndReplaceSnackBar(SnackBar snackBar) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   void resetFormData(SignupLoginProvider provider) {
