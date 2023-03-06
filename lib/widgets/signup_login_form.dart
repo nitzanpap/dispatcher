@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 
 import 'package:gap/gap.dart';
@@ -8,9 +6,9 @@ import 'package:provider/provider.dart';
 
 import '../enums/signup_login_title.dart';
 import '../constants/colors.dart';
-import '../constants/firebase_auth_types.dart';
 import '../providers/signup_login_provider.dart';
-import '../api/firebase_auth.dart';
+import '../api/firebase/firebase_auth.dart';
+import '../api/firebase/firebase_auth_response.dart';
 
 import './button_widgets/primary_button.dart';
 import './button_widgets/secondary_button.dart';
@@ -182,24 +180,19 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
         ? FirebaseAuthApi.signup(email: formEmail, password: formPassword)
         : FirebaseAuthApi.login(email: formEmail, password: formPassword));
 
-    final Map<String, dynamic> firebaseAuthResponseData =
-        jsonDecode(firebaseAuthResponse.body);
+    final firebaseAuthResponseData =
+        firebaseAuthResponseFromJson(firebaseAuthResponse.body);
+    print(firebaseAuthResponseData);
 
-    final String firebaseAuthResponseMessage =
-        FirebaseAuthApi.getFirebaseAuthResponseMessage(
-      reasonPhrase: firebaseAuthResponse.reasonPhrase!,
-      responseData: firebaseAuthResponseData,
-    );
-
-    if (firebaseAuthResponseMessage == FirebaseAuthResponseTypes.ok) {
+    if (firebaseAuthResponseData.error == null) {
       provider.updateProvider(
-        formEmail: formEmail,
+        formEmail: firebaseAuthResponseData.email!,
         formPassword: formPassword,
-        newIdToken: firebaseAuthResponseData["idToken"],
+        newIdToken: firebaseAuthResponseData.idToken!,
       );
       return isSignUp ? "Signed up" : 'Signed in';
     }
-    return firebaseAuthResponseMessage;
+    return firebaseAuthResponseData.error!.message;
   }
 
   bool isFormValid(formKey) => formKey.currentState!.validate();
