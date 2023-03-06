@@ -12,6 +12,7 @@ class SignupLoginProvider with ChangeNotifier {
 
   String get email => _email;
   String get password => _password;
+  String get confirmationPassword => _confirmationPassword;
   String get idToken => _idToken;
   bool get isSignupPage => _isSignupPage;
 

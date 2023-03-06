@@ -6,12 +6,10 @@ import '../../widgets/input_field_widgets/app_input_field.dart';
 
 class EmailInputField extends StatelessWidget {
   final void Function(String)? onChanged;
-  final TextInputAction? textInputAction;
 
   const EmailInputField({
     super.key,
     required this.onChanged,
-    this.textInputAction,
   });
 
   @override

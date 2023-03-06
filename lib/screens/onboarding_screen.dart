@@ -146,7 +146,6 @@ class OnboardingScreen extends StatelessWidget {
 
   void onSkipOnboardingPressed(context) {
     if (kDebugMode) {
-      print('Finished Onboarding!');
       Navigator.pushReplacementNamed(context, ValidRoutes.signupLoginScreen);
     }
   }

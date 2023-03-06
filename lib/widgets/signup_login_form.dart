@@ -25,7 +25,6 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
   static const gapView = Gap(24);
 
   final _formKey = GlobalKey<FormState>();
-  String retypedPassword = '';
 
   @override
   Widget build(BuildContext context) {
