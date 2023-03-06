@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:gap/gap.dart';
-import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
 import '../enums/signup_login_title.dart';
 import '../constants/colors.dart';
 import '../providers/signup_login_provider.dart';
-import '../api/firebase/firebase_auth.dart';
-import '../api/firebase/firebase_auth_response.dart';
 
 import './button_widgets/primary_button.dart';
 import './button_widgets/secondary_button.dart';
@@ -28,18 +25,15 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
   static const gapView = Gap(24);
 
   final _formKey = GlobalKey<FormState>();
-
-  bool isSignupPage = true;
-  String email = '';
-  String password = '';
   String retypedPassword = '';
 
   @override
   Widget build(BuildContext context) {
     final signupLoginProvider = Provider.of<SignupLoginProvider>(context);
 
-    final title =
-        isSignupPage ? SignupLoginTitle.signup : SignupLoginTitle.login;
+    final title = signupLoginProvider.isSignupPage
+        ? SignupLoginTitle.signup
+        : SignupLoginTitle.login;
 
     return Form(
       key: _formKey,
@@ -48,13 +42,12 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
         child: LayoutBuilder(
           builder: (BuildContext ctx, BoxConstraints constraints) =>
               SingleChildScrollView(
-            // primary: true,
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraints.maxHeight),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  getInputsSectionView(title),
+                  getInputsSectionView(title, signupLoginProvider),
                   const LineSeparator(),
                   getButtonsSectionView(title, signupLoginProvider)
                 ],
@@ -66,25 +59,27 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
     );
   }
 
-  Widget getInputsSectionView(String title) {
+  Widget getInputsSectionView(
+      String title, SignupLoginProvider signupLoginProvider) {
     return Column(
       children: [
         getTitleView(title),
         gapView,
         EmailInputField(
-          onChanged: (String value) => setState(() => email = value),
+          onChanged: (String value) => signupLoginProvider.updateEmail = value,
         ),
         gapView,
         PasswordInputField(
-          onChanged: (String value) => setState(() => password = value),
+          onChanged: (String value) =>
+              signupLoginProvider.updatePassword = value,
           textInputAction: TextInputAction.next,
         ),
         gapView,
-        if (isSignupPage)
-          PasswordInputField.reEnteredPassword(
+        if (signupLoginProvider.isSignupPage)
+          PasswordInputField.confirmationPassword(
             onChanged: (String value) =>
-                setState(() => retypedPassword = value),
-            originalPassword: password,
+                signupLoginProvider.updateConfirmationPassword = value,
+            originalPassword: signupLoginProvider.password,
           ),
       ],
     );
@@ -115,19 +110,16 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
           onPressedFunction: () async {
             SnackBar snackBar = SnackBar(
               content: TextWithIcon(
-                  text: isSignupPage ? 'Signing up...' : 'Signing in...',
+                  text: signupLoginProvider.isSignupPage
+                      ? 'Signing up...'
+                      : 'Signing in...',
                   color: AppColors.white),
               backgroundColor: AppColors.deepDarkBlue,
               duration: const Duration(seconds: 3),
             );
             showAndReplaceSnackBar(snackBar);
-            final msgFromFirebase = await submitForm(
-              formKey: _formKey,
-              provider: signupLoginProvider,
-              formEmail: email,
-              formPassword: password,
-              isSignUp: isSignupPage,
-            );
+            final msgFromFirebase = await signupLoginProvider
+                .getMessageFromFirebaseAuth(formKey: _formKey);
             snackBar = SnackBar(
               content:
                   TextWithIcon(text: msgFromFirebase, color: AppColors.white),
@@ -146,12 +138,12 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
           ),
         ),
         SecondaryButton(
-            text: isSignupPage
+            text: signupLoginProvider.isSignupPage
                 ? SignupLoginTitle.login.toUpperCase()
                 : SignupLoginTitle.signup.toUpperCase(),
             onPressedFunction: () {
-              resetFormData(signupLoginProvider);
-              setState(() => isSignupPage = !isSignupPage);
+              signupLoginProvider.resetFormData(formKey: _formKey);
+              signupLoginProvider.switchSignUpLoginPage();
             }),
       ],
     );
@@ -161,42 +153,4 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
-
-  void resetFormData(SignupLoginProvider provider) {
-    _formKey.currentState?.reset();
-    provider.resetFormData();
-  }
-
-  Future<String> submitForm({
-    required GlobalKey formKey,
-    required SignupLoginProvider provider,
-    required String formEmail,
-    required String formPassword,
-    required bool isSignUp,
-  }) async {
-    if (!isFormValid(formKey)) {
-      return 'Invalid input somewhere in the form!';
-    }
-    debugPrint('Valid Form!');
-
-    final Response firebaseAuthResponse = await (isSignupPage
-        ? FirebaseAuthApi.signup(email: formEmail, password: formPassword)
-        : FirebaseAuthApi.login(email: formEmail, password: formPassword));
-
-    final firebaseAuthResponseData =
-        firebaseAuthResponseFromJson(firebaseAuthResponse.body);
-    print(firebaseAuthResponseData);
-
-    if (firebaseAuthResponseData.error == null) {
-      provider.updateProvider(
-        formEmail: firebaseAuthResponseData.email!,
-        formPassword: formPassword,
-        newIdToken: firebaseAuthResponseData.idToken!,
-      );
-      return isSignUp ? "Signed up" : 'Signed in';
-    }
-    return firebaseAuthResponseData.error!.message;
-  }
-
-  bool isFormValid(formKey) => formKey.currentState!.validate();
 }

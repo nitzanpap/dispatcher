@@ -22,7 +22,7 @@ class PasswordInputField extends StatefulWidget {
     this.labelText = 'Password',
   });
 
-  const PasswordInputField.reEnteredPassword({
+  const PasswordInputField.confirmationPassword({
     super.key,
     required this.onChanged,
     this.textInputAction,

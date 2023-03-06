@@ -1,26 +1,42 @@
+import 'package:dispatcher/api/firebase/firebase_auth.dart';
+import 'package:dispatcher/api/firebase/firebase_auth_response.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 class SignupLoginProvider with ChangeNotifier {
   String _email = '';
   String _password = '';
+  String _confirmationPassword = '';
   String _idToken = '';
+  bool _isSignupPage = true;
 
   String get email => _email;
   String get password => _password;
   String get idToken => _idToken;
+  bool get isSignupPage => _isSignupPage;
 
-  void updateEmail(String newEmail) {
+  set updateEmail(String newEmail) {
     _email = newEmail;
     notifyListeners();
   }
 
-  void updatePassword(String newPassword) {
+  set updatePassword(String newPassword) {
     _password = newPassword;
     notifyListeners();
   }
 
-  void updateIdToken(String newIdToken) {
-    _password = newIdToken;
+  set updateConfirmationPassword(String newConfirmationPassword) {
+    _confirmationPassword = newConfirmationPassword;
+    notifyListeners();
+  }
+
+  set updateIdToken(String newIdToken) {
+    _idToken = newIdToken;
+    notifyListeners();
+  }
+
+  void switchSignUpLoginPage() {
+    _isSignupPage = !_isSignupPage;
     notifyListeners();
   }
 
@@ -32,14 +48,41 @@ class SignupLoginProvider with ChangeNotifier {
     _email = formEmail;
     _password = formPassword;
     _idToken = newIdToken;
-    debugPrint(
-        'Email: $formEmail\n Password: $formPassword\n ID Token: $newIdToken');
     notifyListeners();
   }
 
-  void resetFormData() {
+  void resetFormData({required GlobalKey<FormState> formKey}) {
+    formKey.currentState?.reset();
     _email = '';
     _password = '';
     notifyListeners();
   }
+
+  Future<String> getMessageFromFirebaseAuth({
+    required GlobalKey<FormState> formKey,
+  }) async {
+    if (!isFormValid(formKey)) {
+      return 'Invalid input somewhere in the form!';
+    }
+    debugPrint('Valid Form!');
+
+    final Response firebaseAuthResponse = await (isSignupPage
+        ? FirebaseAuthApi.signup(email: email, password: password)
+        : FirebaseAuthApi.login(email: email, password: password));
+
+    final firebaseAuthResponseData =
+        firebaseAuthResponseFromJson(firebaseAuthResponse.body);
+
+    if (firebaseAuthResponseData.error == null) {
+      updateProvider(
+        formEmail: firebaseAuthResponseData.email!,
+        formPassword: password,
+        newIdToken: firebaseAuthResponseData.idToken!,
+      );
+      return isSignupPage ? "Signed up" : 'Signed in';
+    }
+    return firebaseAuthResponseData.error!.message;
+  }
+
+  bool isFormValid(formKey) => formKey.currentState!.validate();
 }
