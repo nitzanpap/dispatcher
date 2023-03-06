@@ -66,7 +66,7 @@ class SignupLoginProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<String> getMessageFromFirebaseAuth({
+  Future<String> logIntoFirebaseAuth({
     required GlobalKey<FormState> formKey,
   }) async {
     if (!isFormValid(formKey)) {
@@ -74,9 +74,11 @@ class SignupLoginProvider with ChangeNotifier {
     }
     debugPrint('Valid Form!');
 
-    final Response firebaseAuthResponse = await (isSignupPage
-        ? FirebaseAuthApi.signup(email: email, password: password)
-        : FirebaseAuthApi.login(email: email, password: password));
+    final Response firebaseAuthResponse = await FirebaseAuthApi.logIntoFirebase(
+      isSignupPage: isSignupPage,
+      email: email,
+      password: password,
+    );
 
     final firebaseAuthResponseData =
         firebaseAuthResponseFromJson(firebaseAuthResponse.body);

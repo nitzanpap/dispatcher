@@ -110,7 +110,7 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
             );
             showAndReplaceSnackBar(snackBar);
             final msgFromFirebase = await signupLoginProvider
-                .getMessageFromFirebaseAuth(formKey: _formKey);
+                .logIntoFirebaseAuth(formKey: _formKey);
             snackBar = SnackBar(
               content:
                   TextWithIcon(text: msgFromFirebase, color: AppColors.white),
