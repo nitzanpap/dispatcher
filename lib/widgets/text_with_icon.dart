@@ -1,3 +1,4 @@
+import 'package:dispatcher/widgets/svg_widgets/base_svg_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../enums/icon_direction.dart';
@@ -9,8 +10,11 @@ class TextWithIcon extends StatelessWidget {
   final FontWeight fontWeight;
   final Icon? icon;
   final IconDirection iconDirection;
+  final IconDirection svgDirection;
 
   final double letterSpacing;
+  final bool isWidthIntrinsic;
+  final BaseSvgWidget? svg;
 
   const TextWithIcon({
     super.key,
@@ -21,15 +25,22 @@ class TextWithIcon extends StatelessWidget {
     this.letterSpacing = 0,
     this.icon,
     this.iconDirection = IconDirection.start,
+    this.svgDirection = IconDirection.start,
+    this.isWidthIntrinsic = false,
+    this.svg,
   });
 
   @override
   Widget build(BuildContext context) {
     bool isIconOnStart = iconDirection == IconDirection.start;
     bool isIconOnEnd = iconDirection == IconDirection.end;
+    bool isSvgOnStart = svgDirection == IconDirection.start;
+    bool isSvgOnEnd = svgDirection == IconDirection.end;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: isWidthIntrinsic ? MainAxisSize.min : MainAxisSize.max,
       children: [
+        (svg != null && isSvgOnStart) ? svg! : const SizedBox.shrink(),
         (icon != null && isIconOnStart) ? icon! : const SizedBox.shrink(),
         Text(
           text,
@@ -41,6 +52,7 @@ class TextWithIcon extends StatelessWidget {
           ),
         ),
         (icon != null && isIconOnEnd) ? icon! : const SizedBox.shrink(),
+        (svg != null && isSvgOnEnd) ? svg! : const SizedBox.shrink(),
       ],
     );
   }

@@ -1,6 +1,11 @@
 import 'package:dispatcher/enums/valid_main_tabs.dart';
 import 'package:dispatcher/widgets/app_bar_widgets/minimal_app_bar.dart';
 import 'package:dispatcher/widgets/app_bar_widgets/profile_app_bar.dart';
+import 'package:dispatcher/widgets/line_separator.dart';
+import 'package:dispatcher/widgets/svg_widgets/base_svg_widget.dart';
+import 'package:dispatcher/widgets/svg_widgets/documents_svg.dart';
+import 'package:dispatcher/widgets/svg_widgets/logout_svg.dart';
+import 'package:dispatcher/widgets/svg_widgets/settings_svg.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -61,14 +66,41 @@ class PrimaryScreen extends StatelessWidget {
   }
 
   Scaffold getProfileView() {
+    const ProfileLineSeparator = LineSeparator(verticalMargin: 8.0);
     return Scaffold(
       appBar: const ProfileAppBar(),
       body: Container(
-        alignment: Alignment.center,
         color: AppColors.white,
-        child: const TextWithIcon(
-          text: 'Profile',
-          color: AppColors.deepDarkBlue,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              TextWithIcon(
+                text: 'Settings',
+                color: AppColors.deepDarkBlue,
+                fontSize: 16,
+                isWidthIntrinsic: true,
+                svg: SettingsSvg(),
+              ),
+              ProfileLineSeparator,
+              TextWithIcon(
+                text: 'Terms & Privacy',
+                color: AppColors.deepDarkBlue,
+                fontSize: 16,
+                isWidthIntrinsic: true,
+                svg: DocumentsSvg(),
+              ),
+              ProfileLineSeparator,
+              TextWithIcon(
+                text: 'Logout',
+                color: AppColors.deepDarkBlue,
+                fontSize: 16,
+                isWidthIntrinsic: true,
+                svg: LogoutSvg(),
+              ),
+            ],
+          ),
         ),
       ),
     );

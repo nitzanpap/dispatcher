@@ -1,4 +1,5 @@
 import 'package:dispatcher/widgets/svg_widgets/profile_placeholder_svg.dart';
+import 'package:dispatcher/widgets/text_with_icon.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/colors.dart';
@@ -19,14 +20,19 @@ class ProfileAppBar extends StatelessWidget with PreferredSizeWidget {
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
-          Text('Hi Noam',
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 24)),
-          Text(
-            'Edit my profile',
-            style: TextStyle(
-              fontSize: 14,
-              color: AppColors.darkGrey,
-            ),
+          TextWithIcon(
+            // TODO: Get user name from provider
+            text: 'Hi Noam',
+            color: AppColors.deepDarkBlue,
+            fontSize: 24,
+            fontWeight: FontWeight.w500,
+            isWidthIntrinsic: true,
+          ),
+          TextWithIcon(
+            text: 'Edit my profile',
+            color: AppColors.darkGrey,
+            fontSize: 14,
+            isWidthIntrinsic: true,
           )
         ],
       ),
@@ -34,7 +40,7 @@ class ProfileAppBar extends StatelessWidget with PreferredSizeWidget {
       actions: const <Widget>[
         Padding(
           padding: EdgeInsets.only(right: 16),
-          child: ProfilePlaceholder(),
+          child: ProfilePlaceholderSvg(),
         ),
       ],
       elevation: 10,
