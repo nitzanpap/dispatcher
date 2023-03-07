@@ -20,7 +20,8 @@ class AppBottomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final bottomNavigationProvider =
         Provider.of<BottomNavigationProvider>(context);
-    final currentMainTabIndex = bottomNavigationProvider.currentMainTabIndex;
+    final currentPrimaryTabIndex =
+        bottomNavigationProvider.currentPrimaryTabIndex;
 
     return SizedBox(
       height: 100,
@@ -43,7 +44,7 @@ class AppBottomNavigationBar extends StatelessWidget {
             label: 'Favorites',
           ),
         ],
-        currentIndex: currentMainTabIndex,
+        currentIndex: currentPrimaryTabIndex,
         onTap: (newIndex) => bottomNavigationProvider.changeMainTab(newIndex),
         showUnselectedLabels: false,
         showSelectedLabels: false,

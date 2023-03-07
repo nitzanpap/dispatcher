@@ -5,10 +5,12 @@ import '../enums/theme_color.dart';
 
 class MinimalAppBar extends StatelessWidget with PreferredSizeWidget {
   final ThemeColor theme;
+  final double? elevation;
 
   const MinimalAppBar({
     super.key,
     this.theme = ThemeColor.dark,
+    this.elevation,
   });
 
   @override
@@ -17,6 +19,7 @@ class MinimalAppBar extends StatelessWidget with PreferredSizeWidget {
         ? AppBar(
             toolbarHeight: 0,
             backgroundColor: AppColors.deepDarkBlue,
+            elevation: elevation,
           )
         : AppBar(
             toolbarHeight: 0,

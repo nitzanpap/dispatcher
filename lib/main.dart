@@ -12,7 +12,7 @@ import './providers/onboarding_step_provider.dart';
 import './screens/splash_screen.dart';
 import './screens/onboarding_screen.dart';
 import './screens/signup_login_screen.dart';
-import '../screens/main_screen.dart';
+import 'screens/primary_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,14 +33,16 @@ class MyApp extends StatelessWidget {
       routes: [
         GoRoute(
           path: '/',
-          builder: const String.fromEnvironment('currentEnv') == 'dev'
+          builder: const String.fromEnvironment('currentEnv') == 'prod'
+              // production splash screen
               ? (context, state) => const SplashScreen()
+              // development main screen
               : (context, state) => MultiProvider(
                     providers: [
                       ChangeNotifierProvider(
                           create: (context) => BottomNavigationProvider())
                     ],
-                    child: const MainScreen(),
+                    child: const PrimaryScreen(),
                   ),
         ),
         GoRoute(
@@ -65,7 +67,7 @@ class MyApp extends StatelessWidget {
               ChangeNotifierProvider(
                   create: (context) => BottomNavigationProvider())
             ],
-            child: const MainScreen(),
+            child: const PrimaryScreen(),
           ),
         ),
         GoRoute(

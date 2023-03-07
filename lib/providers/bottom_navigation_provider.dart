@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import '../enums/valid_main_tabs.dart';
 
 class BottomNavigationProvider with ChangeNotifier {
-  int _currentMainTabIndex = ValidMainTabs.home.index;
-  var _currentMainTabRoute = ValidMainTabs.home.route;
+  int _currentMainTabIndex = ValidPrimaryTabs.home.index;
+  String _currentMainTabName = ValidPrimaryTabs.home.name;
 
-  String get currentMainTabRoute => _currentMainTabRoute;
-  int get currentMainTabIndex => _currentMainTabIndex;
+  int get currentPrimaryTabIndex => _currentMainTabIndex;
+  String get currentPrimaryTabName => _currentMainTabName;
 
   void changeMainTab(int newTabIndex) {
     _currentMainTabIndex = newTabIndex;
-    _currentMainTabRoute = ValidMainTabs.values[currentMainTabIndex].route;
+    _currentMainTabName = ValidPrimaryTabs.values[newTabIndex].name;
     notifyListeners();
   }
 }

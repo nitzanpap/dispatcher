@@ -1,20 +1,20 @@
 import '../constants/routes.dart';
 
-enum ValidMainTabs {
+enum ValidPrimaryTabs {
   profile,
   home,
   favorites,
 }
 
-extension ValidMainTabsExtension on ValidMainTabs {
-  String get route {
-    switch (this) {
-      case ValidMainTabs.profile:
-        return ValidRoutes.profileScreen;
-      case ValidMainTabs.home:
-        return ValidRoutes.homeScreen;
-      case ValidMainTabs.favorites:
-        return ValidRoutes.favoritesScreen;
-    }
-  }
-}
+// extension ValidMainTabsExtension on ValidPrimaryTabs {
+//   String get route {
+//     switch (this) {
+//       case ValidPrimaryTabs.profile:
+//         return ValidRoutes.profileScreen;
+//       case ValidPrimaryTabs.home:
+//         return ValidRoutes.homeScreen;
+//       case ValidPrimaryTabs.favorites:
+//         return ValidRoutes.favoritesScreen;
+//     }
+//   }
+// }

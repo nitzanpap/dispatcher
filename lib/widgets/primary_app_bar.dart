@@ -6,8 +6,8 @@ import '../widgets/svg_widgets/logo_layered.dart';
 import '../widgets/svg_widgets/notification_svg.dart';
 import '../widgets/svg_widgets/search_svg.dart';
 
-class MainAppBar extends StatelessWidget with PreferredSizeWidget {
-  const MainAppBar({
+class PrimaryAppBar extends StatelessWidget with PreferredSizeWidget {
+  const PrimaryAppBar({
     super.key,
   });
 
