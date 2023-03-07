@@ -1,6 +1,8 @@
 import 'package:dispatcher/providers/bottom_navigation_provider.dart';
+import 'package:dispatcher/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import './constants/strings.dart';
@@ -23,10 +25,56 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+// GoRouter configuration
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    final _router = GoRouter(
+      routes: [
+        GoRoute(
+          path: '/',
+          builder: const String.fromEnvironment('currentEnv') == 'dev'
+              ? (context, state) => const SplashScreen()
+              : (context, state) => MultiProvider(
+                    providers: [
+                      ChangeNotifierProvider(
+                          create: (context) => BottomNavigationProvider())
+                    ],
+                    child: const MainScreen(),
+                  ),
+        ),
+        GoRoute(
+          path: ValidRoutes.splashScreen,
+          builder: (context, state) => const SplashScreen(),
+        ),
+        GoRoute(
+          path: ValidRoutes.onboardingScreen,
+          builder: (context, state) => ChangeNotifierProvider(
+            create: (context) => OnboardingStepProvider(),
+            child: const OnboardingScreen(),
+          ),
+        ),
+        GoRoute(
+          path: ValidRoutes.signupLoginScreen,
+          builder: (context, state) => const SignupLoginScreen(),
+        ),
+        GoRoute(
+          path: ValidRoutes.mainScreen,
+          builder: (context, state) => MultiProvider(
+            providers: [
+              ChangeNotifierProvider(
+                  create: (context) => BottomNavigationProvider())
+            ],
+            child: const MainScreen(),
+          ),
+        ),
+        GoRoute(
+          path: ValidRoutes.homeScreen,
+          builder: (context, state) => const HomeScreen(),
+        ),
+      ],
+    );
+    return MaterialApp.router(
       title: appTitle,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -35,29 +83,31 @@ class MyApp extends StatelessWidget {
           alignment: AlignmentDirectional.topEnd,
         ),
       ),
-      home: const String.fromEnvironment('currentEnv') == 'prod'
-          ? const SplashScreen()
-          : MultiProvider(
-              providers: [
-                ChangeNotifierProvider(
-                    create: (context) => BottomNavigationProvider())
-              ],
-              child: const MainScreen(),
-            ),
-      routes: {
-        ValidRoutes.onboardingScreen: (context) => ChangeNotifierProvider(
-              create: (context) => OnboardingStepProvider(),
-              child: const OnboardingScreen(),
-            ),
-        ValidRoutes.signupLoginScreen: (context) => const SignupLoginScreen(),
-        ValidRoutes.mainScreen: (context) => MultiProvider(
-              providers: [
-                ChangeNotifierProvider(
-                    create: (context) => BottomNavigationProvider())
-              ],
-              child: const MainScreen(),
-            ),
-      },
+      routerConfig: _router,
+
+      // home: const String.fromEnvironment('currentEnv') == 'prod'
+      //     ? const SplashScreen()
+      //     : MultiProvider(
+      //         providers: [
+      //           ChangeNotifierProvider(
+      //               create: (context) => BottomNavigationProvider())
+      //         ],
+      //         child: const MainScreen(),
+      //       ),
+      // routes: {
+      //   ValidRoutes.onboardingScreen: (context) => ChangeNotifierProvider(
+      //         create: (context) => OnboardingStepProvider(),
+      //         child: const OnboardingScreen(),
+      //       ),
+      //   ValidRoutes.signupLoginScreen: (context) => const SignupLoginScreen(),
+      //   ValidRoutes.mainScreen: (context) => MultiProvider(
+      //         providers: [
+      //           ChangeNotifierProvider(
+      //               create: (context) => BottomNavigationProvider())
+      //         ],
+      //         child: const MainScreen(),
+      //       ),
+      // },
     );
   }
 }

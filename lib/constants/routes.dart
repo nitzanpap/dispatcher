@@ -5,4 +5,5 @@ abstract class ValidRoutes {
   static const homeScreen = '/home_screen';
   static const profileScreen = '/profile_screen';
   static const favoritesScreen = '/favorites_screen';
+  static const splashScreen = '/';
 }

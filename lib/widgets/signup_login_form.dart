@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
@@ -143,7 +144,7 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
               ScaffoldMessenger.of(context).clearSnackBars();
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
               if (msgFromFirebase.isValid) {
-                Navigator.pushNamed(context, ValidRoutes.mainScreen);
+                context.go(ValidRoutes.mainScreen);
               }
             }
           },

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
@@ -147,7 +148,7 @@ class OnboardingScreen extends StatelessWidget {
   void onSkipOnboardingPressed(context) {
     if (kDebugMode) {
       print('Finished Onboarding!');
-      Navigator.pushReplacementNamed(context, ValidRoutes.signupLoginScreen);
     }
+    GoRouter.of(context).go(ValidRoutes.signupLoginScreen);
   }
 }

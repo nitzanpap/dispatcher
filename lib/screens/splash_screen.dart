@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../constants/colors.dart';
 import '../constants/strings.dart';
@@ -19,8 +20,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 500)).then((value) =>
-        Navigator.pushReplacementNamed(context, ValidRoutes.onboardingScreen));
+    Future.delayed(const Duration(milliseconds: 500))
+        .then((_) => context.go(ValidRoutes.onboardingScreen));
   }
 
   @override
