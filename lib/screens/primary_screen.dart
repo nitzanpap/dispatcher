@@ -66,7 +66,8 @@ class PrimaryScreen extends StatelessWidget {
   }
 
   Scaffold getProfileView() {
-    const ProfileLineSeparator = LineSeparator(verticalMargin: 8.0);
+    const profileLineSeparator = LineSeparator(verticalMargin: 8.0);
+
     return Scaffold(
       appBar: const ProfileAppBar(),
       body: Container(
@@ -83,7 +84,7 @@ class PrimaryScreen extends StatelessWidget {
                 isWidthIntrinsic: true,
                 svg: SettingsSvg(),
               ),
-              ProfileLineSeparator,
+              profileLineSeparator,
               TextWithIcon(
                 text: 'Terms & Privacy',
                 color: AppColors.deepDarkBlue,
@@ -91,7 +92,7 @@ class PrimaryScreen extends StatelessWidget {
                 isWidthIntrinsic: true,
                 svg: DocumentsSvg(),
               ),
-              ProfileLineSeparator,
+              profileLineSeparator,
               TextWithIcon(
                 text: 'Logout',
                 color: AppColors.deepDarkBlue,
