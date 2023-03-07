@@ -1,12 +1,13 @@
 import 'package:dispatcher/enums/valid_main_tabs.dart';
-import 'package:dispatcher/widgets/minimal_app_bar.dart';
+import 'package:dispatcher/widgets/app_bar_widgets/minimal_app_bar.dart';
+import 'package:dispatcher/widgets/app_bar_widgets/profile_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/colors.dart';
 import '../providers/bottom_navigation_provider.dart';
 
-import '../widgets/primary_app_bar.dart';
+import '../widgets/app_bar_widgets/primary_app_bar.dart';
 import '../widgets/app_bottom_navigation_bar.dart';
 import '../widgets/text_with_icon.dart';
 
@@ -61,7 +62,7 @@ class PrimaryScreen extends StatelessWidget {
 
   Scaffold getProfileView() {
     return Scaffold(
-      appBar: const MinimalAppBar(),
+      appBar: const ProfileAppBar(),
       body: Container(
         alignment: Alignment.center,
         color: AppColors.white,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../constants/colors.dart';
-import '../enums/theme_color.dart';
+import '../../constants/colors.dart';
+import '../../enums/theme_color.dart';
 
 class MinimalAppBar extends StatelessWidget with PreferredSizeWidget {
   final ThemeColor theme;

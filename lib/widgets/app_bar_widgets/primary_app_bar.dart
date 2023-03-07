@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../constants/colors.dart';
+import '../../constants/colors.dart';
 
-import '../widgets/svg_widgets/logo_layered.dart';
-import '../widgets/svg_widgets/notification_svg.dart';
-import '../widgets/svg_widgets/search_svg.dart';
+import '../svg_widgets/logo_layered.dart';
+import '../svg_widgets/notification_svg.dart';
+import '../svg_widgets/search_svg.dart';
 
 class PrimaryAppBar extends StatelessWidget with PreferredSizeWidget {
   const PrimaryAppBar({

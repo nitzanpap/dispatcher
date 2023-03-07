@@ -5,7 +5,7 @@ import '../constants/colors.dart';
 import '../constants/strings.dart';
 import '../constants/routes.dart';
 
-import '../widgets/minimal_app_bar.dart';
+import '../widgets/app_bar_widgets/minimal_app_bar.dart';
 import '../widgets/svg_widgets/logo_layered.dart';
 
 class SplashScreen extends StatefulWidget {
