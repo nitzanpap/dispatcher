@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
 
-import '../../helpers/helper_classes/firebase_config.dart';
+import './firebase_config.dart';
 
 abstract class FirebaseAuthApi {
   static Future<http.Response> logIntoFirebase({

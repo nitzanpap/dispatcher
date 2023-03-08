@@ -32,19 +32,7 @@ class MyApp extends StatelessWidget {
       routes: [
         GoRoute(
           path: '/',
-          builder: const String.fromEnvironment('currentEnv') == 'prod'
-              // production splash screen
-              ? (context, state) => const SplashScreen()
-              // development main screen
-              : (context, state) => MultiProvider(
-                    providers: [
-                      ChangeNotifierProvider(
-                          create: (context) => BottomNavigationProvider()),
-                      ChangeNotifierProvider(
-                          create: (context) => SignupLoginProvider()),
-                    ],
-                    child: const PrimaryScreen(),
-                  ),
+          builder: (context, state) => const SplashScreen(),
         ),
         GoRoute(
           path: ValidRoutes.splashScreen,
