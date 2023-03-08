@@ -1,10 +1,8 @@
-import 'package:dispatcher/widgets/svg_widgets/profile_placeholder_svg.dart';
-import 'package:dispatcher/widgets/text_with_icon.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/colors.dart';
-
-import '../svg_widgets/search_svg.dart';
+import '../../widgets/text_with_icon.dart';
+import '../../widgets/svg_widgets/profile_placeholder_svg.dart';
 
 class ProfileAppBar extends StatelessWidget with PreferredSizeWidget {
   const ProfileAppBar({
@@ -50,21 +48,4 @@ class ProfileAppBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Size get preferredSize => const Size.fromHeight(79);
-}
-
-class SearchIconBtn extends StatelessWidget {
-  const SearchIconBtn({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: IconButton(
-        onPressed: () => print('Search icon clicked'),
-        icon: const SearchSvg(),
-      ),
-    );
-  }
 }

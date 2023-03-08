@@ -1,20 +1,19 @@
-import 'package:dispatcher/enums/valid_main_tabs.dart';
-import 'package:dispatcher/widgets/app_bar_widgets/minimal_app_bar.dart';
-import 'package:dispatcher/widgets/app_bar_widgets/profile_app_bar.dart';
-import 'package:dispatcher/widgets/line_separator.dart';
-import 'package:dispatcher/widgets/svg_widgets/base_svg_widget.dart';
-import 'package:dispatcher/widgets/svg_widgets/documents_svg.dart';
-import 'package:dispatcher/widgets/svg_widgets/logout_svg.dart';
-import 'package:dispatcher/widgets/svg_widgets/settings_svg.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/colors.dart';
+import '../enums/valid_main_tabs.dart';
 import '../providers/bottom_navigation_provider.dart';
 
 import '../widgets/app_bar_widgets/primary_app_bar.dart';
 import '../widgets/app_bottom_navigation_bar.dart';
 import '../widgets/text_with_icon.dart';
+import '../widgets/app_bar_widgets/minimal_app_bar.dart';
+import '../widgets/app_bar_widgets/profile_app_bar.dart';
+import '../widgets/line_separator.dart';
+import '../widgets/svg_widgets/documents_svg.dart';
+import '../widgets/svg_widgets/logout_svg.dart';
+import '../widgets/svg_widgets/settings_svg.dart';
 
 class PrimaryScreen extends StatelessWidget {
   const PrimaryScreen({super.key});

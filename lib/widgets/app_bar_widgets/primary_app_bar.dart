@@ -48,7 +48,7 @@ class NotificationIconBtn extends StatelessWidget {
           child: IconButton(
               padding: EdgeInsets.zero,
               constraints: const BoxConstraints(),
-              onPressed: () => print('Notifications icon clicked'),
+              onPressed: () => debugPrint('Notifications icon clicked'),
               icon: const NotificationSvg()),
         ),
       ),
@@ -66,7 +66,7 @@ class SearchIconBtn extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: IconButton(
-        onPressed: () => print('Search icon clicked'),
+        onPressed: () => debugPrint('Search icon clicked'),
         icon: const SearchSvg(),
       ),
     );

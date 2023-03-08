@@ -1,7 +1,8 @@
-import 'package:dispatcher/widgets/svg_widgets/base_svg_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../enums/icon_direction.dart';
+
+import '../widgets/svg_widgets/base_svg_widget.dart';
 
 class TextWithIcon extends StatelessWidget {
   final String text;
