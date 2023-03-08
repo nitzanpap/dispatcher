@@ -14,12 +14,14 @@ class SignupLoginProvider with ChangeNotifier {
   String _idToken = '';
   String _name = '';
   bool _isSignupPage = true;
+  bool _isSignedIn = false;
 
   String get email => _email;
   String get password => _password;
   String get confirmationPassword => _confirmationPassword;
   String get idToken => _idToken;
   bool get isSignupPage => _isSignupPage;
+  bool get isSignedIn => _isSignedIn;
 
   String get getSnackBarActionText =>
       isSignupPage ? 'Signing up...' : 'Signing in...';
@@ -73,6 +75,7 @@ class SignupLoginProvider with ChangeNotifier {
     _email = formEmail;
     _password = formPassword;
     _idToken = newIdToken;
+    _isSignedIn = true;
   }
 
   void resetFormData({required GlobalKey<FormState> formKey}) {

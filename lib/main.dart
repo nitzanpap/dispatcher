@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import './constants/strings.dart';
-import './constants/routes.dart';
+import './enums/routes.dart';
 import './providers/onboarding_step_provider.dart';
 import './providers/bottom_navigation_provider.dart';
 import '../providers/signup_login_provider.dart';
@@ -32,47 +32,63 @@ class MyApp extends StatelessWidget {
       routes: [
         GoRoute(
           path: '/',
+          redirect: (context, state) {
+            final signupLoginProvider =
+                Provider.of<SignupLoginProvider>(context);
+            if (signupLoginProvider.isSignedIn) {
+              return ValidRoutes.primaryScreen.route;
+            }
+            return ValidRoutes.splashScreen.route;
+          },
+        ),
+        GoRoute(
+          path: ValidRoutes.splashScreen.route,
+          name: ValidRoutes.splashScreen.name,
           builder: (context, state) => const SplashScreen(),
         ),
         GoRoute(
-          path: ValidRoutes.splashScreen,
-          builder: (context, state) => const SplashScreen(),
-        ),
-        GoRoute(
-          path: ValidRoutes.onboardingScreen,
+          path: ValidRoutes.onboardingScreen.route,
+          name: ValidRoutes.onboardingScreen.name,
           builder: (context, state) => ChangeNotifierProvider(
             create: (context) => OnboardingStepProvider(),
             child: const OnboardingScreen(),
           ),
         ),
         GoRoute(
-          path: ValidRoutes.signupLoginScreen,
+          path: ValidRoutes.signupLoginScreen.route,
+          name: ValidRoutes.signupLoginScreen.name,
           builder: (context, state) => const SignupLoginScreen(),
         ),
         GoRoute(
-          path: ValidRoutes.primaryScreen,
+          path: ValidRoutes.primaryScreen.route,
+          name: ValidRoutes.primaryScreen.name,
           builder: (context, state) => MultiProvider(
             providers: [
               ChangeNotifierProvider(
                   create: (context) => BottomNavigationProvider()),
-              ChangeNotifierProvider(
-                  create: (context) => SignupLoginProvider()),
             ],
             child: const PrimaryScreen(),
           ),
         ),
       ],
     );
-    return MaterialApp.router(
-      title: appTitle,
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'Roboto',
-        badgeTheme: const BadgeThemeData(
-          alignment: AlignmentDirectional.topEnd,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => SignupLoginProvider(),
         ),
+      ],
+      child: MaterialApp.router(
+        title: appTitle,
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: 'Roboto',
+          badgeTheme: const BadgeThemeData(
+            alignment: AlignmentDirectional.topEnd,
+          ),
+        ),
+        routerConfig: router,
       ),
-      routerConfig: router,
     );
   }
 }
