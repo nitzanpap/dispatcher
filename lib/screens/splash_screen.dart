@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../constants/colors.dart';
 import '../constants/strings.dart';
-import '../constants/routes.dart';
+import '../enums/routes.dart';
 
-import '../widgets/minimal_app_bar.dart';
-import '../widgets/logo_widgets/logo_layered.dart';
+import '../widgets/app_bar_widgets/minimal_app_bar.dart';
+import '../widgets/svg_widgets/logo_layered.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -19,8 +20,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 500)).then((value) =>
-        Navigator.pushReplacementNamed(context, ValidRoutes.onboardingScreen));
+    Future.delayed(const Duration(milliseconds: 500))
+        .then((_) => context.goNamed(ValidRoutes.onboardingScreen.name));
   }
 
   @override

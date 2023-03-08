@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:provider/provider.dart';
-
 import '../constants/colors.dart';
-import '../providers/signup_login_provider.dart';
 
-import '../widgets/minimal_app_bar.dart';
-import '../widgets/logo_widgets/logo_layered.dart';
+import '../widgets/app_bar_widgets/minimal_app_bar.dart';
+import '../widgets/svg_widgets/logo_layered.dart';
 import '../widgets/signup_login_form.dart';
 
 class SignupLoginScreen extends StatelessWidget {
@@ -38,10 +35,7 @@ class SignupLoginScreen extends StatelessWidget {
                   color: AppColors.white,
                   width: double.infinity,
                   height: double.infinity,
-                  child: ChangeNotifierProvider(
-                    create: (context) => SignupLoginProvider(),
-                    child: const SignupLoginForm(),
-                  ),
+                  child: const SignupLoginForm(),
                 ),
               ),
             ],

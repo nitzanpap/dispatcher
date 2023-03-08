@@ -1,7 +1,9 @@
-import 'package:dispatcher/api/firebase/firebase_auth.dart';
-import 'package:dispatcher/api/firebase/firebase_auth_response.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+
+import '../helpers/helper_classes/logging_message_type.dart';
+import '../api/firebase/firebase_auth.dart';
+import '../api/firebase/firebase_auth_response.dart';
 
 class SignupLoginProvider with ChangeNotifier {
   static const String signupTitle = 'Signup';
@@ -10,18 +12,30 @@ class SignupLoginProvider with ChangeNotifier {
   String _password = '';
   String _confirmationPassword = '';
   String _idToken = '';
+  String _name = '';
   bool _isSignupPage = true;
+  bool _isSignedIn = false;
 
   String get email => _email;
   String get password => _password;
   String get confirmationPassword => _confirmationPassword;
   String get idToken => _idToken;
   bool get isSignupPage => _isSignupPage;
+  bool get isSignedIn => _isSignedIn;
 
   String get getSnackBarActionText =>
       isSignupPage ? 'Signing up...' : 'Signing in...';
   String get title => isSignupPage ? signupTitle : loginTitle;
   String get oppositeTitle => isSignupPage ? loginTitle : signupTitle;
+  String get name {
+    if (_name.isEmpty && _email.isEmpty) {
+      return 'User';
+    }
+    if (_name.isEmpty) {
+      return email.split('@')[0];
+    }
+    return _name;
+  }
 
   set updateEmail(String newEmail) {
     _email = newEmail;
@@ -48,6 +62,11 @@ class SignupLoginProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void updateName(String newName) {
+    _name = newName;
+    notifyListeners();
+  }
+
   void _updateProvider({
     required String formEmail,
     required String formPassword,
@@ -56,6 +75,7 @@ class SignupLoginProvider with ChangeNotifier {
     _email = formEmail;
     _password = formPassword;
     _idToken = newIdToken;
+    _isSignedIn = true;
   }
 
   void resetFormData({required GlobalKey<FormState> formKey}) {
@@ -65,11 +85,12 @@ class SignupLoginProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<String> logIntoFirebaseAuth({
+  Future<LoggingMessageType> logIntoFirebaseAuth({
     required GlobalKey<FormState> formKey,
   }) async {
     if (!isFormValid(formKey)) {
-      return 'Invalid input somewhere in the form!';
+      return LoggingMessageType(
+          message: 'Invalid input somewhere in the form!', isValid: false);
     }
     debugPrint('Valid Form!');
 
@@ -88,9 +109,11 @@ class SignupLoginProvider with ChangeNotifier {
         formPassword: password,
         newIdToken: firebaseAuthResponseData.idToken!,
       );
-      return 'Logged in successfully!';
+      return LoggingMessageType(
+          message: 'Logged in successfully!', isValid: true);
     }
-    return firebaseAuthResponseData.error!.message;
+    return LoggingMessageType(
+        message: firebaseAuthResponseData.error!.message, isValid: false);
   }
 
   bool isFormValid(formKey) => formKey.currentState!.validate();

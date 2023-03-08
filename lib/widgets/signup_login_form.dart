@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/colors.dart';
+import '../enums/routes.dart';
 import '../providers/signup_login_provider.dart';
 
 import './button_widgets/primary_button.dart';
@@ -112,14 +114,16 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
             final msgFromFirebase = await signupLoginProvider
                 .logIntoFirebaseAuth(formKey: _formKey);
             snackBar = SnackBar(
-              content:
-                  TextWithIcon(text: msgFromFirebase, color: AppColors.white),
+              content: TextWithIcon(
+                  text: msgFromFirebase.message, color: AppColors.white),
               backgroundColor: AppColors.deepDarkBlue,
               duration: const Duration(seconds: 3),
             );
             if (context.mounted) {
               showAndReplaceSnackBar(snackBar);
-              // TODO: Implement here, authenticating with firebase and moving to the next page.
+              if (msgFromFirebase.isValid) {
+                context.goNamed(ValidRoutes.primaryScreen.name);
+              }
             }
           },
           icon: const Icon(
