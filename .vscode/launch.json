@@ -5,10 +5,16 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Flutter Run All",
-      "preLaunchTask": "Flutter-Launch-All",
+      "name": "Flutter Dev",
       "request": "launch",
-      "type": "dart"
+      "type": "dart",
+      "args": ["--dart-define-from-file=config_dev.json"]
+    },
+    {
+      "name": "Flutter Prod",
+      "request": "launch",
+      "type": "dart",
+      "args": ["--dart-define-from-file=config_prod.json"]
     }
   ]
 }

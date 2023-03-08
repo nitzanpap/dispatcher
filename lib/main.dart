@@ -5,11 +5,12 @@ import 'package:provider/provider.dart';
 import './constants/strings.dart';
 import './constants/routes.dart';
 import './providers/onboarding_step_provider.dart';
+
 import './screens/splash_screen.dart';
 import './screens/onboarding_screen.dart';
 import './screens/signup_login_screen.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

@@ -1,6 +1,8 @@
-import 'package:dispatcher/constants/colors.dart';
-import 'package:dispatcher/widgets/button_widgets/base_button.dart';
 import 'package:flutter/material.dart';
+
+import '../../constants/colors.dart';
+
+import '../../widgets/button_widgets/base_button.dart';
 
 class SecondaryButton extends BaseButton {
   // final Color color;

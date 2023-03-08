@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../helper_functions/input_state_functions.dart';
-import '../../helper_functions/validations.dart';
+import '../../helpers/helper_functions/input_state_functions.dart';
+import '../../helpers/helper_functions/validations.dart';
+import '../../helpers/extensions.dart';
 
-import './app_input_field.dart';
+import '../../widgets/input_field_widgets/app_input_field.dart';
 import '../../widgets/password_icons.dart';
 
 class PasswordInputField extends StatefulWidget {
@@ -22,7 +23,7 @@ class PasswordInputField extends StatefulWidget {
     this.labelText = 'Password',
   });
 
-  const PasswordInputField.reEnteredPassword({
+  const PasswordInputField.confirmationPassword({
     super.key,
     required this.onChanged,
     this.textInputAction,
@@ -31,29 +32,29 @@ class PasswordInputField extends StatefulWidget {
     this.labelText = 'Re-Enter Password',
   });
 
-  String? getConfirmationPasswordErrorMsgOrNull(confirmationPassword) {
-    return (confirmationPassword == originalPassword)
-        ? null
-        : 'Passwords do not match.';
-  }
-
   @override
   State<PasswordInputField> createState() => _PasswordInputFieldState();
 }
 
 class _PasswordInputFieldState extends State<PasswordInputField> {
-  bool isObscureText = false;
+  bool isObscureText = true;
 
   @override
   Widget build(BuildContext context) {
     return AppInputField(
       onChanged: widget.onChanged,
       validator: widget.isConfirmationPassword
-          ? widget.getConfirmationPasswordErrorMsgOrNull
+          ? (value) => Validations.getConfirmationPasswordErrorMsgOrNull(
+                confirmationPassword: value,
+                originalPassword: widget.originalPassword,
+              )
           : Validations.getPasswordErrorMsgOrNull,
       keyboardType: TextInputType.visiblePassword,
       labelText: widget.labelText,
       textInputAction: widget.textInputAction,
+      onFieldSubmitted: widget.textInputAction == TextInputAction.next
+          ? (_) => context.nextEditableTextFocus()
+          : null,
       isObscureText: isObscureText,
       icon: IconButton(
         icon: Icon(

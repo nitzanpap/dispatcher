@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../../constants/colors.dart';
 
-import '../../helper_functions/input_state_functions.dart';
+import '../../helpers/helper_functions/input_state_functions.dart';
 
 class AppInputField extends StatelessWidget {
   final void Function(String)? onChanged;
+  final void Function(String)? onFieldSubmitted;
   final String? labelText;
   final Widget? icon;
   final TextInputAction? textInputAction;
@@ -18,6 +19,7 @@ class AppInputField extends StatelessWidget {
   const AppInputField({
     super.key,
     required this.onChanged,
+    this.onFieldSubmitted,
     this.labelText,
     this.icon,
     this.textInputAction,
@@ -33,6 +35,7 @@ class AppInputField extends StatelessWidget {
     return TextFormField(
       onChanged: onChanged,
       textInputAction: textInputAction ?? TextInputAction.done,
+      onFieldSubmitted: onFieldSubmitted,
       keyboardType: keyboardType,
       obscureText: isObscureText,
       decoration: InputDecoration(

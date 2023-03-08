@@ -1,5 +1,6 @@
-import 'package:dispatcher/constants/colors.dart';
 import 'package:flutter/material.dart';
+
+import '../constants/colors.dart';
 
 class LineSeparator extends StatelessWidget {
   final double? width;

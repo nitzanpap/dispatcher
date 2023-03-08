@@ -1,4 +1,3 @@
-import 'package:dispatcher/constants/routes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../enums/icon_direction.dart';
 import '../constants/strings.dart';
 import '../constants/colors.dart';
+import '../constants/routes.dart';
 
 import '../providers/onboarding_step_provider.dart';
 import '../widgets/progress_bar.dart';
@@ -146,7 +146,6 @@ class OnboardingScreen extends StatelessWidget {
 
   void onSkipOnboardingPressed(context) {
     if (kDebugMode) {
-      print('Finished Onboarding!');
       Navigator.pushReplacementNamed(context, ValidRoutes.signupLoginScreen);
     }
   }
