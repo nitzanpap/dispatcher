@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../constants/colors.dart';
 import '../constants/strings.dart';
-import '../constants/routes.dart';
+import '../enums/routes.dart';
 
 import '../widgets/app_bar_widgets/minimal_app_bar.dart';
 import '../widgets/svg_widgets/logo_layered.dart';
@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 500))
-        .then((_) => context.go(ValidRoutes.onboardingScreen));
+        .then((_) => context.goNamed(ValidRoutes.onboardingScreen.name));
   }
 
   @override

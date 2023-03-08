@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/colors.dart';
-import '../constants/routes.dart';
+import '../enums/routes.dart';
 import '../providers/signup_login_provider.dart';
 
 import './button_widgets/primary_button.dart';
@@ -122,7 +122,7 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
             if (context.mounted) {
               showAndReplaceSnackBar(snackBar);
               if (msgFromFirebase.isValid) {
-                context.go(ValidRoutes.primaryScreen);
+                context.goNamed(ValidRoutes.primaryScreen.name);
               }
             }
           },

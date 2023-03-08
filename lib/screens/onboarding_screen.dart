@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import '../enums/icon_direction.dart';
 import '../constants/strings.dart';
 import '../constants/colors.dart';
-import '../constants/routes.dart';
+import '../enums/routes.dart';
 
 import '../providers/onboarding_step_provider.dart';
 import '../widgets/progress_bar.dart';
@@ -145,6 +145,6 @@ class OnboardingScreen extends StatelessWidget {
   }
 
   void onSkipOnboardingPressed(context) {
-    GoRouter.of(context).go(ValidRoutes.signupLoginScreen);
+    GoRouter.of(context).goNamed(ValidRoutes.signupLoginScreen.name);
   }
 }
