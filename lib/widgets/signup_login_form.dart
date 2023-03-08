@@ -1,4 +1,3 @@
-import 'package:dispatcher/constants/routes.dart';
 import 'package:flutter/material.dart';
 
 import 'package:gap/gap.dart';
@@ -6,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/colors.dart';
+import '../constants/routes.dart';
 import '../providers/signup_login_provider.dart';
 
 import './button_widgets/primary_button.dart';

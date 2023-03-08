@@ -1,8 +1,8 @@
-import 'package:dispatcher/providers/signup_login_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/colors.dart';
+import '../../providers/signup_login_provider.dart';
 
 import '../../widgets/text_with_icon.dart';
 import '../../widgets/svg_widgets/profile_placeholder_svg.dart';

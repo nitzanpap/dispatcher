@@ -1,4 +1,3 @@
-import 'package:dispatcher/providers/signup_login_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -8,6 +7,7 @@ import './constants/strings.dart';
 import './constants/routes.dart';
 import './providers/onboarding_step_provider.dart';
 import './providers/bottom_navigation_provider.dart';
+import '../providers/signup_login_provider.dart';
 
 import './screens/splash_screen.dart';
 import './screens/onboarding_screen.dart';
