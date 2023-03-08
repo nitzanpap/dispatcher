@@ -33,6 +33,15 @@ abstract class Validations {
         : 'Please enter a valid email address.';
   }
 
+  static String? getConfirmationPasswordErrorMsgOrNull({
+    required String? confirmationPassword,
+    required String? originalPassword,
+  }) {
+    return (confirmationPassword == originalPassword)
+        ? null
+        : 'Passwords do not match.';
+  }
+
   static bool _isValidEmail(String? value) {
     RegExp isValidEmailRegEx = RegExp(
         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
