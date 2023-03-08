@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 
 import './firebase_config.dart';
@@ -36,4 +37,10 @@ abstract class FirebaseAuthApi {
       },
     );
   }
+
+  // static Future asd() async {
+  //   FirebaseAuth.instance
+  //       .createUserWithEmailAndPassword(email: email, password: password)
+  //       .then((value) => print(value.user!.uid));
+  // }
 }
