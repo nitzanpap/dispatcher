@@ -1,5 +1,6 @@
 import 'package:dispatcher/api/firebase/firebase_auth.dart';
 import 'package:dispatcher/api/firebase/firebase_auth_response.dart';
+import 'package:dispatcher/helpers/helper_classes/logging_message_type.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
@@ -80,11 +81,12 @@ class SignupLoginProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<String> logIntoFirebaseAuth({
+  Future<LoggingMessageType> logIntoFirebaseAuth({
     required GlobalKey<FormState> formKey,
   }) async {
     if (!isFormValid(formKey)) {
-      return 'Invalid input somewhere in the form!';
+      return LoggingMessageType(
+          message: 'Invalid input somewhere in the form!', isValid: false);
     }
     debugPrint('Valid Form!');
 
@@ -103,9 +105,11 @@ class SignupLoginProvider with ChangeNotifier {
         formPassword: password,
         newIdToken: firebaseAuthResponseData.idToken!,
       );
-      return 'Logged in successfully!';
+      return LoggingMessageType(
+          message: 'Logged in successfully!', isValid: true);
     }
-    return firebaseAuthResponseData.error!.message;
+    return LoggingMessageType(
+        message: firebaseAuthResponseData.error!.message, isValid: false);
   }
 
   bool isFormValid(formKey) => formKey.currentState!.validate();

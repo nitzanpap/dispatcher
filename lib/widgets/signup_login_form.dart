@@ -114,14 +114,16 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
             final msgFromFirebase = await signupLoginProvider
                 .logIntoFirebaseAuth(formKey: _formKey);
             snackBar = SnackBar(
-              content:
-                  TextWithIcon(text: msgFromFirebase, color: AppColors.white),
+              content: TextWithIcon(
+                  text: msgFromFirebase.message, color: AppColors.white),
               backgroundColor: AppColors.deepDarkBlue,
               duration: const Duration(seconds: 3),
             );
             if (context.mounted) {
               showAndReplaceSnackBar(snackBar);
-              context.go(ValidRoutes.primaryScreen);
+              if (msgFromFirebase.isValid) {
+                context.go(ValidRoutes.primaryScreen);
+              }
             }
           },
           icon: const Icon(
