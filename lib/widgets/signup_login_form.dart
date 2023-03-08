@@ -144,7 +144,7 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
               ScaffoldMessenger.of(context).clearSnackBars();
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
               if (msgFromFirebase.isValid) {
-                context.go(ValidRoutes.mainScreen);
+                context.go(ValidRoutes.primaryScreen);
               }
             }
           },

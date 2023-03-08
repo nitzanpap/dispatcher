@@ -1,3 +1,4 @@
+import 'package:dispatcher/providers/signup_login_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -12,7 +13,6 @@ import './screens/splash_screen.dart';
 import './screens/onboarding_screen.dart';
 import './screens/signup_login_screen.dart';
 import 'screens/primary_screen.dart';
-import './screens/home_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +25,6 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-// GoRouter configuration
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +39,9 @@ class MyApp extends StatelessWidget {
               : (context, state) => MultiProvider(
                     providers: [
                       ChangeNotifierProvider(
-                          create: (context) => BottomNavigationProvider())
+                          create: (context) => BottomNavigationProvider()),
+                      ChangeNotifierProvider(
+                          create: (context) => SignupLoginProvider()),
                     ],
                     child: const PrimaryScreen(),
                   ),
@@ -61,18 +62,16 @@ class MyApp extends StatelessWidget {
           builder: (context, state) => const SignupLoginScreen(),
         ),
         GoRoute(
-          path: ValidRoutes.mainScreen,
+          path: ValidRoutes.primaryScreen,
           builder: (context, state) => MultiProvider(
             providers: [
               ChangeNotifierProvider(
-                  create: (context) => BottomNavigationProvider())
+                  create: (context) => BottomNavigationProvider()),
+              ChangeNotifierProvider(
+                  create: (context) => SignupLoginProvider()),
             ],
             child: const PrimaryScreen(),
           ),
-        ),
-        GoRoute(
-          path: ValidRoutes.homeScreen,
-          builder: (context, state) => const HomeScreen(),
         ),
       ],
     );

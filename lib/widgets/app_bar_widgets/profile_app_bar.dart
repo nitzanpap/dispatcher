@@ -1,6 +1,9 @@
+import 'package:dispatcher/providers/signup_login_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants/colors.dart';
+
 import '../../widgets/text_with_icon.dart';
 import '../../widgets/svg_widgets/profile_placeholder_svg.dart';
 
@@ -11,22 +14,22 @@ class ProfileAppBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final signupLoginProvider = Provider.of<SignupLoginProvider>(context);
     return AppBar(
       toolbarHeight: 79,
       backgroundColor: AppColors.white,
       foregroundColor: AppColors.deepDarkBlue,
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
+        children: [
           TextWithIcon(
-            // TODO: Get user name from provider
-            text: 'Hi Noam',
+            text: 'Hi ${signupLoginProvider.name}',
             color: AppColors.deepDarkBlue,
             fontSize: 24,
             fontWeight: FontWeight.w500,
             isWidthIntrinsic: true,
           ),
-          TextWithIcon(
+          const TextWithIcon(
             text: 'Edit my profile',
             color: AppColors.darkGrey,
             fontSize: 14,
