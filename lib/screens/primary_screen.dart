@@ -1,3 +1,4 @@
+import 'package:dispatcher/screens/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,11 +10,6 @@ import '../widgets/app_bar_widgets/primary_app_bar.dart';
 import '../widgets/app_bottom_navigation_bar.dart';
 import '../widgets/text_with_icon.dart';
 import '../widgets/app_bar_widgets/minimal_app_bar.dart';
-import '../widgets/app_bar_widgets/profile_app_bar.dart';
-import '../widgets/line_separator.dart';
-import '../widgets/svg_widgets/documents_svg.dart';
-import '../widgets/svg_widgets/logout_svg.dart';
-import '../widgets/svg_widgets/settings_svg.dart';
 
 class PrimaryScreen extends StatelessWidget {
   const PrimaryScreen({super.key});
@@ -41,7 +37,7 @@ class PrimaryScreen extends StatelessWidget {
 
   Widget getPrimaryTabWidget(String currentPrimaryTabName) {
     if (currentPrimaryTabName == ValidPrimaryTabs.profile.name) {
-      return getProfileView();
+      return const ProfilePageView();
     }
     if (currentPrimaryTabName == ValidPrimaryTabs.home.name) {
       return getHomeView();
@@ -60,48 +56,6 @@ class PrimaryScreen extends StatelessWidget {
       child: TextWithIcon(
         text: currentPrimaryTabName,
         color: AppColors.deepDarkBlue,
-      ),
-    );
-  }
-
-  Scaffold getProfileView() {
-    const profileLineSeparator = LineSeparator(verticalMargin: 8.0);
-
-    return Scaffold(
-      appBar: const ProfileAppBar(),
-      body: Container(
-        color: AppColors.white,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              TextWithIcon(
-                text: 'Settings',
-                color: AppColors.deepDarkBlue,
-                fontSize: 16,
-                isWidthIntrinsic: true,
-                svg: SettingsSvg(),
-              ),
-              profileLineSeparator,
-              TextWithIcon(
-                text: 'Terms & Privacy',
-                color: AppColors.deepDarkBlue,
-                fontSize: 16,
-                isWidthIntrinsic: true,
-                svg: DocumentsSvg(),
-              ),
-              profileLineSeparator,
-              TextWithIcon(
-                text: 'Logout',
-                color: AppColors.deepDarkBlue,
-                fontSize: 16,
-                isWidthIntrinsic: true,
-                svg: LogoutSvg(),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }

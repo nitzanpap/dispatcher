@@ -1,4 +1,6 @@
+import 'package:dispatcher/enums/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart';
 
 import '../helpers/helper_classes/logging_message_type.dart';
@@ -119,4 +121,13 @@ class SignupLoginProvider with ChangeNotifier {
   }
 
   bool isFormValid(formKey) => formKey.currentState!.validate();
+
+  Future<void> logout(BuildContext context) async {
+    await FirebaseAuthApi.logout();
+    _isSignedIn = false;
+    notifyListeners();
+    if (context.mounted) {
+      context.goNamed(ValidRoutes.signupLoginScreen.name);
+    }
+  }
 }

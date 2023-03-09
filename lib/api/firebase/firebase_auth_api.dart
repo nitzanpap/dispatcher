@@ -1,13 +1,13 @@
 import 'package:dispatcher/api/firebase/firebase_auth_token_response.dart';
+import 'package:dispatcher/helpers/helper_functions/device_storage_functions.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 import './firebase_config.dart';
 
 abstract class FirebaseAuthApi {
   static Future<bool> checkTokenConnected() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    final String? authToken = preferences.getString('auth_token');
+    final String? authToken =
+        await getFromPreferencesStorage(key: 'auth_token');
     if (authToken != null) {
       final http.Response response = await http.post(
         Uri.parse(FirebaseConfig.checkTokenConnectedUrl),
@@ -24,8 +24,7 @@ abstract class FirebaseAuthApi {
   }
 
   static Future<void> saveTokenToDevice(String idToken) async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    await preferences.setString('auth_token', idToken);
+    await saveInPreferencesStorage(key: 'auth_token', value: idToken);
   }
 
   static Future<http.Response> logIntoFirebase({
@@ -51,7 +50,6 @@ abstract class FirebaseAuthApi {
           'returnSecureToken': "true",
         },
       );
-      print(res);
       return res;
     }();
   }
@@ -66,5 +64,9 @@ abstract class FirebaseAuthApi {
         'returnSecureToken': "true",
       },
     );
+  }
+
+  static Future<void> logout() async {
+    await removeKeyFromPreferencesStorage(key: 'auth_token');
   }
 }
