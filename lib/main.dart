@@ -1,13 +1,14 @@
+import 'package:dispatcher/api/firebase/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import './constants/strings.dart';
 import './enums/routes.dart';
+import './helpers/helper_functions/device_config_functions.dart';
 import './providers/onboarding_step_provider.dart';
 import './providers/bottom_navigation_provider.dart';
-import '../providers/signup_login_provider.dart';
+import './providers/signup_login_provider.dart';
 
 import './screens/splash_screen.dart';
 import './screens/onboarding_screen.dart';
@@ -16,10 +17,7 @@ import './screens/primary_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
+  ensureDeviceOrientation();
   runApp(const MyApp());
 }
 
@@ -32,10 +30,11 @@ class MyApp extends StatelessWidget {
       routes: [
         GoRoute(
           path: '/',
-          redirect: (context, state) {
+          redirect: (context, state) async {
             final signupLoginProvider =
                 Provider.of<SignupLoginProvider>(context);
-            if (signupLoginProvider.isSignedIn) {
+            if (signupLoginProvider.isSignedIn ||
+                await FirebaseAuthApi.checkTokenConnected()) {
               return ValidRoutes.primaryScreen.route;
             }
             return ValidRoutes.splashScreen.route;

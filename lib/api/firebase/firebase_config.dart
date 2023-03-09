@@ -4,4 +4,6 @@ abstract class FirebaseConfig {
       'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=$firebaseApiKey';
   static const signInAuthUrl =
       'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=$firebaseApiKey';
+  static const checkTokenConnectedUrl =
+      'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=$firebaseApiKey';
 }

@@ -70,11 +70,11 @@ class SignupLoginProvider with ChangeNotifier {
   void _updateProvider({
     required String formEmail,
     required String formPassword,
-    required String newIdToken,
+    required String idToken,
   }) {
     _email = formEmail;
     _password = formPassword;
-    _idToken = newIdToken;
+    _idToken = idToken;
     _isSignedIn = true;
   }
 
@@ -107,8 +107,10 @@ class SignupLoginProvider with ChangeNotifier {
       _updateProvider(
         formEmail: firebaseAuthResponseData.email!,
         formPassword: password,
-        newIdToken: firebaseAuthResponseData.idToken!,
+        idToken: firebaseAuthResponseData.idToken!,
       );
+      updateIdToken = firebaseAuthResponseData.idToken!;
+      FirebaseAuthApi.saveTokenToDevice(idToken);
       return LoggingMessageType(
           message: 'Logged in successfully!', isValid: true);
     }
