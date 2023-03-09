@@ -2,7 +2,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> saveInPreferencesStorage(
     {required String key, required value}) async {
-  print('Saving key: $key in preferences storage...');
   SharedPreferences preferences = await SharedPreferences.getInstance();
   switch (value.runtimeType) {
     case String:
@@ -26,13 +25,11 @@ Future<void> saveInPreferencesStorage(
 }
 
 Future<dynamic> getFromPreferencesStorage({required String key}) async {
-  print('Getting key: $key from preferences storage...');
   SharedPreferences preferences = await SharedPreferences.getInstance();
   return preferences.get(key);
 }
 
 Future<void> removeKeyFromPreferencesStorage({required String key}) async {
-  print('Removing key: $key from preferences storage...');
   SharedPreferences preferences = await SharedPreferences.getInstance();
   await preferences.remove(key);
 }
