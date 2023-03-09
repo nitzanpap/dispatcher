@@ -42,14 +42,18 @@ abstract class FirebaseAuthApi {
 
   static Future<http.Response> _login(
       {required String email, required String password}) {
-    return http.post(
-      Uri.parse(FirebaseConfig.signInAuthUrl),
-      body: {
-        'email': email,
-        'password': password,
-        'returnSecureToken': true,
-      },
-    );
+    return () async {
+      final res = await http.post(
+        Uri.parse(FirebaseConfig.signInAuthUrl),
+        body: {
+          'email': email,
+          'password': password,
+          'returnSecureToken': "true",
+        },
+      );
+      print(res);
+      return res;
+    }();
   }
 
   static Future<http.Response> _signup(
@@ -59,7 +63,7 @@ abstract class FirebaseAuthApi {
       body: {
         'email': email,
         'password': password,
-        'returnSecureToken': true,
+        'returnSecureToken': "true",
       },
     );
   }

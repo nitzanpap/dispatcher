@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
 import '../helpers/helper_classes/logging_message_type.dart';
-import '../api/firebase/firebase_auth.dart';
+import '../api/firebase/firebase_auth_api.dart';
 import '../api/firebase/firebase_auth_response.dart';
 
 class SignupLoginProvider with ChangeNotifier {
@@ -85,7 +85,7 @@ class SignupLoginProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<LoggingMessageType> logIntoFirebaseAuth({
+  Future<LoggingMessageType> getMessageFromFirebaseAuth({
     required GlobalKey<FormState> formKey,
   }) async {
     if (!isFormValid(formKey)) {
