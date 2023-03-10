@@ -1,6 +1,3 @@
-import 'package:dispatcher/enums/icon_direction.dart';
-import 'package:dispatcher/widgets/svg_widgets/down_arrow_svg.dart';
-import 'package:dispatcher/widgets/svg_widgets/filter_svg.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -8,6 +5,8 @@ import '../constants/colors.dart';
 
 import '../widgets/app_bar_widgets/primary_app_bar.dart';
 import '../widgets/text_with_icon.dart';
+import '../widgets/sorting_app_bar.dart';
+import '../widgets/article_card_view.dart';
 
 class HomePageView extends StatelessWidget {
   const HomePageView({
@@ -26,31 +25,14 @@ class HomePageView extends StatelessWidget {
             const SortingAppBar(),
             Padding(
               padding: const EdgeInsets.all(16.0),
+              // TODO: Replace this with a better scrolling solution
               child: Column(
                 children: [
-                  Row(children: const [
-                    TextWithIcon(
-                      text: 'Last Login: ',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 12,
-                      color: AppColors.mediumBlue,
-                    ),
-                    TextWithIcon(
-                      text: '03:50 PM, 09.03.2022',
-                      fontSize: 12,
-                      color: AppColors.mediumBlue,
-                    ),
-                  ]),
+                  getLastLoginTimeView(),
                   const Gap(14),
-                  Row(children: const [
-                    TextWithIcon(
-                      text: 'Top Headlines in Israel',
-                      fontSize: 24,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.deepDarkBlue,
-                    ),
-                  ]),
+                  getHomeViewHeadline(),
                   const Gap(20),
+                  const ArticleCardView(),
                 ],
               ),
             ),
@@ -59,31 +41,31 @@ class HomePageView extends StatelessWidget {
       ),
     );
   }
-}
 
-class SortingAppBar extends StatelessWidget {
-  const SortingAppBar({super.key});
+  Row getHomeViewHeadline() {
+    return Row(children: const [
+      TextWithIcon(
+        text: 'Top Headlines in Israel',
+        fontSize: 24,
+        fontWeight: FontWeight.w500,
+        color: AppColors.deepDarkBlue,
+      ),
+    ]);
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        border: Border.all(color: AppColors.grey),
+  Row getLastLoginTimeView() {
+    return Row(children: const [
+      TextWithIcon(
+        text: 'Last Login: ',
+        fontWeight: FontWeight.w500,
+        fontSize: 12,
+        color: AppColors.mediumBlue,
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: const [
-          TextWithIcon(
-            text: 'Sort By',
-            color: AppColors.deepDarkBlue,
-            svg: DownArrowSvg(),
-            svgDirection: IconDirection.end,
-          ),
-          FilterSvg()
-        ],
+      TextWithIcon(
+        text: '03:50 PM, 09.03.2022',
+        fontSize: 12,
+        color: AppColors.mediumBlue,
       ),
-    );
+    ]);
   }
 }
