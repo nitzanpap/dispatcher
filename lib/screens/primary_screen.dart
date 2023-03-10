@@ -1,3 +1,4 @@
+import 'package:dispatcher/screens/home_page_view.dart';
 import 'package:dispatcher/screens/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -40,38 +41,12 @@ class PrimaryScreen extends StatelessWidget {
       return const ProfilePageView();
     }
     if (currentPrimaryTabName == ValidPrimaryTabs.home.name) {
-      return getHomeView();
+      return const HomePageView();
     }
     if (currentPrimaryTabName == ValidPrimaryTabs.favorites.name) {
       return getFavoritesView();
-    } else {
-      return getTextRoutePlaceholder(currentPrimaryTabName);
     }
-  }
-
-  SizedBox getTextRoutePlaceholder(String currentPrimaryTabName) {
-    return SizedBox(
-      width: 200,
-      height: 200,
-      child: TextWithIcon(
-        text: currentPrimaryTabName,
-        color: AppColors.deepDarkBlue,
-      ),
-    );
-  }
-
-  Scaffold getHomeView() {
-    return Scaffold(
-      appBar: const PrimaryAppBar(),
-      body: Container(
-        alignment: Alignment.center,
-        color: AppColors.white,
-        child: const TextWithIcon(
-          text: 'Home',
-          color: AppColors.deepDarkBlue,
-        ),
-      ),
-    );
+    return const HomePageView();
   }
 
   Scaffold getFavoritesView() {
