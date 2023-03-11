@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 abstract class AppColors {
   static const black = Colors.black;
+  static const darkFaded = Color.fromRGBO(19, 19, 19, 0.49);
   static const deepDarkBlue = Color.fromRGBO(38, 33, 70, 1.0);
   static const mediumBlue = Color.fromRGBO(90, 90, 137, 1);
   static const darkGrey = Color.fromRGBO(87, 85, 101, 1);

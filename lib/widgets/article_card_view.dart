@@ -1,8 +1,11 @@
-import 'package:dispatcher/widgets/text_with_icon.dart';
+import 'package:dispatcher/widgets/svg_widgets/star_white_filled_svg.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import '../constants/colors.dart';
+
+import '../widgets/svg_widgets/star_white_svg.dart';
+import '../widgets/text_with_icon.dart';
 
 class ArticleCardView extends StatelessWidget {
   const ArticleCardView({
@@ -22,9 +25,13 @@ class ArticleCardView extends StatelessWidget {
       ),
       child: Column(children: [
         Stack(
+          alignment: Alignment.topRight,
           children: [
             getArticleImageView(imageBorderRadius: cardBorderRadius),
-            // getFavoriteSvgButton(),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: getFavoriteSvgButton(),
+            )
           ],
         ),
         Padding(
@@ -51,6 +58,23 @@ class ArticleCardView extends StatelessWidget {
       ]),
     );
   }
+}
+
+// TODO: Add functionality to this button
+getFavoriteSvgButton() {
+  return Container(
+    alignment: Alignment.center,
+    width: 30,
+    height: 30,
+    decoration: const BoxDecoration(
+      color: AppColors.darkFaded,
+      // border: Border.all(
+      //   color: AppColors.white,
+      // ),
+      shape: BoxShape.circle,
+    ),
+    child: const StarWhiteSvg(),
+  );
 }
 
 // TODO: Replace this with a real author
