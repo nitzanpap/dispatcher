@@ -1,3 +1,5 @@
+import 'package:dispatcher/api/news_api/news_api_top_articles_response.dart';
+import 'package:dispatcher/helpers/helper_functions/date_formatting_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -8,16 +10,17 @@ import '../widgets/svg_widgets/star_white_svg.dart';
 import '../widgets/svg_widgets/star_white_filled_svg.dart';
 
 class ArticleCardView extends StatelessWidget {
+  final Article article;
+
   const ArticleCardView({
     super.key,
+    required this.article,
   });
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Replace this with a real article card
     var cardBorderRadius = 20.0;
     return Container(
-      // height: 400,
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(cardBorderRadius),
@@ -27,7 +30,9 @@ class ArticleCardView extends StatelessWidget {
         Stack(
           alignment: Alignment.topRight,
           children: [
-            getArticleImageView(imageBorderRadius: cardBorderRadius),
+            getArticleImageView(
+                imageUrl: article.urlToImage,
+                imageBorderRadius: cardBorderRadius),
             Padding(
               padding: const EdgeInsets.all(16),
               child: getFavoriteSvgButton(),
@@ -42,22 +47,26 @@ class ArticleCardView extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  getArticleDateView(),
+                  getArticleDateView(getTransformedDate(article.publishedAt)),
                   // getArticleTags(),
                 ],
               ),
               const Gap(10.0),
-              getArticleHeadlineView(),
+              getArticleTitleView(article.title),
               const Gap(10.0),
-              getArticleAuthorView(),
+              getArticleAuthorView(article.author),
               const Gap(10.0),
-              getArticleContentClipped(),
+              getArticleContentClipped(article.description),
             ],
           ),
         )
       ]),
     );
   }
+}
+
+String getTransformedDate(DateTime publishedAt) {
+  return formatDate(publishedAt);
 }
 
 // TODO: Add functionality to this button
@@ -77,10 +86,9 @@ getFavoriteSvgButton() {
   );
 }
 
-// TODO: Replace this with a real author
-Widget getArticleAuthorView() {
-  return const TextWithIcon(
-    text: 'Arjun Kharpal, CNBC',
+Widget getArticleAuthorView(String? author) {
+  return TextWithIcon(
+    text: author ?? '',
     fontSize: 14,
     color: AppColors.darkGrey,
     isWidthIntrinsic: true,
@@ -88,10 +96,9 @@ Widget getArticleAuthorView() {
   );
 }
 
-// TODO: Replace this with a real date
-Widget getArticleDateView() {
-  return const TextWithIcon(
-    text: 'Friday Jun 25, 2021',
+Widget getArticleDateView(String date) {
+  return TextWithIcon(
+    text: date,
     fontSize: 14,
     color: AppColors.darkGrey,
     isWidthIntrinsic: true,
@@ -99,11 +106,9 @@ Widget getArticleDateView() {
   );
 }
 
-// TODO: Replace this with a real headline
-Widget getArticleHeadlineView() {
-  return const TextWithIcon(
-    text:
-        'China\'s renewed crypto crackdown wipes nearly \$300 billion off the market as bitcoin slides',
+Widget getArticleTitleView(String title) {
+  return TextWithIcon(
+    text: title,
     fontSize: 18,
     fontWeight: FontWeight.w700,
     color: AppColors.black,
@@ -111,11 +116,9 @@ Widget getArticleHeadlineView() {
   );
 }
 
-// TODO: Replace this with real content
-Widget getArticleContentClipped() {
-  return const TextWithIcon(
-    text:
-        "On Friday, Chinese Vice Premier Liu He said it is necessary to “crack down on Bitcoin mining and trading behavior” to prevent risks to the “social field.” For a long time, Chinese authorities have been concerned about the speculative nature of cryptocurrencies ...",
+Widget getArticleContentClipped(String? content) {
+  return TextWithIcon(
+    text: content ?? '',
     fontSize: 14,
     color: AppColors.deepDarkBlue,
     isWrap: true,
@@ -123,7 +126,8 @@ Widget getArticleContentClipped() {
 }
 
 // TODO: Replace this with a real image
-Widget getArticleImageView({double imageBorderRadius = 0}) {
+Widget getArticleImageView(
+    {required String imageUrl, double imageBorderRadius = 0}) {
   return Container(
     height: 149,
     decoration: BoxDecoration(
