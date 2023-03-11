@@ -83,6 +83,7 @@ getFavoriteSvgButton() {
       shape: BoxShape.circle,
     ),
     child: const StarWhiteSvg(),
+    // child: const StarWhiteFilledSvg(),
   );
 }
 
@@ -130,7 +131,6 @@ Widget getArticleImageView(
   return Container(
     height: 149,
     decoration: BoxDecoration(
-        // color: AppColors.badgeColor,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(imageBorderRadius),
           topRight: Radius.circular(imageBorderRadius),
