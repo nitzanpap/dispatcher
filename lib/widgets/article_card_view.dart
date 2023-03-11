@@ -1,11 +1,11 @@
-import 'package:dispatcher/widgets/svg_widgets/star_white_filled_svg.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import '../constants/colors.dart';
 
-import '../widgets/svg_widgets/star_white_svg.dart';
 import '../widgets/text_with_icon.dart';
+import '../widgets/svg_widgets/star_white_svg.dart';
+import '../widgets/svg_widgets/star_white_filled_svg.dart';
 
 class ArticleCardView extends StatelessWidget {
   const ArticleCardView({
