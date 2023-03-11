@@ -125,17 +125,19 @@ Widget getArticleContentClipped(String? content) {
   );
 }
 
-// TODO: Replace this with a real image
 Widget getArticleImageView(
     {required String imageUrl, double imageBorderRadius = 0}) {
   return Container(
     height: 149,
     decoration: BoxDecoration(
-      color: AppColors.badgeColor,
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(imageBorderRadius),
-        topRight: Radius.circular(imageBorderRadius),
-      ),
-    ),
+        // color: AppColors.badgeColor,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(imageBorderRadius),
+          topRight: Radius.circular(imageBorderRadius),
+        ),
+        image: DecorationImage(
+          image: NetworkImage(imageUrl),
+          fit: BoxFit.cover,
+        )),
   );
 }
