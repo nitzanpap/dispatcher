@@ -52,7 +52,7 @@ class HomePageView extends StatelessWidget {
     );
   }
 
-  Row getHomeViewHeadline() {
+  Widget getHomeViewHeadline() {
     return Row(children: const [
       TextWithIcon(
         text: 'Top Headlines in Israel',
@@ -63,7 +63,7 @@ class HomePageView extends StatelessWidget {
     ]);
   }
 
-  Row getLastLoginTimeView() {
+  Widget getLastLoginTimeView() {
     return Row(children: const [
       TextWithIcon(
         text: 'Last Login: ',

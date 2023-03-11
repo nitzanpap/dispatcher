@@ -16,6 +16,7 @@ class TextWithIcon extends StatelessWidget {
   final double letterSpacing;
   final bool isWidthIntrinsic;
   final BaseSvgWidget? svg;
+  final bool isWrap;
 
   const TextWithIcon({
     super.key,
@@ -28,6 +29,7 @@ class TextWithIcon extends StatelessWidget {
     this.iconDirection = IconDirection.start,
     this.svgDirection = IconDirection.start,
     this.isWidthIntrinsic = false,
+    this.isWrap = false,
     this.svg,
   });
 
@@ -43,18 +45,22 @@ class TextWithIcon extends StatelessWidget {
       children: [
         (svg != null && isSvgOnStart) ? svg! : const SizedBox.shrink(),
         (icon != null && isIconOnStart) ? icon! : const SizedBox.shrink(),
-        Text(
-          text,
-          style: TextStyle(
-            color: color,
-            fontSize: fontSize,
-            fontWeight: fontWeight,
-            letterSpacing: letterSpacing,
-          ),
-        ),
+        isWrap ? Flexible(child: getTextWidget()) : getTextWidget(),
         (icon != null && isIconOnEnd) ? icon! : const SizedBox.shrink(),
         (svg != null && isSvgOnEnd) ? svg! : const SizedBox.shrink(),
       ],
+    );
+  }
+
+  Text getTextWidget() {
+    return Text(
+      text,
+      style: TextStyle(
+        color: color,
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        letterSpacing: letterSpacing,
+      ),
     );
   }
 }
