@@ -23,17 +23,26 @@ class HomePageView extends StatelessWidget {
         child: Column(
           children: [
             const SortingAppBar(),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              // TODO: Replace this with a better scrolling solution
-              child: Column(
-                children: [
-                  getLastLoginTimeView(),
-                  const Gap(14),
-                  getHomeViewHeadline(),
-                  const Gap(20),
-                  const ArticleCardView(),
-                ],
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Column(
+                  children: [
+                    const Gap(6),
+                    getLastLoginTimeView(),
+                    const Gap(12),
+                    getHomeViewHeadline(),
+                    const Gap(20),
+                    // TODO: Replace this with a better scrolling solution
+                    Expanded(
+                      child: ListView(children: const [
+                        ArticleCardView(),
+                        Gap(20),
+                        ArticleCardView(),
+                      ]),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
