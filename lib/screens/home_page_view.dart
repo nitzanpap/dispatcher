@@ -33,13 +33,14 @@ class HomePageView extends StatelessWidget {
                     const Gap(12),
                     getHomeViewHeadline(),
                     const Gap(20),
-                    // TODO: Replace this with a better scrolling solution
                     Expanded(
-                      child: ListView(children: const [
-                        ArticleCardView(),
-                        Gap(20),
-                        ArticleCardView(),
-                      ]),
+                      child: ListView.separated(
+                        itemCount: 3,
+                        itemBuilder: (context, index) {
+                          return const ArticleCardView();
+                        },
+                        separatorBuilder: (_, __) => const Gap(20),
+                      ),
                     ),
                   ],
                 ),
