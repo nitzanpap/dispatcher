@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/services.dart';
 
 Future<String> _loadFromAsset(String jsonFilePath) async {
@@ -8,6 +6,6 @@ Future<String> _loadFromAsset(String jsonFilePath) async {
 
 Future<String> getDataFromJsonFile(String jsonFilePath) async {
   String jsonString = await _loadFromAsset(jsonFilePath);
-  print(jsonString);
+  // print(jsonString);
   return jsonString;
 }

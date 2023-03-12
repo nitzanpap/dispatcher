@@ -1,4 +1,5 @@
 import 'package:dispatcher/api/news_api/news_api_top_articles_response.dart';
+import 'package:dispatcher/helpers/helper_functions/mock_data_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -34,32 +35,7 @@ class HomePageView extends StatelessWidget {
                     const Gap(12),
                     getHomeViewHeadline(),
                     const Gap(20),
-                    Expanded(
-                      child: ListView.separated(
-                        itemCount: 3,
-                        itemBuilder: (context, index) {
-                          // TODO: Replace this with a real article card that is fetched from the API dynamically
-                          final newArticle = Article(
-                              source:
-                                  Source(id: 'the-verge', name: 'The Verge'),
-                              author: "Antonio G. Di Benedetto",
-                              title:
-                                  "Mario Day 2023: the best deals on Nintendo Switch games and accessories - The Verge",
-                              description:
-                                  "A slew of great Nintendo Switch games are on sale in honor of MAR10 Day, and there are good deals on accessories, too. Here, we’ve rounded up the highlights, from Mario Kart 8 Deluxe to Nintendo’s Mario-themed Switch bundle.",
-                              url:
-                                  "https://www.theverge.com/23627426/mario-day-deals-mar10-nintendo-switch-games-microsd-cards-cases-accessories-sale",
-                              urlToImage:
-                                  "https://cdn.vox-cdn.com/thumbor/7Uflx8VRONB3hPUdQKWxlOMYcvU=/0x0:2040x1360/1200x628/filters:focal(1020x680:1021x681)/cdn.vox-cdn.com/uploads/chorus_asset/file/9537475/akrales_171025_2091_0010.jpg",
-                              publishedAt:
-                                  DateTime.parse("2023-03-10T16:33:09Z"),
-                              content:
-                                  "The best Mario Day deals on Nintendo Switch games and accessories\r\nThe best Mario Day deals on Nintendo Switch games and accessories\r\n / MAR10 is Mario Day, and many excellent Nintendo games are heav… [+9013 chars]");
-                          return ArticleCardView(article: newArticle);
-                        },
-                        separatorBuilder: (_, __) => const Gap(20),
-                      ),
-                    ),
+                    getArticlesView()
                   ],
                 ),
               ),
@@ -96,4 +72,55 @@ class HomePageView extends StatelessWidget {
       ),
     ]);
   }
+
+  Widget getArticlesView() {
+    return Expanded(
+      child: ListView.builder(
+        itemBuilder: (context, index) {
+          return FutureBuilder(
+            future: getMockArticles(),
+            builder: (context, snapshot) {
+              print('Build from future builder');
+              final articles = snapshot.data;
+              if (snapshot.connectionState == ConnectionState.done) {
+                return getListOfArticlesView(articles);
+              }
+              return const CircularProgressIndicator();
+            },
+          );
+        },
+      ),
+    );
+  }
+}
+
+// Transforms a list of articles to a List of ArticleCardView widgets
+getListOfArticlesView(List<Article>? articles) {
+  return ListView.separated(
+    scrollDirection: Axis.vertical,
+    shrinkWrap: true,
+    physics: const NeverScrollableScrollPhysics(),
+    itemBuilder: (context, index) => transformArticleToWidget(articles![index]),
+    itemCount: articles!.length,
+    separatorBuilder: (context, index) => const Gap(20),
+  );
+}
+
+// Transforms a list of articles to a list of ArticleCardView widgets
+List<ArticleCardView> transformArticlesToWidgetList(List<Article> articles) {
+  final list = articles.map((article) => transformArticleToWidget(article));
+  return list.toList();
+}
+
+// Transforms a single article to an ArticleCardView widget
+ArticleCardView transformArticleToWidget(Article article) {
+  final articleObj = Article(
+    source: article.source,
+    title: article.title,
+    description: article.description,
+    url: article.url,
+    urlToImage: article.urlToImage,
+    publishedAt: article.publishedAt,
+  );
+  return ArticleCardView(article: articleObj);
 }
