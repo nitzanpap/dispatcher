@@ -1,5 +1,3 @@
-import 'package:dispatcher/api/news_api/news_api_model_functions.dart';
-import 'package:dispatcher/api/news_api/news_api_top_articles_response.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/colors.dart';
@@ -70,14 +68,6 @@ class SearchIconBtn extends StatelessWidget {
       child: IconButton(
         onPressed: () async {
           debugPrint('Search icon clicked');
-          final response = newsApiTopHeadlinesResponseFromJson(
-              await getDataFromJsonFile(
-                  'assets/mock_files/news_api_top_headlines_response_example.json'));
-          final response2 = newsApiTopHeadlinesResponseFromJson(
-              await getDataFromJsonFile(
-                  'assets/mock_files/news_api_top_headlines_error_response_example.json'));
-          print(response);
-          print(response2);
         },
         icon: const SearchSvg(),
       ),

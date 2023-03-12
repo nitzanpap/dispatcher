@@ -5,3 +5,12 @@ String formatDate(DateTime dateTime) {
   final String formattedDate = formatter.format(dateTime);
   return formattedDate;
 }
+
+bool isDateTimeLessThanAnHourAgo(DateTime? last) {
+  if (last == null) {
+    return false;
+  }
+  DateTime now = DateTime.now();
+  Duration difference = now.difference(last);
+  return difference.inHours <= 1;
+}

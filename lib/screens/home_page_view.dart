@@ -3,7 +3,6 @@ import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/colors.dart';
-import '../helpers/helper_functions/mock_data_functions.dart';
 import '../api/news_api/news_api_top_articles_response.dart';
 import '../providers/home_view_provider.dart';
 
@@ -21,6 +20,8 @@ class HomePageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeViewProvider = Provider.of<HomeViewProvider>(context);
+
+    homeViewProvider.getArticles();
 
     ScrollController scrollController = ScrollController(
       initialScrollOffset: homeViewProvider.offset,
@@ -48,7 +49,10 @@ class HomePageView extends StatelessWidget {
                     const Gap(12),
                     getHomeViewHeadline(),
                     const Gap(20),
-                    getArticlesView(scrollController),
+                    getArticlesView(
+                      provider: homeViewProvider,
+                      scr: scrollController,
+                    ),
                     const Gap(20),
                   ],
                 ),
@@ -61,7 +65,6 @@ class HomePageView extends StatelessWidget {
   }
 }
 
-// Returns a Row with the headline
 Widget getHomeViewHeadline() {
   return Row(children: const [
     TextWithIcon(
@@ -73,7 +76,6 @@ Widget getHomeViewHeadline() {
   ]);
 }
 
-// Returns a Row with the last login time
 Widget getLastLoginTimeView() {
   return Row(children: const [
     TextWithIcon(
@@ -90,10 +92,10 @@ Widget getLastLoginTimeView() {
   ]);
 }
 
-// Returns a FutureBuilder that will build a ListView of articles
-Widget getArticlesView(ScrollController scr) {
+Widget getArticlesView(
+    {required HomeViewProvider provider, required ScrollController scr}) {
   return FutureBuilder(
-    future: getMockArticles(),
+    future: provider.getArticles(),
     builder: (context, snapshot) {
       final articles = snapshot.data;
       if (snapshot.connectionState == ConnectionState.done) {
@@ -108,7 +110,6 @@ Widget getArticlesView(ScrollController scr) {
   );
 }
 
-// Returns a ListView of articles
 getListOfArticlesView(List<Article>? articles, ScrollController scr) {
   return Expanded(
     child: ListView.separated(
@@ -121,7 +122,6 @@ getListOfArticlesView(List<Article>? articles, ScrollController scr) {
   );
 }
 
-// Transforms a single article to an ArticleCardView widget
 ArticleCardView transformArticleToWidget(Article article) {
   final articleObj = Article(
     source: article.source,

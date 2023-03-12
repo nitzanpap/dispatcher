@@ -1,4 +1,5 @@
 {
   "currentEnv": "prod",
-  "firebaseApiKey": "AIzaSyC0Qo8-3ZAiU4qM6Qg1BHCCwa-niccgF8Y"
+  "firebaseApiKey": "AIzaSyC0Qo8-3ZAiU4qM6Qg1BHCCwa-niccgF8Y",
+  "newsApiKey": "f854404d8b7d49598ca1b33c18409df6"
 }
