@@ -1,5 +1,6 @@
 import 'package:dispatcher/api/news_api/news_api_top_articles_response.dart';
 import 'package:dispatcher/helpers/helper_functions/date_formatting_functions.dart';
+import 'package:dispatcher/widgets/button_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -26,41 +27,50 @@ class ArticleCardView extends StatelessWidget {
         borderRadius: BorderRadius.circular(cardBorderRadius),
         border: Border.all(color: AppColors.grey),
       ),
-      child: Column(children: [
-        Stack(
-          alignment: Alignment.topRight,
-          children: [
-            getArticleImageView(
-                imageUrl: article.urlToImage,
-                imageBorderRadius: cardBorderRadius),
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: getFavoriteSvgButton(),
-            )
-          ],
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+      child: Column(
+        children: [
+          Stack(
+            alignment: Alignment.topRight,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  getArticleDateView(getTransformedDate(article.publishedAt)),
-                  // getArticleTags(),
-                ],
-              ),
-              const Gap(10.0),
-              getArticleTitleView(article.title),
-              const Gap(10.0),
-              getArticleAuthorView(article.author),
-              const Gap(10.0),
-              getArticleContentClipped(article.description),
+              getArticleImageView(
+                  imageUrl: article.urlToImage,
+                  imageBorderRadius: cardBorderRadius),
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: getFavoriteSvgButton(),
+              )
             ],
           ),
-        )
-      ]),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    getArticleDateView(getTransformedDate(article.publishedAt)),
+                    // getArticleTags(),
+                  ],
+                ),
+                const Gap(10.0),
+                getArticleTitleView(article.title),
+                const Gap(10.0),
+                getArticleAuthorView(article.author),
+                const Gap(10.0),
+                getArticleContentClipped(article.description),
+                const Gap(20.0),
+                PrimaryButton(
+                  text: 'NAVIGATE TO DISPATCH',
+                  onPressedFunction: () => print('Navigate to dispatch'),
+                  icon: Icon(Icons.arrow_forward),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
