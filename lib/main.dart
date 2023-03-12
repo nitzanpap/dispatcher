@@ -1,3 +1,4 @@
+import 'package:dispatcher/providers/home_view_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -65,6 +66,7 @@ class MyApp extends StatelessWidget {
             providers: [
               ChangeNotifierProvider(
                   create: (context) => BottomNavigationProvider()),
+              ChangeNotifierProvider(create: (context) => HomeViewProvider()),
             ],
             child: const PrimaryScreen(),
           ),

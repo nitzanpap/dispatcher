@@ -1,14 +1,17 @@
-import 'package:dispatcher/api/news_api/news_api_top_articles_response.dart';
-import 'package:dispatcher/helpers/helper_functions/mock_data_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 
 import '../constants/colors.dart';
+import '../helpers/helper_functions/mock_data_functions.dart';
+import '../api/news_api/news_api_top_articles_response.dart';
+import '../providers/home_view_provider.dart';
 
 import '../widgets/app_bar_widgets/primary_app_bar.dart';
 import '../widgets/text_with_icon.dart';
 import '../widgets/sorting_app_bar.dart';
 import '../widgets/article_card_view.dart';
+import '../widgets/app_spinner_loader.dart';
 
 class HomePageView extends StatelessWidget {
   const HomePageView({
@@ -17,6 +20,16 @@ class HomePageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final homeViewProvider = Provider.of<HomeViewProvider>(context);
+
+    ScrollController scrollController = ScrollController(
+      initialScrollOffset: homeViewProvider.offset,
+    );
+
+    scrollController.addListener(() {
+      homeViewProvider.saveOffset(scrollController.offset);
+    });
+
     return Scaffold(
       appBar: const PrimaryAppBar(),
       body: Container(
@@ -35,7 +48,7 @@ class HomePageView extends StatelessWidget {
                     const Gap(12),
                     getHomeViewHeadline(),
                     const Gap(20),
-                    getArticlesView(),
+                    getArticlesView(scrollController),
                     const Gap(20),
                   ],
                 ),
@@ -48,6 +61,7 @@ class HomePageView extends StatelessWidget {
   }
 }
 
+// Returns a Row with the headline
 Widget getHomeViewHeadline() {
   return Row(children: const [
     TextWithIcon(
@@ -59,6 +73,7 @@ Widget getHomeViewHeadline() {
   ]);
 }
 
+// Returns a Row with the last login time
 Widget getLastLoginTimeView() {
   return Row(children: const [
     TextWithIcon(
@@ -75,27 +90,31 @@ Widget getLastLoginTimeView() {
   ]);
 }
 
-Widget getArticlesView() {
+// Returns a FutureBuilder that will build a ListView of articles
+Widget getArticlesView(ScrollController scr) {
   return FutureBuilder(
     future: getMockArticles(),
     builder: (context, snapshot) {
-      print('Build from future builder');
       final articles = snapshot.data;
       if (snapshot.connectionState == ConnectionState.done) {
-        return getListOfArticlesView(articles);
+        return getListOfArticlesView(articles, scr);
       }
-      return const CircularProgressIndicator();
+      return const Expanded(
+        child: Center(
+          child: AppSpinnerLoader(),
+        ),
+      );
     },
   );
 }
 
-// Transforms a list of articles to a List of ArticleCardView widgets
-getListOfArticlesView(List<Article>? articles) {
+// Returns a ListView of articles
+getListOfArticlesView(List<Article>? articles, ScrollController scr) {
   return Expanded(
     child: ListView.separated(
-      // physics: const NeverScrollableScrollPhysics(),
+      controller: scr,
       itemBuilder: (context, index) =>
-          transformArticleToWidget(articles![index]),
+          transformArticleToWidget(articles[index]),
       itemCount: articles!.length,
       separatorBuilder: (context, index) => const Gap(20),
     ),
