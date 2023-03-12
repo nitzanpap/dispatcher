@@ -44,16 +44,10 @@ class HomePageView extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
                   children: [
-                    const Gap(6),
-                    getLastLoginTimeView(),
-                    const Gap(12),
-                    getHomeViewHeadline(),
-                    const Gap(20),
                     getArticlesView(
                       provider: homeViewProvider,
                       scr: scrollController,
                     ),
-                    const Gap(20),
                   ],
                 ),
               ),
@@ -114,9 +108,21 @@ getListOfArticlesView(List<Article>? articles, ScrollController scr) {
   return Expanded(
     child: ListView.separated(
       controller: scr,
-      itemBuilder: (context, index) =>
-          transformArticleToWidget(articles[index]),
-      itemCount: articles!.length,
+      itemBuilder: (context, index) {
+        if (index == 0) {
+          return Column(
+            children: [
+              const Gap(6),
+              getLastLoginTimeView(),
+              const Gap(12),
+              getHomeViewHeadline(),
+              const Gap(20),
+            ],
+          );
+        }
+        return transformArticleToWidget(articles[index]);
+      },
+      itemCount: articles!.length + 1,
       separatorBuilder: (context, index) => const Gap(20),
     ),
   );
