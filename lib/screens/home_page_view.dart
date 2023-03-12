@@ -35,7 +35,8 @@ class HomePageView extends StatelessWidget {
                     const Gap(12),
                     getHomeViewHeadline(),
                     const Gap(20),
-                    getArticlesView()
+                    getArticlesView(),
+                    const Gap(20),
                   ],
                 ),
               ),
@@ -45,71 +46,60 @@ class HomePageView extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget getHomeViewHeadline() {
-    return Row(children: const [
-      TextWithIcon(
-        text: 'Top Headlines in Israel',
-        fontSize: 24,
-        fontWeight: FontWeight.w500,
-        color: AppColors.deepDarkBlue,
-      ),
-    ]);
-  }
+Widget getHomeViewHeadline() {
+  return Row(children: const [
+    TextWithIcon(
+      text: 'Top Headlines in Israel',
+      fontSize: 24,
+      fontWeight: FontWeight.w500,
+      color: AppColors.deepDarkBlue,
+    ),
+  ]);
+}
 
-  Widget getLastLoginTimeView() {
-    return Row(children: const [
-      TextWithIcon(
-        text: 'Last Login: ',
-        fontWeight: FontWeight.w500,
-        fontSize: 12,
-        color: AppColors.mediumBlue,
-      ),
-      TextWithIcon(
-        text: '03:50 PM, 09.03.2022',
-        fontSize: 12,
-        color: AppColors.mediumBlue,
-      ),
-    ]);
-  }
+Widget getLastLoginTimeView() {
+  return Row(children: const [
+    TextWithIcon(
+      text: 'Last Login: ',
+      fontWeight: FontWeight.w500,
+      fontSize: 12,
+      color: AppColors.mediumBlue,
+    ),
+    TextWithIcon(
+      text: '03:50 PM, 09.03.2022',
+      fontSize: 12,
+      color: AppColors.mediumBlue,
+    ),
+  ]);
+}
 
-  Widget getArticlesView() {
-    return Expanded(
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          return FutureBuilder(
-            future: getMockArticles(),
-            builder: (context, snapshot) {
-              print('Build from future builder');
-              final articles = snapshot.data;
-              if (snapshot.connectionState == ConnectionState.done) {
-                return getListOfArticlesView(articles);
-              }
-              return const CircularProgressIndicator();
-            },
-          );
-        },
-      ),
-    );
-  }
+Widget getArticlesView() {
+  return FutureBuilder(
+    future: getMockArticles(),
+    builder: (context, snapshot) {
+      print('Build from future builder');
+      final articles = snapshot.data;
+      if (snapshot.connectionState == ConnectionState.done) {
+        return getListOfArticlesView(articles);
+      }
+      return const CircularProgressIndicator();
+    },
+  );
 }
 
 // Transforms a list of articles to a List of ArticleCardView widgets
 getListOfArticlesView(List<Article>? articles) {
-  return ListView.separated(
-    scrollDirection: Axis.vertical,
-    shrinkWrap: true,
-    physics: const NeverScrollableScrollPhysics(),
-    itemBuilder: (context, index) => transformArticleToWidget(articles![index]),
-    itemCount: articles!.length,
-    separatorBuilder: (context, index) => const Gap(20),
+  return Expanded(
+    child: ListView.separated(
+      // physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) =>
+          transformArticleToWidget(articles![index]),
+      itemCount: articles!.length,
+      separatorBuilder: (context, index) => const Gap(20),
+    ),
   );
-}
-
-// Transforms a list of articles to a list of ArticleCardView widgets
-List<ArticleCardView> transformArticlesToWidgetList(List<Article> articles) {
-  final list = articles.map((article) => transformArticleToWidget(article));
-  return list.toList();
 }
 
 // Transforms a single article to an ArticleCardView widget
