@@ -1,8 +1,10 @@
+import 'package:dispatcher/enums/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart';
 
 import '../helpers/helper_classes/logging_message_type.dart';
-import '../api/firebase/firebase_auth.dart';
+import '../api/firebase/firebase_auth_api.dart';
 import '../api/firebase/firebase_auth_response.dart';
 
 class SignupLoginProvider with ChangeNotifier {
@@ -70,11 +72,11 @@ class SignupLoginProvider with ChangeNotifier {
   void _updateProvider({
     required String formEmail,
     required String formPassword,
-    required String newIdToken,
+    required String idToken,
   }) {
     _email = formEmail;
     _password = formPassword;
-    _idToken = newIdToken;
+    _idToken = idToken;
     _isSignedIn = true;
   }
 
@@ -85,7 +87,7 @@ class SignupLoginProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<LoggingMessageType> logIntoFirebaseAuth({
+  Future<LoggingMessageType> getMessageFromFirebaseAuth({
     required GlobalKey<FormState> formKey,
   }) async {
     if (!isFormValid(formKey)) {
@@ -101,14 +103,16 @@ class SignupLoginProvider with ChangeNotifier {
     );
 
     final firebaseAuthResponseData =
-        firebaseAuthResponseFromJson(firebaseAuthResponse.body);
+        FirebaseAuthResponse.fromRawJson(firebaseAuthResponse.body);
 
     if (firebaseAuthResponseData.error == null) {
       _updateProvider(
         formEmail: firebaseAuthResponseData.email!,
         formPassword: password,
-        newIdToken: firebaseAuthResponseData.idToken!,
+        idToken: firebaseAuthResponseData.idToken!,
       );
+      updateIdToken = firebaseAuthResponseData.idToken!;
+      FirebaseAuthApi.saveTokenToDevice(idToken);
       return LoggingMessageType(
           message: 'Logged in successfully!', isValid: true);
     }
@@ -117,4 +121,13 @@ class SignupLoginProvider with ChangeNotifier {
   }
 
   bool isFormValid(formKey) => formKey.currentState!.validate();
+
+  Future<void> logout(BuildContext context) async {
+    await FirebaseAuthApi.logout();
+    _isSignedIn = false;
+    notifyListeners();
+    if (context.mounted) {
+      context.goNamed(ValidRoutes.signupLoginScreen.name);
+    }
+  }
 }
