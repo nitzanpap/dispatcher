@@ -41,8 +41,8 @@ class AppInputField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: labelText,
         hintText: hintText,
-        labelStyle: getMaterialStateTextStyle(),
-        floatingLabelStyle: getMaterialStateTextStyle(),
+        labelStyle: InputStateFunctions.getMaterialStateTextStyle(),
+        floatingLabelStyle: InputStateFunctions.getMaterialStateTextStyle(),
         border: const OutlineInputBorder(),
         errorBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.error)),

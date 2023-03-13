@@ -17,7 +17,7 @@ import './screens/primary_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  ensureDeviceOrientation();
+  DeviceConfigFunctions.ensureDeviceOrientation();
   runApp(const MyApp());
 }
 

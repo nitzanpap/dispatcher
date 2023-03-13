@@ -7,7 +7,8 @@ import './firebase_config.dart';
 abstract class FirebaseAuthApi {
   static Future<bool> checkTokenConnected() async {
     final String? authToken =
-        await getFromPreferencesStorage(key: 'auth_token');
+        await DeviceStorageFunctions.getFromPreferencesStorage(
+            key: 'auth_token');
     if (authToken != null) {
       final http.Response response = await http.post(
         Uri.parse(FirebaseConfig.checkTokenConnectedUrl),
@@ -24,7 +25,8 @@ abstract class FirebaseAuthApi {
   }
 
   static Future<void> saveTokenToDevice(String idToken) async {
-    await saveInPreferencesStorage(key: 'auth_token', value: idToken);
+    await DeviceStorageFunctions.saveInPreferencesStorage(
+        key: 'auth_token', value: idToken);
   }
 
   static Future<http.Response> logIntoFirebase({
@@ -67,6 +69,7 @@ abstract class FirebaseAuthApi {
   }
 
   static Future<void> logout() async {
-    await removeKeyFromPreferencesStorage(key: 'auth_token');
+    await DeviceStorageFunctions.removeKeyFromPreferencesStorage(
+        key: 'auth_token');
   }
 }
