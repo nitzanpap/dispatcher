@@ -15,7 +15,7 @@ abstract class FirebaseAuthApi {
           'idToken': authToken,
         },
       );
-      final responseData = firebaseAuthTokenResponseFromJson(response.body);
+      final responseData = FirebaseAuthTokenResponse.fromRawJson(response.body);
       if (responseData.error == null) {
         return true;
       }

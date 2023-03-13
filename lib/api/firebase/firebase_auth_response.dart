@@ -1,13 +1,6 @@
 import 'dart:convert';
 
 import './firebase_auth_response_error.dart';
-
-FirebaseAuthResponse firebaseAuthResponseFromJson(String str) =>
-    FirebaseAuthResponse.fromJson(json.decode(str));
-
-String firebaseAuthResponseToJson(FirebaseAuthResponse data) =>
-    json.encode(data.toJson());
-
 class FirebaseAuthResponse {
   FirebaseAuthResponse({
     this.error,
@@ -30,6 +23,10 @@ class FirebaseAuthResponse {
   final bool? registered;
   final String? refreshToken;
   final String? expiresIn;
+
+    factory FirebaseAuthResponse.fromRawJson(String str) => FirebaseAuthResponse.fromJson(json.decode(str));
+
+    String toRawJson() => json.encode(toJson());
 
   factory FirebaseAuthResponse.fromJson(Map<String, dynamic> json) =>
       FirebaseAuthResponse(

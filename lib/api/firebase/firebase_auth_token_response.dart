@@ -23,6 +23,10 @@ class FirebaseAuthTokenResponse {
   final String? kind;
   final List<User>? users;
 
+    factory FirebaseAuthTokenResponse.fromRawJson(String str) => FirebaseAuthTokenResponse.fromJson(json.decode(str));
+
+    String toRawJson() => json.encode(toJson());
+
   factory FirebaseAuthTokenResponse.fromJson(Map<String, dynamic> json) =>
       FirebaseAuthTokenResponse(
         error: json["error"] == null
