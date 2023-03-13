@@ -153,7 +153,7 @@ Widget getArticleImageView(
     imageUrl: imageUrl,
     imageBuilder: (context, imageProvider) => NetworkImageView(
         imageBorderRadius: imageBorderRadius, imageProvider: imageProvider),
-    placeholder: (context, url) => const AppSpinnerLoader(),
+    placeholder: (context, url) => const Center(child: AppSpinnerLoader()),
     errorWidget: (context, url, error) => PlaceholderImageView(
       imageBorderRadius: imageBorderRadius,
     ),
