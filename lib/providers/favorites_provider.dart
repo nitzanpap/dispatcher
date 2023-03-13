@@ -15,7 +15,7 @@ class FavoritesProvider with ChangeNotifier {
 
   // TODO: implement saving to storage
   void _addArticleToStorage(Article article) {
-    saveInPreferencesStorage(
+    DeviceStorageFunctions.saveInPreferencesStorage(
         key: 'favoriteArticles', value: favorites.toString());
   }
 
