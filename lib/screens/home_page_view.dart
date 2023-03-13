@@ -94,7 +94,7 @@ Widget getArticlesView(
       final articles = snapshot.data;
       if (snapshot.connectionState == ConnectionState.done) {
         if (articles == null) {
-          return AtriclesListPlaceHolderView();
+          return getArticlesListPlaceHolderView();
         }
         return getListOfArticlesView(articles, scr);
       }
@@ -143,7 +143,7 @@ ArticleCardView transformArticleToWidget(Article article) {
   return ArticleCardView(article: articleObj);
 }
 
-AtriclesListPlaceHolderView() {
+getArticlesListPlaceHolderView() {
   return const Expanded(
     child: Center(
       child: TextWithIcon(

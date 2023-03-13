@@ -140,7 +140,7 @@ Widget getArticleContentClipped(String? content) {
 
 Widget getArticleImageView(
     {required String? imageUrl, double imageBorderRadius = 0}) {
-  final image;
+  final ImageProvider<Object> image;
   if (imageUrl != null) {
     image = NetworkImage(imageUrl);
   } else {
