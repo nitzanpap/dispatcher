@@ -93,6 +93,9 @@ Widget getArticlesView(
     builder: (context, snapshot) {
       final articles = snapshot.data;
       if (snapshot.connectionState == ConnectionState.done) {
+        if (articles == null) {
+          return AtriclesListPlaceHolderView();
+        }
         return getListOfArticlesView(articles, scr);
       }
       return const Expanded(
@@ -138,4 +141,17 @@ ArticleCardView transformArticleToWidget(Article article) {
     publishedAt: article.publishedAt,
   );
   return ArticleCardView(article: articleObj);
+}
+
+AtriclesListPlaceHolderView() {
+  return const Expanded(
+    child: Center(
+      child: TextWithIcon(
+        text: 'Something went wrong :(',
+        fontSize: 32,
+        fontWeight: FontWeight.w500,
+        color: AppColors.deepDarkBlue,
+      ),
+    ),
+  );
 }

@@ -1,3 +1,4 @@
+import 'package:dispatcher/api/news_api/news_api_top_articles_response.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
@@ -14,6 +15,18 @@ Future<String> getDataFromJsonFile(String jsonFilePath) async {
 }
 
 Future<http.Response> getArticlesFromNewsApiUrl() async {
-  final response = await http.get(Uri.parse(NewsApiConfig.topHeadlinesUrl));
-  return response;
+  try {
+    final response = await http.get(Uri.parse(NewsApiConfig.topHeadlinesUrl));
+    return response;
+  } catch (e) {
+    print(e);
+    return http.Response(
+      NewsApiTopHeadlinesResponse(
+        status: 'error',
+        code: 'error',
+        message: e.toString(),
+      ).toRawJson(),
+      500,
+    );
+  }
 }
