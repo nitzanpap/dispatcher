@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../constants/colors.dart';
 
-import '../../helpers/helper_functions/input_state_functions.dart';
+import '../../core/utils/input_state_functions.dart';
 
 class AppInputField extends StatelessWidget {
   final void Function(String)? onChanged;

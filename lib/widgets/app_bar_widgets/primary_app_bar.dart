@@ -43,7 +43,7 @@ class NotificationIconBtn extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Badge(
           backgroundColor: AppColors.badgeColor,
-          // TODO: Add a provider to get the number of notifications
+          // TODO: refactor this to actually indicate if there are notifications
           // isLabelVisible: false,
           child: IconButton(
               padding: EdgeInsets.zero,
@@ -66,7 +66,9 @@ class SearchIconBtn extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: IconButton(
-        onPressed: () => debugPrint('Search icon clicked'),
+        onPressed: () async {
+          debugPrint('Search icon clicked');
+        },
         icon: const SearchSvg(),
       ),
     );
