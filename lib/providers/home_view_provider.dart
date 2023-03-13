@@ -39,7 +39,7 @@ class HomeViewProvider with ChangeNotifier {
     }
     final Response response = await getArticlesFromNewsApiUrl();
     final newsApiResponseData =
-        newsApiTopHeadlinesResponseFromJson(response.body);
+        NewsApiTopHeadlinesResponse.fromRawJson(response.body);
     if (newsApiResponseData.status == 'ok') {
       final List<Article> articles = newsApiResponseData.articles!;
       saveArticles(articles);

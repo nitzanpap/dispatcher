@@ -76,8 +76,8 @@ class ArticleCardView extends StatelessWidget {
   }
 }
 
-String getTransformedDate(DateTime publishedAt) {
-  return formatDate(publishedAt);
+String getTransformedDate(DateTime? publishedAt) {
+  return publishedAt != null ? formatDate(publishedAt) : 'Unknown date';
 }
 
 // TODO: Add functionality to this button
@@ -118,9 +118,9 @@ Widget getArticleDateView(String date) {
   );
 }
 
-Widget getArticleTitleView(String title) {
+Widget getArticleTitleView(String? title) {
   return TextWithIcon(
-    text: title,
+    text: title ?? '- No Title -',
     fontSize: 18,
     fontWeight: FontWeight.w700,
     color: AppColors.black,
@@ -138,7 +138,13 @@ Widget getArticleContentClipped(String? content) {
 }
 
 Widget getArticleImageView(
-    {required String imageUrl, double imageBorderRadius = 0}) {
+    {required String? imageUrl, double imageBorderRadius = 0}) {
+  final image;
+  if (imageUrl != null) {
+    image = NetworkImage(imageUrl);
+  } else {
+    image = const AssetImage('assets/images/image_placeholder.jpeg');
+  }
   return Container(
     height: 149,
     decoration: BoxDecoration(
@@ -147,7 +153,7 @@ Widget getArticleImageView(
           topRight: Radius.circular(imageBorderRadius),
         ),
         image: DecorationImage(
-          image: NetworkImage(imageUrl),
+          image: image,
           fit: BoxFit.cover,
         )),
   );
