@@ -1,6 +1,6 @@
 // To parse this JSON data, do
 //
-//     final firebaseAuthTokenResponse = firebaseAuthTokenResponseFromJson(jsonString);
+//     final firebaseAuthTokenResponse = FirebaseAuthTokenResponse.fromRawJson(jsonString);
 
 import 'dart:convert';
 
