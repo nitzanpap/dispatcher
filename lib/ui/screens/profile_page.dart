@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../constants/colors.dart';
+import '../../constants/colors.dart';
 import '../providers/signup_login_provider.dart';
 
-import '../widgets/app_bar_widgets/profile_app_bar.dart';
-import '../widgets/line_separator.dart';
-import '../widgets/svg_widgets/documents_svg.dart';
-import '../widgets/svg_widgets/logout_svg.dart';
-import '../widgets/svg_widgets/settings_svg.dart';
-import '../widgets/text_with_icon.dart';
+import '../../widgets/app_bar_widgets/profile_app_bar.dart';
+import '../../widgets/line_separator.dart';
+import '../../widgets/svg_widgets/documents_svg.dart';
+import '../../widgets/svg_widgets/logout_svg.dart';
+import '../../widgets/svg_widgets/settings_svg.dart';
+import '../../widgets/text_with_icon.dart';
 
 class ProfilePageView extends StatelessWidget {
   const ProfilePageView({super.key});

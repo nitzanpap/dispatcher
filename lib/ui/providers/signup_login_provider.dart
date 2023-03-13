@@ -1,11 +1,11 @@
 import 'package:dispatcher/enums/routes.dart';
+import 'package:dispatcher/core/models/firebase_models/firebase_auth_response.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart';
 
-import '../helpers/helper_classes/logging_message_type.dart';
-import '../api/firebase/firebase_auth_api.dart';
-import '../api/firebase/firebase_auth_response.dart';
+import '../../core/models/logging_message_type.dart';
+import '../../core/services/firebase_services/firebase_auth_api.dart';
 
 class SignupLoginProvider with ChangeNotifier {
   static const String signupTitle = 'Signup';

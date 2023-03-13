@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
-import '../constants/colors.dart';
-import '../api/news_api/news_api_top_articles_response.dart';
+import '../../constants/colors.dart';
+import '../../core/models/news_api_models/article.dart';
 import '../providers/home_view_provider.dart';
 
-import '../widgets/app_bar_widgets/primary_app_bar.dart';
-import '../widgets/text_with_icon.dart';
-import '../widgets/sorting_app_bar.dart';
-import '../widgets/article_card_view.dart';
-import '../widgets/app_spinner_loader.dart';
+import '../../widgets/app_bar_widgets/primary_app_bar.dart';
+import '../../widgets/text_with_icon.dart';
+import '../../widgets/sorting_app_bar.dart';
+import '../../widgets/article_card_view.dart';
+import '../../widgets/app_spinner_loader.dart';
 
 class HomePageView extends StatelessWidget {
   const HomePageView({

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../helpers/helper_classes/app_notification.dart';
-import '../api/news_api/news_api_top_articles_response.dart';
+import '../../core/models/news_api_models/article.dart';
+import '../../core/models/app_notification.dart';
 
 class NotificationsProvider with ChangeNotifier {
   final List<AppNotification> _notifications = [];

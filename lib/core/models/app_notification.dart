@@ -1,4 +1,4 @@
-import '../../api/news_api/news_api_top_articles_response.dart';
+import 'news_api_models/article.dart';
 
 class AppNotification {
   final Article article;

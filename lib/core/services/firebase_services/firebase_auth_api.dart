@@ -1,8 +1,9 @@
-import 'package:dispatcher/api/firebase/firebase_auth_token_response.dart';
-import 'package:dispatcher/helpers/helper_functions/device_storage_functions.dart';
 import 'package:http/http.dart' as http;
 
-import './firebase_config.dart';
+import '../../models/firebase_models/firebase_auth_token_response.dart';
+import '../../utils/device_services/device_storage_functions.dart';
+
+import '../../../constants/configs/firebase_config.dart';
 
 abstract class FirebaseAuthApi {
   static Future<bool> checkTokenConnected() async {

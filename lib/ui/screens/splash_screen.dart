@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../constants/colors.dart';
-import '../constants/strings.dart';
-import '../enums/routes.dart';
+import '../../constants/colors.dart';
+import '../../constants/strings.dart';
+import '../../enums/routes.dart';
 
-import '../widgets/app_bar_widgets/minimal_app_bar.dart';
-import '../widgets/svg_widgets/logo_layered.dart';
+import '../../widgets/app_bar_widgets/minimal_app_bar.dart';
+import '../../widgets/svg_widgets/logo_layered.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
-import '../helpers/helper_functions/date_formatting_functions.dart';
+import '../../core/utils/date_formatting_functions.dart';
+import '../../core/models/news_api_models/article.dart';
 
-import '../api/news_api/news_api_model_functions.dart';
-import '../api/news_api/news_api_top_articles_response.dart';
+import '../../core/services/news_api_services/news_api_model_functions.dart';
+import '../../core/models/news_api_models/news_api_top_articles_response.dart';
 
 class HomeViewProvider with ChangeNotifier {
   double _lastOffset = 0;
@@ -37,7 +38,8 @@ class HomeViewProvider with ChangeNotifier {
     if (articles.isNotEmpty && isDateTimeLessThanAnHourAgo(_lastUpdatedTime)) {
       return articles;
     }
-    final Response response = await getArticlesFromNewsApiUrl();
+    final Response response =
+        await NewsApiModelFunctions.getArticlesFromNewsApiUrl();
     final newsApiResponseData =
         NewsApiTopHeadlinesResponse.fromRawJson(response.body);
     if (newsApiResponseData.status == 'ok') {

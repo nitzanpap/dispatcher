@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import '../constants/colors.dart';
-import '../helpers/helper_functions/date_formatting_functions.dart';
-import '../api/news_api/news_api_top_articles_response.dart';
+import '../core/models/news_api_models/article.dart';
+import '../core/utils/date_formatting_functions.dart';
 
 import '../widgets/text_with_icon.dart';
 import '../widgets/svg_widgets/star_white_svg.dart';

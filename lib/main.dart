@@ -4,17 +4,17 @@ import 'package:provider/provider.dart';
 
 import './constants/strings.dart';
 import './enums/routes.dart';
-import './helpers/helper_functions/device_config_functions.dart';
-import './providers/onboarding_step_provider.dart';
-import './providers/bottom_navigation_provider.dart';
-import './providers/signup_login_provider.dart';
-import '../providers/home_view_provider.dart';
-import './api/firebase/firebase_auth_api.dart';
+import 'core/utils/device_services/device_config_functions.dart';
+import 'ui/providers/onboarding_step_provider.dart';
+import 'ui/providers/bottom_navigation_provider.dart';
+import 'ui/providers/signup_login_provider.dart';
+import 'ui/providers/home_view_provider.dart';
+import 'core/services/firebase_services/firebase_auth_api.dart';
 
-import './screens/splash_screen.dart';
-import './screens/onboarding_screen.dart';
-import './screens/signup_login_screen.dart';
-import './screens/primary_screen.dart';
+import 'ui/screens/splash_screen.dart';
+import 'ui/screens/onboarding_screen.dart';
+import 'ui/screens/signup_login_screen.dart';
+import 'ui/screens/primary_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

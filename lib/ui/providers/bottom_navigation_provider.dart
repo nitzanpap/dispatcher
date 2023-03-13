@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../enums/valid_main_tabs.dart';
+import '../../enums/valid_main_tabs.dart';
 
 class BottomNavigationProvider with ChangeNotifier {
   int _currentMainTabIndex = ValidPrimaryTabs.home.index;

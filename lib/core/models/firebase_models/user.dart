@@ -1,4 +1,4 @@
-import 'package:dispatcher/models/firebase_models/provider_user_info.dart';
+import './provider_user_info.dart';
 
 class User {
   User({

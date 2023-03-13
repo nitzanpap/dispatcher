@@ -4,14 +4,8 @@
 
 import 'dart:convert';
 
-import 'package:dispatcher/api/firebase/firebase_auth_response_error.dart';
-import 'package:dispatcher/models/firebase_models/user.dart';
-
-FirebaseAuthTokenResponse firebaseAuthTokenResponseFromJson(String str) =>
-    FirebaseAuthTokenResponse.fromJson(json.decode(str));
-
-String firebaseAuthTokenResponseToJson(FirebaseAuthTokenResponse data) =>
-    json.encode(data.toJson());
+import './firebase_auth_response_error.dart';
+import './user.dart';
 
 class FirebaseAuthTokenResponse {
   FirebaseAuthTokenResponse({
@@ -24,9 +18,10 @@ class FirebaseAuthTokenResponse {
   final String? kind;
   final List<User>? users;
 
-    factory FirebaseAuthTokenResponse.fromRawJson(String str) => FirebaseAuthTokenResponse.fromJson(json.decode(str));
+  factory FirebaseAuthTokenResponse.fromRawJson(String str) =>
+      FirebaseAuthTokenResponse.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toJson());
 
   factory FirebaseAuthTokenResponse.fromJson(Map<String, dynamic> json) =>
       FirebaseAuthTokenResponse(
@@ -47,5 +42,3 @@ class FirebaseAuthTokenResponse {
             : List<dynamic>.from(users!.map((x) => x.toJson())),
       };
 }
-
-

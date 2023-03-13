@@ -1,7 +1,7 @@
-import 'package:dispatcher/helpers/helper_functions/device_storage_functions.dart';
-
-import '../api/news_api/news_api_top_articles_response.dart';
 import 'package:flutter/material.dart';
+
+import '../../core/utils/device_services/device_storage_functions.dart';
+import '../../core/models/news_api_models/article.dart';
 
 class FavoritesProvider with ChangeNotifier {
   final List<Article> _favorites = [];

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../constants/colors.dart';
+import '../../constants/colors.dart';
 
-import '../widgets/app_bar_widgets/minimal_app_bar.dart';
-import '../widgets/svg_widgets/logo_layered.dart';
-import '../widgets/signup_login_form.dart';
+import '../../widgets/app_bar_widgets/minimal_app_bar.dart';
+import '../../widgets/svg_widgets/logo_layered.dart';
+import '../../widgets/signup_login_form.dart';
 
 class SignupLoginScreen extends StatelessWidget {
   final bool isLogin;

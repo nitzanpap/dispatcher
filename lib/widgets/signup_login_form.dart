@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../constants/colors.dart';
 import '../enums/routes.dart';
-import '../providers/signup_login_provider.dart';
+import '../ui/providers/signup_login_provider.dart';
 
 import './button_widgets/primary_button.dart';
 import './button_widgets/secondary_button.dart';
