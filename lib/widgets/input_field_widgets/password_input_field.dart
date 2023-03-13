@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../core/utils/input_state_functions.dart';
 import '../../core/utils/validations.dart';
 import '../../core/extensions/build_context_extensions.dart';
-
 import '../../widgets/input_field_widgets/app_input_field.dart';
 import '../../widgets/password_icons.dart';
 

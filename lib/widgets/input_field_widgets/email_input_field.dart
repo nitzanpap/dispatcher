@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../core/utils/validations.dart';
-
 import '../../widgets/input_field_widgets/app_input_field.dart';
 
 class EmailInputField extends StatelessWidget {

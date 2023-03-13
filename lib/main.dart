@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import './constants/strings.dart';
-import './enums/routes.dart';
+import 'constants/strings.dart';
+import 'enums/routes.dart';
+
 import 'core/utils/device_services/device_config_functions.dart';
+import 'core/services/firebase_services/firebase_auth_api.dart';
 import 'ui/providers/onboarding_step_provider.dart';
 import 'ui/providers/bottom_navigation_provider.dart';
 import 'ui/providers/signup_login_provider.dart';
 import 'ui/providers/home_view_provider.dart';
-import 'core/services/firebase_services/firebase_auth_api.dart';
-
 import 'ui/screens/splash_screen.dart';
 import 'ui/screens/onboarding_screen.dart';
 import 'ui/screens/signup_login_screen.dart';

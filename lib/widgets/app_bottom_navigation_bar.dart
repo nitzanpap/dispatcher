@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/colors.dart';
-import '../ui/providers/bottom_navigation_provider.dart';
 
+import '../ui/providers/bottom_navigation_provider.dart';
 import '../widgets/svg_widgets/home_active_svg.dart';
 import '../widgets/svg_widgets/home_svg.dart';
 import '../widgets/svg_widgets/person_active_svg.dart';

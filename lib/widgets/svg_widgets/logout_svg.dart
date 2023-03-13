@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import './base_svg_widget.dart';
+import '../../widgets/svg_widgets/base_svg_widget.dart';
 
 class LogoutSvg extends BaseSvgWidget {
   const LogoutSvg({

@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 
 class PlaceholderImageView extends StatelessWidget {
   final double imageBorderRadius;
+  final double height;
 
   const PlaceholderImageView({
     super.key,
     required this.imageBorderRadius,
+    required this.height,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 149,
+      height: height,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(imageBorderRadius),

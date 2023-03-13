@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/colors.dart';
 import '../enums/routes.dart';
-import '../ui/providers/signup_login_provider.dart';
 
-import './button_widgets/primary_button.dart';
-import './button_widgets/secondary_button.dart';
+import '../ui/providers/signup_login_provider.dart';
+import '../widgets/button_widgets/primary_button.dart';
+import '../widgets/button_widgets/secondary_button.dart';
 import '../widgets/line_separator.dart';
 import '../widgets/input_field_widgets/email_input_field.dart';
 import '../widgets/input_field_widgets/password_input_field.dart';

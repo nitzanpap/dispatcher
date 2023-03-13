@@ -1,18 +1,18 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import '../constants/colors.dart';
+
 import '../core/models/news_api_models/article.dart';
 import '../core/utils/date_formatting_functions.dart';
-
 import '../widgets/text_with_icon.dart';
 import '../widgets/svg_widgets/star_white_svg.dart';
 import '../widgets/svg_widgets/star_white_filled_svg.dart';
 import '../widgets/button_widgets/primary_button.dart';
 import '../widgets/svg_widgets/right_arrow_svg.dart';
-import '../widgets/placeholder_image_view.dart';
-import '../widgets/network_image_view.dart';
+import '../widgets/image_widgets/placeholder_image_view.dart';
+import '../widgets/image_widgets/network_image_view.dart';
 import '../widgets/app_spinner_loader.dart';
 
 class ArticleCardView extends StatelessWidget {
@@ -26,6 +26,8 @@ class ArticleCardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cardBorderRadius = 20.0;
+    const smallGap = Gap(10.0);
+    const bigGap = Gap(10.0);
     return Container(
       decoration: BoxDecoration(
         color: AppColors.white,
@@ -59,13 +61,13 @@ class ArticleCardView extends StatelessWidget {
                     // getArticleTags(),
                   ],
                 ),
-                const Gap(10.0),
+                smallGap,
                 getArticleTitleView(article.title),
-                const Gap(10.0),
+                smallGap,
                 getArticleAuthorView(article.author),
-                const Gap(10.0),
+                smallGap,
                 getArticleContentClipped(article.description),
-                const Gap(20.0),
+                bigGap,
                 PrimaryButton(
                   text: 'NAVIGATE TO DISPATCH',
                   onPressedFunction: () => print('Navigate to dispatch'),
@@ -144,18 +146,24 @@ Widget getArticleContentClipped(String? content) {
 
 Widget getArticleImageView(
     {required String? imageUrl, double imageBorderRadius = 0}) {
+  const double imageHeight = 149.0;
   if (imageUrl == null) {
     return PlaceholderImageView(
       imageBorderRadius: imageBorderRadius,
+      height: imageHeight,
     );
   }
   return CachedNetworkImage(
     imageUrl: imageUrl,
     imageBuilder: (context, imageProvider) => NetworkImageView(
-        imageBorderRadius: imageBorderRadius, imageProvider: imageProvider),
+      imageBorderRadius: imageBorderRadius,
+      imageProvider: imageProvider,
+      height: imageHeight,
+    ),
     placeholder: (context, url) => const Center(child: AppSpinnerLoader()),
     errorWidget: (context, url, error) => PlaceholderImageView(
       imageBorderRadius: imageBorderRadius,
+      height: imageHeight,
     ),
   );
 }
