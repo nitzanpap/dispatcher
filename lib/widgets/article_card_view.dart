@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -10,6 +11,9 @@ import '../widgets/svg_widgets/star_white_svg.dart';
 import '../widgets/svg_widgets/star_white_filled_svg.dart';
 import '../widgets/button_widgets/primary_button.dart';
 import '../widgets/svg_widgets/right_arrow_svg.dart';
+import '../widgets/placeholder_image_view.dart';
+import '../widgets/network_image_view.dart';
+import '../widgets/app_spinner_loader.dart';
 
 class ArticleCardView extends StatelessWidget {
   final Article article;
@@ -140,22 +144,18 @@ Widget getArticleContentClipped(String? content) {
 
 Widget getArticleImageView(
     {required String? imageUrl, double imageBorderRadius = 0}) {
-  final ImageProvider<Object> image;
-  if (imageUrl != null) {
-    image = NetworkImage(imageUrl);
-  } else {
-    image = const AssetImage('assets/images/image_placeholder.jpeg');
+  if (imageUrl == null) {
+    return PlaceholderImageView(
+      imageBorderRadius: imageBorderRadius,
+    );
   }
-  return Container(
-    height: 149,
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(imageBorderRadius),
-          topRight: Radius.circular(imageBorderRadius),
-        ),
-        image: DecorationImage(
-          image: image,
-          fit: BoxFit.cover,
-        )),
+  return CachedNetworkImage(
+    imageUrl: imageUrl,
+    imageBuilder: (context, imageProvider) => NetworkImageView(
+        imageBorderRadius: imageBorderRadius, imageProvider: imageProvider),
+    placeholder: (context, url) => const AppSpinnerLoader(),
+    errorWidget: (context, url, error) => PlaceholderImageView(
+      imageBorderRadius: imageBorderRadius,
+    ),
   );
 }
