@@ -1,3 +1,4 @@
+import 'package:dispatcher/widgets/svg_widgets/right_arrow_svg.dart';
 import 'package:flutter/material.dart';
 
 import 'package:gap/gap.dart';
@@ -126,11 +127,7 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
               }
             }
           },
-          icon: const Icon(
-            Icons.arrow_forward_rounded,
-            size: 30,
-            color: AppColors.white,
-          ),
+          svg: RightArrowSvg(),
         ),
         SecondaryButton(
             text: signupLoginProvider.oppositeTitle.toUpperCase(),
