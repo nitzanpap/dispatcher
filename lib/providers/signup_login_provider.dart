@@ -103,7 +103,7 @@ class SignupLoginProvider with ChangeNotifier {
     );
 
     final firebaseAuthResponseData =
-        firebaseAuthResponseFromJson(firebaseAuthResponse.body);
+        FirebaseAuthResponse.fromRawJson(firebaseAuthResponse.body);
 
     if (firebaseAuthResponseData.error == null) {
       _updateProvider(

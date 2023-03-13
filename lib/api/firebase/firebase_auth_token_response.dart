@@ -1,10 +1,11 @@
 // To parse this JSON data, do
 //
-//     final firebaseAuthTokenResponse = firebaseAuthTokenResponseFromJson(jsonString);
+//     final firebaseAuthTokenResponse = FirebaseAuthTokenResponse.fromRawJson(jsonString);
 
 import 'dart:convert';
 
 import 'package:dispatcher/api/firebase/firebase_auth_response_error.dart';
+import 'package:dispatcher/models/firebase_models/user.dart';
 
 FirebaseAuthTokenResponse firebaseAuthTokenResponseFromJson(String str) =>
     FirebaseAuthTokenResponse.fromJson(json.decode(str));
@@ -22,6 +23,10 @@ class FirebaseAuthTokenResponse {
   final FirebaseAuthResponseError? error;
   final String? kind;
   final List<User>? users;
+
+    factory FirebaseAuthTokenResponse.fromRawJson(String str) => FirebaseAuthTokenResponse.fromJson(json.decode(str));
+
+    String toRawJson() => json.encode(toJson());
 
   factory FirebaseAuthTokenResponse.fromJson(Map<String, dynamic> json) =>
       FirebaseAuthTokenResponse(
@@ -43,90 +48,4 @@ class FirebaseAuthTokenResponse {
       };
 }
 
-class User {
-  User({
-    this.localId,
-    this.email,
-    this.passwordHash,
-    this.emailVerified,
-    this.passwordUpdatedAt,
-    this.providerUserInfo,
-    this.validSince,
-    this.lastLoginAt,
-    this.createdAt,
-    this.lastRefreshAt,
-  });
 
-  final String? localId;
-  final String? email;
-  final String? passwordHash;
-  final bool? emailVerified;
-  final int? passwordUpdatedAt;
-  final List<ProviderUserInfo>? providerUserInfo;
-  final String? validSince;
-  final String? lastLoginAt;
-  final String? createdAt;
-  final DateTime? lastRefreshAt;
-
-  factory User.fromJson(Map<String, dynamic> json) => User(
-        localId: json["localId"],
-        email: json["email"],
-        passwordHash: json["passwordHash"],
-        emailVerified: json["emailVerified"],
-        passwordUpdatedAt: json["passwordUpdatedAt"],
-        providerUserInfo: json["providerUserInfo"] == null
-            ? []
-            : List<ProviderUserInfo>.from(json["providerUserInfo"]!
-                .map((x) => ProviderUserInfo.fromJson(x))),
-        validSince: json["validSince"],
-        lastLoginAt: json["lastLoginAt"],
-        createdAt: json["createdAt"],
-        lastRefreshAt: json["lastRefreshAt"] == null
-            ? null
-            : DateTime.parse(json["lastRefreshAt"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "localId": localId,
-        "email": email,
-        "passwordHash": passwordHash,
-        "emailVerified": emailVerified,
-        "passwordUpdatedAt": passwordUpdatedAt,
-        "providerUserInfo": providerUserInfo == null
-            ? []
-            : List<dynamic>.from(providerUserInfo!.map((x) => x.toJson())),
-        "validSince": validSince,
-        "lastLoginAt": lastLoginAt,
-        "createdAt": createdAt,
-        "lastRefreshAt": lastRefreshAt?.toIso8601String(),
-      };
-}
-
-class ProviderUserInfo {
-  ProviderUserInfo({
-    this.providerId,
-    this.federatedId,
-    this.email,
-    this.rawId,
-  });
-
-  final String? providerId;
-  final String? federatedId;
-  final String? email;
-  final String? rawId;
-
-  factory ProviderUserInfo.fromJson(Map<String, dynamic> json) =>
-      ProviderUserInfo(
-        providerId: json["providerId"],
-        federatedId: json["federatedId"],
-        email: json["email"],
-        rawId: json["rawId"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "providerId": providerId,
-        "federatedId": federatedId,
-        "email": email,
-        "rawId": rawId,
-      };
-}

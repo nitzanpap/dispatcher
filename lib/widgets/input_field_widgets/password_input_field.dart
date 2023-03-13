@@ -62,7 +62,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
         ),
         onPressed: () => setState(() => isObscureText = !isObscureText),
       ),
-      suffixIconColor: getFormMaterialStateColor(),
+      suffixIconColor: InputStateFunctions.getFormMaterialStateColor(),
     );
   }
 }
