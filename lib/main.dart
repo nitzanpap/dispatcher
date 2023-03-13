@@ -1,4 +1,3 @@
-import 'package:dispatcher/providers/home_view_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +8,7 @@ import './helpers/helper_functions/device_config_functions.dart';
 import './providers/onboarding_step_provider.dart';
 import './providers/bottom_navigation_provider.dart';
 import './providers/signup_login_provider.dart';
+import '../providers/home_view_provider.dart';
 import './api/firebase/firebase_auth_api.dart';
 
 import './screens/splash_screen.dart';

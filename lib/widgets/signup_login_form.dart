@@ -1,4 +1,3 @@
-import 'package:dispatcher/widgets/svg_widgets/right_arrow_svg.dart';
 import 'package:flutter/material.dart';
 
 import 'package:gap/gap.dart';
@@ -15,6 +14,7 @@ import '../widgets/line_separator.dart';
 import '../widgets/input_field_widgets/email_input_field.dart';
 import '../widgets/input_field_widgets/password_input_field.dart';
 import '../widgets/text_with_icon.dart';
+import '../widgets/svg_widgets/right_arrow_svg.dart';
 
 class SignupLoginForm extends StatefulWidget {
   const SignupLoginForm({super.key});
@@ -127,7 +127,7 @@ class _SignupLoginFormState extends State<SignupLoginForm> {
               }
             }
           },
-          svg: RightArrowSvg(),
+          svg: const RightArrowSvg(),
         ),
         SecondaryButton(
             text: signupLoginProvider.oppositeTitle.toUpperCase(),
