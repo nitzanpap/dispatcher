@@ -123,7 +123,7 @@ getListOfArticlesView(List<Article>? articles, ScrollController scr) {
             ],
           );
         }
-        return transformArticleToWidget(articles[index]);
+        return transformArticleToWidget(articles[index - 1]);
       },
       itemCount: articles!.length + 1,
       separatorBuilder: (context, index) => const Gap(20),
