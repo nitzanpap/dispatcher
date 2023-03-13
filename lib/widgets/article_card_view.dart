@@ -65,7 +65,6 @@ class ArticleCardView extends StatelessWidget {
                 PrimaryButton(
                   text: 'NAVIGATE TO DISPATCH',
                   onPressedFunction: () => print('Navigate to dispatch'),
-                  // TODO: Replace with the correct icon from the figma design
                   buttonShapeRadius: 20,
                   svg: const RightArrowSvg(),
                 ),
