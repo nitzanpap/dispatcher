@@ -9,7 +9,7 @@ import '../../widgets/line_separator.dart';
 import '../../widgets/svg_widgets/documents_svg.dart';
 import '../../widgets/svg_widgets/logout_svg.dart';
 import '../../widgets/svg_widgets/settings_svg.dart';
-import '../../widgets/text_with_icon.dart';
+import '../../widgets/text_widgets/text_with_icon.dart';
 
 class ProfilePageView extends StatelessWidget {
   const ProfilePageView({super.key});

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../constants/colors.dart';
 import '../../enums/icon_direction.dart';
 
-import '../../widgets/text_with_icon.dart';
+import '../text_widgets/text_with_icon.dart';
 import '../../widgets/svg_widgets/base_svg_widget.dart';
 
 abstract class BaseButton extends StatelessWidget {

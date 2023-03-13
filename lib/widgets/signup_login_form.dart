@@ -12,7 +12,7 @@ import '../widgets/button_widgets/secondary_button.dart';
 import '../widgets/line_separator.dart';
 import '../widgets/input_field_widgets/email_input_field.dart';
 import '../widgets/input_field_widgets/password_input_field.dart';
-import '../widgets/text_with_icon.dart';
+import 'text_widgets/text_with_icon.dart';
 import '../widgets/svg_widgets/right_arrow_svg.dart';
 
 class SignupLoginForm extends StatefulWidget {

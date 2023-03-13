@@ -6,9 +6,8 @@ import '../constants/colors.dart';
 
 import '../core/models/news_api_models/article.dart';
 import '../core/utils/date_formatting_functions.dart';
-import '../widgets/text_with_icon.dart';
+import 'text_widgets/text_with_icon.dart';
 import '../widgets/svg_widgets/star_white_svg.dart';
-import '../widgets/svg_widgets/star_white_filled_svg.dart';
 import '../widgets/button_widgets/primary_button.dart';
 import '../widgets/svg_widgets/right_arrow_svg.dart';
 import '../widgets/image_widgets/placeholder_image_view.dart';
@@ -160,7 +159,12 @@ Widget getArticleImageView(
       imageProvider: imageProvider,
       height: imageHeight,
     ),
-    placeholder: (context, url) => const Center(child: AppSpinnerLoader()),
+    placeholder: (context, url) => const SizedBox(
+      height: imageHeight,
+      child: Center(
+        child: AppSpinnerLoader(),
+      ),
+    ),
     errorWidget: (context, url, error) => PlaceholderImageView(
       imageBorderRadius: imageBorderRadius,
       height: imageHeight,

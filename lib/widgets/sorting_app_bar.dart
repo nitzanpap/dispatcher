@@ -5,7 +5,7 @@ import '../enums/icon_direction.dart';
 
 import '../widgets/svg_widgets/down_arrow_svg.dart';
 import '../widgets/svg_widgets/filter_svg.dart';
-import '../widgets/text_with_icon.dart';
+import 'text_widgets/text_with_icon.dart';
 
 class SortingAppBar extends StatelessWidget {
   const SortingAppBar({super.key});

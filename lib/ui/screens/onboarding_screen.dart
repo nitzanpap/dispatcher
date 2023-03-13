@@ -12,7 +12,7 @@ import '../../enums/routes.dart';
 import '../providers/onboarding_step_provider.dart';
 import '../../widgets/progress_bar.dart';
 import '../../widgets/paper_widgets/onboarding_paper_image.dart';
-import '../../widgets/text_with_icon.dart';
+import '../../widgets/text_widgets/text_with_icon.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
