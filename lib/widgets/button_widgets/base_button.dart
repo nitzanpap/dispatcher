@@ -4,6 +4,7 @@ import '../../constants/colors.dart';
 import '../../enums/icon_direction.dart';
 
 import '../../widgets/text_with_icon.dart';
+import '../../widgets/svg_widgets/base_svg_widget.dart';
 
 abstract class BaseButton extends StatelessWidget {
   final String text;
@@ -12,8 +13,11 @@ abstract class BaseButton extends StatelessWidget {
   final Color backgroundColor;
   final Function onPressedFunction;
   final Icon? icon;
+  final IconDirection iconDirection;
+  final IconDirection svgDirection;
   final double? buttonShapeRadius;
   final double? elevation;
+  final BaseSvgWidget? svg;
 
   const BaseButton({
     super.key,
@@ -23,8 +27,11 @@ abstract class BaseButton extends StatelessWidget {
     this.fontWeight = FontWeight.w500,
     this.backgroundColor = AppColors.blue,
     this.icon,
+    this.iconDirection = IconDirection.start,
+    this.svgDirection = IconDirection.start,
     this.buttonShapeRadius = 10.0,
     this.elevation,
+    this.svg,
   });
 
   @override
@@ -47,7 +54,9 @@ abstract class BaseButton extends StatelessWidget {
           fontWeight: fontWeight,
           letterSpacing: 0.25,
           icon: icon,
-          iconDirection: IconDirection.end,
+          iconDirection: iconDirection,
+          svg: svg,
+          svgDirection: svgDirection,
         ),
       ),
     );

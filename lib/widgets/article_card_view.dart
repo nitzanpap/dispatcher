@@ -1,14 +1,15 @@
-import 'package:dispatcher/api/news_api/news_api_top_articles_response.dart';
-import 'package:dispatcher/helpers/helper_functions/date_formatting_functions.dart';
-import 'package:dispatcher/widgets/button_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import '../constants/colors.dart';
+import '../helpers/helper_functions/date_formatting_functions.dart';
+import '../api/news_api/news_api_top_articles_response.dart';
 
 import '../widgets/text_with_icon.dart';
 import '../widgets/svg_widgets/star_white_svg.dart';
 import '../widgets/svg_widgets/star_white_filled_svg.dart';
+import '../widgets/button_widgets/primary_button.dart';
+import '../widgets/svg_widgets/right_arrow_svg.dart';
 
 class ArticleCardView extends StatelessWidget {
   final Article article;
@@ -65,7 +66,8 @@ class ArticleCardView extends StatelessWidget {
                   text: 'NAVIGATE TO DISPATCH',
                   onPressedFunction: () => print('Navigate to dispatch'),
                   // TODO: Replace with the correct icon from the figma design
-                  icon: const Icon(Icons.arrow_forward),
+                  buttonShapeRadius: 20,
+                  svg: const RightArrowSvg(),
                 ),
               ],
             ),
